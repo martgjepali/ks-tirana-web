@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "title": "Klubi Sportiv Tirana",
+    "description": "Faqja zyrtare e Klubit Sportiv Tirana — lajme, disiplinat sportive, Akademia, kalendari dhe rezultatet."
+  },
+  "nav": {
+    "sports": "Disiplinat",
+    "academy": "Akademia",
+    "calendar": "Kalendari",
+    "news": "Lajme",
+    "club": "Klubi",
+    "shop": "Shop",
+    "contact": "Kontakt",
+    "apply": "Apliko në Akademi"
+  },
+  "footer": {
+    "tagline": "Themeluar 1920. Bardhe e blu, në çdo disiplinë.",
+    "nav": "Navigimi",
+    "club": "Klubi",
+    "contactTitle": "Kontakt",
+    "address": "Komplekset Sportive, Tiranë",
+    "follow": "Na ndiqni",
+    "rights": "Të gjitha të drejtat e rezervuara."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Klubi Sportiv Tirana · Themeluar 1920",
+      "title": "Bardhe e blu, në çdo fushë.",
+      "subtitle": "Lajmet, rezultatet dhe arritjet e sportistëve të KS Tiranës, në një vend të vetëm — i qartë për tifozët, prindërit dhe partnerët.",
+      "ctaPrimary": "Apliko në Akademi",
+      "ctaSecondary": "Shiko disiplinat",
+      "stats": [
+        { "value": "9", "label": "disiplina sportive" },
+        { "value": "40+", "label": "trofe kombëtare" },
+        { "value": "1920", "label": "viti i themelimit" }
+      ]
+    },
+    "why": {
+      "eyebrow": "Pse një faqe e re",
+      "title": "Një faqe që shërben klubin, jo e kundërta",
+      "items": [
+        {
+          "title": "Pasqyrimi i aktivitetit aktual",
+          "body": "Lajme, rezultate dhe aktivitete të ardhshme, të përditësuara rregullisht për çdo disiplinë."
+        },
+        {
+          "title": "Informacion i saktë dhe i besueshëm",
+          "body": "Ekipet, trajnerët, drejtimi, oraret dhe kontaktet — të verifikuara dhe gjithmonë aktuale."
+        },
+        {
+          "title": "Orientim i lehtë për çdo vizitor",
+          "body": "Një prind gjen Akademinë në dy klikime, një tifoz ndjek kalendarin, një partner gjen kontaktin e duhur."
+        },
+        {
+          "title": "Mbështetje për zhvillimin e klubit",
+          "body": "Imazh institucional i fortë, promovim i sportistëve dhe mundësi të qarta sponsorizimi."
+        }
+      ]
+    },
+    "sports": {
+      "eyebrow": "Disiplinat sportive",
+      "title": "Nëntë disiplina, një fanellë",
+      "body": "Nga fusha te pallati sportiv, çdo ekip i KS Tiranës përfaqëson të njëjtën trashëgimi.",
+      "cta": "Shiko të gjitha disiplinat",
+      "items": [
+        { "name": "Futboll", "teams": "U-10 deri Senior", "icon": "ball" },
+        { "name": "Basketboll", "teams": "Meshkuj & Femra", "icon": "hoop" },
+        { "name": "Volejboll", "teams": "Senior & Junior", "icon": "volley" },
+        { "name": "Atletikë", "teams": "Pistë & fushë", "icon": "track" },
+        { "name": "Not", "teams": "Akademi & garues", "icon": "swim" },
+        { "name": "Çiklizëm", "teams": "Rrugë & pistë", "icon": "bike" }
+      ]
+    },
+    "academy": {
+      "eyebrow": "Akademia",
+      "title": "Fillimi i çdo kampioni",
+      "body": "Programe sipas grupmoshës, trajnerë të licensuar dhe një formular aplikimi që plotësohet në më pak se dy minuta.",
+      "points": [
+        "Disiplina dhe grupmosha nga 6 deri 18 vjeç",
+        "Trajnerë dhe staf mjekësor i çertifikuar",
+        "Ambiente, orare dhe tarifa të qarta"
+      ],
+      "cta": "Apliko tani"
+    },
+    "calendar": {
+      "eyebrow": "Kalendari & Rezultatet",
+      "title": "Çdo ndeshje, çdo rezultat",
+      "body": "Filtro sipas sportit dhe muajit — dhe shto ndeshjen e radhës direkt në kalendarin tënd.",
+      "cta": "Shiko kalendarin e plotë",
+      "next": { "label": "Ndeshja e radhës", "teams": "KS Tirana — Partizani", "detail": "Kategoria Superiore · E shtunë, ora 19:00" },
+      "last": { "label": "Rezultati i fundit", "teams": "Vllaznia 1 — 2 KS Tirana", "detail": "Kategoria Superiore · Javë e kaluar" }
+    },
+    "news": {
+      "eyebrow": "Lajme & Media",
+      "title": "Çfarë ndodhi javën e fundit",
+      "cta": "Të gjitha lajmet",
+      "items": [
+        { "tag": "Futboll", "title": "Fitore e sigurt në transfertë", "date": "3 Nëntor" },
+        { "tag": "Akademia", "title": "Regjistrimet për sezonin e ri janë hapur", "date": "29 Tetor" },
+        { "tag": "Klubi", "title": "Organigrama e re e drejtimit sportiv", "date": "21 Tetor" }
+      ]
+    },
+    "club": {
+      "eyebrow": "Historia & identiteti",
+      "title": "Një trashëgimi prej 1920",
+      "body": "Misioni, vlerat, legjendat bardhe e blu dhe trofetë që kanë ndërtuar emrin e klubit.",
+      "cta": "Njihuni me klubin"
+    },
+    "shop": {
+      "eyebrow": "Shop zyrtar",
+      "title": "Vishu bardhe e blu",
+      "body": "Fanella, veshje dhe aksesorë zyrtarë — porosi online, dorëzim në të gjithë vendin.",
+      "cta": "Vizito shop-in"
+    },
+    "partners": {
+      "eyebrow": "Partneritetet",
+      "title": "Bëhu partner i klubit",
+      "body": "Mbështet disiplinat, Akademinë ose një aktivitet specifik — dhe fito dukshmëri institucionale.",
+      "cta": "Shiko mundësitë"
+    }
+  },
+  "sports": {
+    "title": "Disiplinat Sportive",
+    "subtitle": "Ekipet, kategoritë dhe sportistët e KS Tiranës, sport pas sporti.",
+    "profileTitle": "Profili i sportistit",
+    "profileBody": "Koncept ilustrues për prezantimin e profilit individual: portret, biografi e shkurtër, roli, arritjet dhe statistikat.",
+    "categories": "Ekipet dhe kategoritë",
+    "staff": "Sportistët dhe stafi",
+    "results": "Kalendari dhe rezultatet",
+    "gallery": "Lajmet dhe galeria",
+    "history": "Historia dhe trofetë"
+  },
+  "academy": {
+    "title": "Akademia",
+    "subtitle": "Programet, grupmoshat dhe hapi i parë drejt fanellës bardhe e blu.",
+    "programsTitle": "Programet",
+    "programsBody": "Disiplinat, grupmoshat dhe kushtet e pranimit, sipas sezonit aktual.",
+    "infoTitle": "Informacioni praktik",
+    "infoBody": "Trajnerët, oraret, ambientet dhe tarifat, kur aplikohen.",
+    "findTitle": "Gjej sportin tënd",
+    "findBody": "Përzgjedhje sipas moshës dhe disiplinës së preferuar.",
+    "programs": [
+      { "name": "Futboll U8–U12", "schedule": "E Hënë / E Mërkurë / E Premte · 17:00–18:30", "age": "6–12 vjeç" },
+      { "name": "Basketboll U10–U14", "schedule": "E Martë / E Enjte · 17:30–19:00", "age": "8–14 vjeç" },
+      { "name": "Not fillestarë", "schedule": "E Shtunë · 10:00–11:30", "age": "6–16 vjeç" },
+      { "name": "Atletikë shkollore", "schedule": "E Hënë / E Mërkurë · 16:30–18:00", "age": "7–15 vjeç" }
+    ],
+    "formTitle": "Apliko në Akademi",
+    "formBody": "Plotëso formularin dhe stafi i Akademisë do t'ju kontaktojë brenda 2 ditëve pune.",
+    "form": {
+      "childName": "Emri i fëmijës",
+      "childNamePlaceholder": "p.sh. Ardit Krasniqi",
+      "birthYear": "Viti i lindjes",
+      "sport": "Disiplina e preferuar",
+      "sportPlaceholder": "Zgjidh disiplinën",
+      "parentName": "Emri i prindit/kujdestarit",
+      "parentNamePlaceholder": "p.sh. Elira Krasniqi",
+      "phone": "Numri i telefonit",
+      "phonePlaceholder": "069 xxx xxxx",
+      "email": "Email",
+      "emailPlaceholder": "emri@shembull.com",
+      "notes": "Shënime shtesë (opsionale)",
+      "notesPlaceholder": "Përvojë e mëparshme, shqetësime shëndetësore, etj.",
+      "submit": "Dërgo aplikimin",
+      "submitting": "Duke dërguar…",
+      "success": "Faleminderit! Aplikimi u regjistrua — stafi i Akademisë do t'ju kontaktojë së shpejti.",
+      "required": "Ky fushë është e detyrueshme."
+    }
+  },
+  "club": {
+    "title": "Klubi",
+    "subtitle": "Trashëgimia sportive, drejtimi dhe vlerat që mbajnë gjallë fanellën bardhe e blu.",
+    "historyTitle": "Historia",
+    "historyBody": "Themeluar në 1920, KS Tirana është një nga emrat më të vjetër dhe më të dekoruar të sportit shqiptar — me breza sportistësh që kanë mbajtur lart ngjyrat bardhe e blu në futboll, basketboll, volejboll e më gjerë.",
+    "missionTitle": "Misioni dhe vlerat",
+    "mission": [
+      { "title": "Përsosmëri sportive", "body": "Zhvillim i vazhdueshëm i sportistëve, nga Akademia te ekipi i parë." },
+      { "title": "Edukim dhe karakter", "body": "Sporti si shkollë disipline, respekti dhe pune në ekip." },
+      { "title": "Komunitet", "body": "Një klub i hapur për familjet, tifozët dhe qytetin." }
+    ],
+    "orgTitle": "Drejtimi dhe organigrama",
+    "orgBody": "Struktura e drejtimit sportiv dhe administrativ, e përditësuar sipas miratimeve të fundit.",
+    "org": [
+      { "role": "Kryetar i Klubit", "name": "Kryesia e KS Tiranës" },
+      { "role": "Drejtor Sportiv", "name": "Drejtimi Sportiv" },
+      { "role": "Drejtor i Akademisë", "name": "Drejtimi i Akademisë" },
+      { "role": "Drejtor Administrativ", "name": "Administrata" }
+    ],
+    "trophiesTitle": "KS Tirana në shifra",
+    "trophies": [
+      { "value": "40+", "label": "trofe kombëtare" },
+      { "value": "1920", "label": "viti i themelimit" },
+      { "value": "9", "label": "disiplina aktive" },
+      { "value": "500+", "label": "sportistë në Akademi" }
+    ],
+    "legendsTitle": "Legjendat bardhe e blu",
+    "legendsBody": "Galeri ilustruese për sportistët që kanë lënë gjurmë në historinë e klubit."
+  },
+  "calendar": {
+    "title": "Kalendari & Rezultatet",
+    "subtitle": "Ndeshjet e ardhshme dhe rezultatet e fundit, sipas disiplinës.",
+    "filterSport": "Sporti",
+    "filterMonth": "Muaji",
+    "all": "Të gjitha",
+    "upcoming": "Ndeshjet e ardhshme",
+    "resultsTitle": "Rezultatet e fundit",
+    "addToCalendar": "Shto në kalendar",
+    "fixtures": [
+      { "sport": "Futboll", "home": "KS Tirana", "away": "Partizani", "date": "9 Nëntor, 19:00", "venue": "Stadiumi Selman Stërmasi" },
+      { "sport": "Basketboll", "home": "KS Tirana", "away": "Vllaznia", "date": "12 Nëntor, 18:00", "venue": "Pallati i Sportit" },
+      { "sport": "Volejboll", "home": "Dinamo", "away": "KS Tirana", "date": "15 Nëntor, 17:30", "venue": "Pallati Asllan Rusi" }
+    ],
+    "results": [
+      { "sport": "Futboll", "home": "Vllaznia", "away": "KS Tirana", "score": "1 – 2", "date": "2 Nëntor" },
+      { "sport": "Basketboll", "home": "KS Tirana", "away": "Tirana BC", "score": "78 – 65", "date": "30 Tetor" },
+      { "sport": "Volejboll", "home": "KS Tirana", "away": "Studenti", "score": "3 – 1", "date": "27 Tetor" }
+    ]
+  },
+  "news": {
+    "title": "Lajme & Media",
+    "subtitle": "Njoftimet, projektet dhe momentet e fundit nga klubi.",
+    "readMore": "Lexo më shumë",
+    "items": [
+      { "tag": "Futboll", "title": "Fitore e sigurt në transfertë ndaj Vllaznisë", "date": "3 Nëntor 2026", "excerpt": "Ekipi i parë siguroi tri pikë të rëndësishme në xhiron e njëmbëdhjetë të Kategorisë Superiore." },
+      { "tag": "Akademia", "title": "Regjistrimet për sezonin e ri janë hapur", "date": "29 Tetor 2026", "excerpt": "Prindërit mund të regjistrojnë fëmijët në të gjitha disiplinat e Akademisë përmes formularit online." },
+      { "tag": "Klubi", "title": "Organigrama e re e drejtimit sportiv", "date": "21 Tetor 2026", "excerpt": "Kryesia miratoi strukturën e re të drejtimit sportiv dhe administrativ për sezonin aktual." },
+      { "tag": "Basketboll", "title": "Fitore bindëse në Pallatin e Sportit", "date": "18 Tetor 2026", "excerpt": "Ekipi i basketbollit mposhti Tirana BC në një ndeshje të fortë në shtëpi." },
+      { "tag": "Shop", "title": "Fanella e re e sezonit vjen në shop", "date": "12 Tetor 2026", "excerpt": "Fanella zyrtare e sezonit 2026/27 është tashmë e disponueshme për porosi online." },
+      { "tag": "Partneritet", "title": "Marrëveshje e re mbështetjeje për Akademinë", "date": "5 Tetor 2026", "excerpt": "Një partner i ri lokal do të mbështesë ambientet dhe pajisjet e Akademisë për sezonin." }
+    ]
+  },
+  "shop": {
+    "title": "Shop Zyrtar",
+    "subtitle": "Fanella, veshje dhe aksesorë zyrtarë të KS Tiranës.",
+    "note": "Pagesa online vjen në një fazë të mëvonshme — për momentin, porositë konfirmohen me kontakt direkt.",
+    "cta": "Kërko informacion",
+    "items": [
+      { "name": "Fanella Zyrtare Hostes 2026/27", "price": "6 500 Lekë", "tag": "E re" },
+      { "name": "Fanella Zyrtare Trasfertë 2026/27", "price": "6 500 Lekë", "tag": "E re" },
+      { "name": "Xhaketë Stërvitore", "price": "4 900 Lekë", "tag": "" },
+      { "name": "Shall Zyrtar Bardhe e Blu", "price": "1 800 Lekë", "tag": "" },
+      { "name": "Çantë Sportive", "price": "3 200 Lekë", "tag": "" },
+      { "name": "Kapele Zyrtare", "price": "1 500 Lekë", "tag": "" }
+    ],
+    "partnerTitle": "Bëhu partner",
+    "partnerBody": "Mbështet një disiplinë, Akademinë ose një aktivitet specifik të klubit.",
+    "partnerItems": [
+      "Mbështetje për disiplinat",
+      "Mbështetje për Akademinë",
+      "Sponsorizim aktivitetesh",
+      "Hapësira ekspozimi dhe prani institucionale"
+    ]
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Pyetje për Akademinë, median, partneritetin apo shop-in? Na shkruani.",
+    "formTitle": "Na dërgo një mesazh",
+    "form": {
+      "name": "Emri",
+      "namePlaceholder": "Emri Mbiemri",
+      "email": "Email",
+      "emailPlaceholder": "emri@shembull.com",
+      "subject": "Subjekti",
+      "subjectPlaceholder": "Zgjidh subjektin",
+      "message": "Mesazhi",
+      "messagePlaceholder": "Si mund t'ju ndihmojmë?",
+      "submit": "Dërgo mesazhin",
+      "submitting": "Duke dërguar…",
+      "success": "Faleminderit! Mesazhi juaj u dërgua — do t'ju përgjigjemi së shpejti."
+    },
+    "infoTitle": "Informacion kontakti",
+    "address": "Komplekset Sportive, Tiranë",
+    "email": "info@kstirana.example",
+    "academyEmail": "akademia@kstirana.example",
+    "pressEmail": "media@kstirana.example",
+    "hoursTitle": "Orari i sekretarisë",
+    "hours": "E Hënë – E Premte, 09:00 – 17:00"
+  },
+  "common": {
+    "backHome": "Kthehu te kryefaqja",
+    "learnMore": "Mëso më shumë"
+  }
+}

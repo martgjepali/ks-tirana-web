@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "title": "KS Tirana — Official Site",
+    "description": "The official site of Klubi Sportiv Tirana — news, sports disciplines, Academy, calendar and results."
+  },
+  "nav": {
+    "sports": "Sports",
+    "academy": "Academy",
+    "calendar": "Calendar",
+    "news": "News",
+    "club": "Club",
+    "shop": "Shop",
+    "contact": "Contact",
+    "apply": "Apply to the Academy"
+  },
+  "footer": {
+    "tagline": "Founded 1920. White and blue, in every discipline.",
+    "nav": "Navigation",
+    "club": "Club",
+    "contactTitle": "Contact",
+    "address": "Sports Complexes, Tirana",
+    "follow": "Follow us",
+    "rights": "All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Klubi Sportiv Tirana · Founded 1920",
+      "title": "White and blue, on every field.",
+      "subtitle": "News, results and achievements from KS Tirana's athletes, in one place — clear for fans, parents and partners alike.",
+      "ctaPrimary": "Apply to the Academy",
+      "ctaSecondary": "See the sports",
+      "stats": [
+        { "value": "9", "label": "sports disciplines" },
+        { "value": "40+", "label": "national trophies" },
+        { "value": "1920", "label": "year founded" }
+      ]
+    },
+    "why": {
+      "eyebrow": "Why a new site",
+      "title": "A site that serves the club, not the other way around",
+      "items": [
+        {
+          "title": "Current activity, reflected",
+          "body": "News, results and upcoming activities, updated regularly for every discipline."
+        },
+        {
+          "title": "Accurate, trustworthy information",
+          "body": "Teams, coaches, leadership, schedules and contacts — verified and always current."
+        },
+        {
+          "title": "Easy orientation for every visitor",
+          "body": "A parent finds the Academy in two clicks, a fan follows the calendar, a partner finds the right contact."
+        },
+        {
+          "title": "Support for the club's growth",
+          "body": "A stronger institutional image, athlete promotion and clear sponsorship opportunities."
+        }
+      ]
+    },
+    "sports": {
+      "eyebrow": "Sports disciplines",
+      "title": "Nine disciplines, one shirt",
+      "body": "From the pitch to the sports hall, every KS Tirana team carries the same heritage.",
+      "cta": "See all disciplines",
+      "items": [
+        { "name": "Football", "teams": "U-10 to Senior", "icon": "ball" },
+        { "name": "Basketball", "teams": "Men & Women", "icon": "hoop" },
+        { "name": "Volleyball", "teams": "Senior & Junior", "icon": "volley" },
+        { "name": "Athletics", "teams": "Track & field", "icon": "track" },
+        { "name": "Swimming", "teams": "Academy & competitive", "icon": "swim" },
+        { "name": "Cycling", "teams": "Road & track", "icon": "bike" }
+      ]
+    },
+    "academy": {
+      "eyebrow": "Academy",
+      "title": "Where every champion starts",
+      "body": "Age-group programs, licensed coaches, and an application form you can finish in under two minutes.",
+      "points": [
+        "Disciplines and age groups from 6 to 18",
+        "Certified coaching and medical staff",
+        "Clear facilities, schedules and fees"
+      ],
+      "cta": "Apply now"
+    },
+    "calendar": {
+      "eyebrow": "Calendar & Results",
+      "title": "Every match, every result",
+      "body": "Filter by sport and month — and add the next fixture straight to your own calendar.",
+      "cta": "See the full calendar",
+      "next": { "label": "Next match", "teams": "KS Tirana — Partizani", "detail": "Superior League · Saturday, 19:00" },
+      "last": { "label": "Latest result", "teams": "Vllaznia 1 — 2 KS Tirana", "detail": "Superior League · Last week" }
+    },
+    "news": {
+      "eyebrow": "News & Media",
+      "title": "What happened this past week",
+      "cta": "All news",
+      "items": [
+        { "tag": "Football", "title": "A solid away win", "date": "Nov 3" },
+        { "tag": "Academy", "title": "Registration for the new season is open", "date": "Oct 29" },
+        { "tag": "Club", "title": "New sporting leadership structure", "date": "Oct 21" }
+      ]
+    },
+    "club": {
+      "eyebrow": "History & identity",
+      "title": "A heritage since 1920",
+      "body": "The mission, the values, the white-and-blue legends, and the trophies that built the club's name.",
+      "cta": "Meet the club"
+    },
+    "shop": {
+      "eyebrow": "Official shop",
+      "title": "Wear white and blue",
+      "body": "Official shirts, apparel and accessories — order online, delivered nationwide.",
+      "cta": "Visit the shop"
+    },
+    "partners": {
+      "eyebrow": "Partnerships",
+      "title": "Become a club partner",
+      "body": "Support a discipline, the Academy, or a specific activity — and gain institutional visibility.",
+      "cta": "See the opportunities"
+    }
+  },
+  "sports": {
+    "title": "Sports Disciplines",
+    "subtitle": "The teams, categories and athletes of KS Tirana, sport by sport.",
+    "profileTitle": "Athlete profile",
+    "profileBody": "Illustrative concept for an individual profile: portrait, short biography, role, achievements and statistics.",
+    "categories": "Teams and categories",
+    "staff": "Athletes and staff",
+    "results": "Calendar and results",
+    "gallery": "News and gallery",
+    "history": "History and trophies"
+  },
+  "academy": {
+    "title": "Academy",
+    "subtitle": "Programs, age groups, and the first step toward the white-and-blue shirt.",
+    "programsTitle": "Programs",
+    "programsBody": "Disciplines, age groups and admission requirements for the current season.",
+    "infoTitle": "Practical information",
+    "infoBody": "Coaches, schedules, facilities and fees, where applicable.",
+    "findTitle": "Find your sport",
+    "findBody": "Filter by age and preferred discipline.",
+    "programs": [
+      { "name": "Football U8–U12", "schedule": "Mon / Wed / Fri · 17:00–18:30", "age": "6–12 years" },
+      { "name": "Basketball U10–U14", "schedule": "Tue / Thu · 17:30–19:00", "age": "8–14 years" },
+      { "name": "Beginner Swimming", "schedule": "Saturday · 10:00–11:30", "age": "6–16 years" },
+      { "name": "School Athletics", "schedule": "Mon / Wed · 16:30–18:00", "age": "7–15 years" }
+    ],
+    "formTitle": "Apply to the Academy",
+    "formBody": "Fill in the form and the Academy staff will contact you within 2 business days.",
+    "form": {
+      "childName": "Child's name",
+      "childNamePlaceholder": "e.g. Ardit Krasniqi",
+      "birthYear": "Year of birth",
+      "sport": "Preferred discipline",
+      "sportPlaceholder": "Choose a discipline",
+      "parentName": "Parent/guardian name",
+      "parentNamePlaceholder": "e.g. Elira Krasniqi",
+      "phone": "Phone number",
+      "phonePlaceholder": "+355 69 xxx xxxx",
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "notes": "Additional notes (optional)",
+      "notesPlaceholder": "Previous experience, health notes, etc.",
+      "submit": "Send application",
+      "submitting": "Sending…",
+      "success": "Thank you! Your application has been recorded — the Academy staff will reach out soon.",
+      "required": "This field is required."
+    }
+  },
+  "club": {
+    "title": "Club",
+    "subtitle": "The sporting heritage, leadership and values behind the white-and-blue shirt.",
+    "historyTitle": "History",
+    "historyBody": "Founded in 1920, KS Tirana is one of the oldest and most decorated names in Albanian sport — generations of athletes have carried the white-and-blue colours in football, basketball, volleyball and beyond.",
+    "missionTitle": "Mission and values",
+    "mission": [
+      { "title": "Sporting excellence", "body": "Continuous athlete development, from the Academy to the first team." },
+      { "title": "Education and character", "body": "Sport as a school of discipline, respect and teamwork." },
+      { "title": "Community", "body": "A club open to families, fans and the city." }
+    ],
+    "orgTitle": "Leadership and organization",
+    "orgBody": "The sporting and administrative leadership structure, kept current with the latest approvals.",
+    "org": [
+      { "role": "Club President", "name": "KS Tirana Board" },
+      { "role": "Sporting Director", "name": "Sporting Department" },
+      { "role": "Academy Director", "name": "Academy Leadership" },
+      { "role": "Administrative Director", "name": "Administration" }
+    ],
+    "trophiesTitle": "KS Tirana in numbers",
+    "trophies": [
+      { "value": "40+", "label": "national trophies" },
+      { "value": "1920", "label": "year founded" },
+      { "value": "9", "label": "active disciplines" },
+      { "value": "500+", "label": "athletes in the Academy" }
+    ],
+    "legendsTitle": "White-and-blue legends",
+    "legendsBody": "Illustrative gallery of the athletes who shaped the club's history."
+  },
+  "calendar": {
+    "title": "Calendar & Results",
+    "subtitle": "Upcoming fixtures and the latest results, by discipline.",
+    "filterSport": "Sport",
+    "filterMonth": "Month",
+    "all": "All",
+    "upcoming": "Upcoming fixtures",
+    "resultsTitle": "Latest results",
+    "addToCalendar": "Add to calendar",
+    "fixtures": [
+      { "sport": "Football", "home": "KS Tirana", "away": "Partizani", "date": "Nov 9, 19:00", "venue": "Selman Stërmasi Stadium" },
+      { "sport": "Basketball", "home": "KS Tirana", "away": "Vllaznia", "date": "Nov 12, 18:00", "venue": "Sports Palace" },
+      { "sport": "Volleyball", "home": "Dinamo", "away": "KS Tirana", "date": "Nov 15, 17:30", "venue": "Asllan Rusi Palace" }
+    ],
+    "results": [
+      { "sport": "Football", "home": "Vllaznia", "away": "KS Tirana", "score": "1 – 2", "date": "Nov 2" },
+      { "sport": "Basketball", "home": "KS Tirana", "away": "Tirana BC", "score": "78 – 65", "date": "Oct 30" },
+      { "sport": "Volleyball", "home": "KS Tirana", "away": "Studenti", "score": "3 – 1", "date": "Oct 27" }
+    ]
+  },
+  "news": {
+    "title": "News & Media",
+    "subtitle": "The latest announcements, projects and moments from the club.",
+    "readMore": "Read more",
+    "items": [
+      { "tag": "Football", "title": "A solid away win over Vllaznia", "date": "Nov 3, 2026", "excerpt": "The first team secured three important points in matchday eleven of the Superior League." },
+      { "tag": "Academy", "title": "Registration for the new season is open", "date": "Oct 29, 2026", "excerpt": "Parents can now register children across all Academy disciplines through the online form." },
+      { "tag": "Club", "title": "New sporting leadership structure", "date": "Oct 21, 2026", "excerpt": "The Board approved a new sporting and administrative leadership structure for the current season." },
+      { "tag": "Basketball", "title": "Convincing win at the Sports Palace", "date": "Oct 18, 2026", "excerpt": "The basketball team defeated Tirana BC in a tight home fixture." },
+      { "tag": "Shop", "title": "The new season shirt arrives in the shop", "date": "Oct 12, 2026", "excerpt": "The official 2026/27 season shirt is now available for online order." },
+      { "tag": "Partnership", "title": "New support agreement for the Academy", "date": "Oct 5, 2026", "excerpt": "A new local partner will support Academy facilities and equipment for the season." }
+    ]
+  },
+  "shop": {
+    "title": "Official Shop",
+    "subtitle": "Official KS Tirana shirts, apparel and accessories.",
+    "note": "Online payment is coming in a later phase — for now, orders are confirmed by direct contact.",
+    "cta": "Request information",
+    "items": [
+      { "name": "Home Shirt 2026/27", "price": "€55", "tag": "New" },
+      { "name": "Away Shirt 2026/27", "price": "€55", "tag": "New" },
+      { "name": "Training Jacket", "price": "€40", "tag": "" },
+      { "name": "Official White-and-Blue Scarf", "price": "€15", "tag": "" },
+      { "name": "Sports Bag", "price": "€27", "tag": "" },
+      { "name": "Official Cap", "price": "€13", "tag": "" }
+    ],
+    "partnerTitle": "Become a partner",
+    "partnerBody": "Support a discipline, the Academy, or a specific club activity.",
+    "partnerItems": [
+      "Support for the disciplines",
+      "Support for the Academy",
+      "Activity sponsorship",
+      "Exhibition space and institutional presence"
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Questions about the Academy, media, partnerships or the shop? Write to us.",
+    "formTitle": "Send us a message",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "First Last",
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Choose a subject",
+      "message": "Message",
+      "messagePlaceholder": "How can we help?",
+      "submit": "Send message",
+      "submitting": "Sending…",
+      "success": "Thank you! Your message has been sent — we'll get back to you soon."
+    },
+    "infoTitle": "Contact information",
+    "address": "Sports Complexes, Tirana",
+    "email": "info@kstirana.example",
+    "academyEmail": "academy@kstirana.example",
+    "pressEmail": "media@kstirana.example",
+    "hoursTitle": "Office hours",
+    "hours": "Monday – Friday, 09:00 – 17:00"
+  },
+  "common": {
+    "backHome": "Back to homepage",
+    "learnMore": "Learn more"
+  }
+}

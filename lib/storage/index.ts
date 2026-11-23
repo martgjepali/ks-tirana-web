@@ -77,11 +77,12 @@ export function createLocalStorage(rootDir: string, baseUrl: string): Storage {
 }
 
 /**
- * Vercel Blob driver (private store). Files are fetched with the store token and
- * served through the /media route, which sets long cache headers so the CDN
+ * Vercel Blob driver (private store). Authenticates with BLOB_READ_WRITE_TOKEN when
+ * given, otherwise with the deployment's Vercel OIDC identity + BLOB_STORE_ID
+ * (what "Connect Project" sets up). Files are served through the /media route, which sets long cache headers so the CDN
  * keeps them. Keys keep the same layout as on disk: photos/<id>/<size>.webp.
  */
-export function createBlobStorage(token: string, baseUrl: string): Storage {
+export function createBlobStorage(token: string | undefined, baseUrl: string): Storage {
   const base = baseUrl.replace(/\/+$/, "");
   // Loaded lazily so local development never needs the Blob SDK at runtime.
   const sdk = () => import("@vercel/blob");
@@ -132,17 +133,18 @@ let instance: Storage | undefined;
 
 /**
  * The configured storage. STORAGE_DRIVER picks it explicitly ("local" | "blob");
- * by default a connected Vercel Blob store (BLOB_READ_WRITE_TOKEN) is used on
- * Vercel, and the local STORAGE_DIR everywhere else. Public URLs always start
+ * by default a connected Vercel Blob store (BLOB_STORE_ID or BLOB_READ_WRITE_TOKEN)
+ * is used on Vercel, and the local STORAGE_DIR everywhere else. Public URLs always start
  * with MEDIA_BASE_URL (default /media).
  */
 export function getStorage(): Storage {
   if (instance) return instance;
   const base = process.env.MEDIA_BASE_URL ?? "/media";
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-  const driver = process.env.STORAGE_DRIVER ?? (token && process.env.VERCEL ? "blob" : "local");
+  const token = process.env.BLOB_READ_WRITE_TOKEN || undefined;
+  const hasBlob = Boolean(token || process.env.BLOB_STORE_ID);
+  const driver = process.env.STORAGE_DRIVER ?? (hasBlob && process.env.VERCEL ? "blob" : "local");
   instance =
-    driver === "blob" && token
+    driver === "blob"
       ? createBlobStorage(token, base)
       : createLocalStorage(process.env.STORAGE_DIR ?? "./storage", base);
   return instance;

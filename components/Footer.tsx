@@ -22,11 +22,11 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         <div>
           <div className="flex items-center gap-2.5 text-white">
             <Image
-              src="/images/Tirana_Club_Logo.svg.webp"
-              alt="KF Tirana"
-              width={32}
-              height={51}
-              className="h-8 w-auto"
+              src="/images/ks-tirana-crest.png"
+              alt="KS Tirana"
+              width={39}
+              height={48}
+              className="h-10 w-auto"
             />
             <span className="font-display text-lg font-semibold tracking-wide">
               KS TIRANA

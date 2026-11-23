@@ -95,10 +95,10 @@ export default async function HomePage({
           </Reveal>
         </div>
         <Image
-          src="/images/Tirana_Club_Logo.svg.webp"
+          src="/images/ks-tirana-crest.png"
           alt=""
-          width={120}
-          height={190}
+          width={122}
+          height={150}
           className="pointer-events-none absolute right-6 top-6 hidden h-24 w-auto opacity-90 drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] sm:block lg:right-10 lg:top-10 lg:h-32"
         />
       </section>
@@ -135,7 +135,7 @@ export default async function HomePage({
                       {[next.home, next.away].map((team, i) => (
                         <div key={i} className="flex min-w-0 flex-1 flex-col items-center gap-2 text-center">
                           {team === "KS Tirana" ? (
-                            <Image src="/images/Tirana_Club_Logo.svg.webp" alt="" width={36} height={57} className="h-9 w-auto" />
+                            <Image src="/images/ks-tirana-crest.png" alt="" width={29} height={36} className="h-9 w-auto" />
                           ) : (
                             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
                               <Icon name="shield" className="h-5 w-5 text-white/70" />

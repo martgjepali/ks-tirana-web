@@ -6,7 +6,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getDictionary, hasLocale, locales } from "./dictionaries";
 import { ViewTransition } from "react";
-import { THEME_SCRIPT } from "@/lib/theme";
+import { SPLASH_SCRIPT, THEME_SCRIPT } from "@/lib/theme";
+import { InlineScript } from "@/components/InlineScript";
+import { Splash } from "@/components/Splash";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 
 const oswald = Oswald({
@@ -53,14 +55,17 @@ export default async function RootLayout({
     <html
       lang={lang}
       data-theme="light"
-      // The inline script below sets data-theme before React hydrates.
+      // Lets Next.js turn off smooth scrolling while it restores scroll on navigation.
+      data-scroll-behavior="smooth"
+      // The inline script below sets data-theme / data-splash before React hydrates.
       suppressHydrationWarning
       className={`${oswald.variable} ${inter.variable} antialiased`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <InlineScript html={`${THEME_SCRIPT};${SPLASH_SCRIPT}`} />
       </head>
       <body className="flex min-h-screen flex-col bg-paper text-ink">
+        <Splash />
         <MotionProvider>
           <Header lang={lang} dict={dict} />
           {/* Route changes fade the page content; the header is anchored (see globals.css). */}

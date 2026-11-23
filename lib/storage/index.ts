@@ -73,13 +73,26 @@ export function createLocalStorage(rootDir: string, baseUrl: string): Storage {
   };
 }
 
+/**
+ * Public URL prefix of a Vercel Blob store, derived from its token
+ * ("vercel_blob_rw_<storeId>_<secret>" → https://<storeId>.public.blob.vercel-storage.com),
+ * so a Vercel deployment needs no extra setting once the store is connected.
+ */
+function blobBaseUrl(): string | undefined {
+  const storeId = process.env.BLOB_READ_WRITE_TOKEN?.split("_")[3];
+  return storeId ? `https://${storeId}.public.blob.vercel-storage.com` : undefined;
+}
+
 let instance: Storage | undefined;
 
-/** The configured storage (STORAGE_DIR + MEDIA_BASE_URL). */
+/**
+ * The configured storage. Files are read/written on STORAGE_DIR; public URLs use
+ * MEDIA_BASE_URL, else a connected Vercel Blob store, else the local /media route.
+ */
 export function getStorage(): Storage {
   instance ??= createLocalStorage(
     process.env.STORAGE_DIR ?? "./storage",
-    process.env.MEDIA_BASE_URL ?? "/media",
+    process.env.MEDIA_BASE_URL ?? blobBaseUrl() ?? "/media",
   );
   return instance;
 }

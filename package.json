@@ -15,7 +15,8 @@
     "admin:create": "tsx scripts/create-admin.ts",
     "db:reset": "tsx scripts/db-reset.ts && tsx scripts/db-migrate.ts",
     "import:photos": "tsx scripts/import-photos.ts",
-    "import:workbook": "tsx scripts/import-workbook.ts"
+    "import:workbook": "tsx scripts/import-workbook.ts",
+    "blob:upload": "tsx scripts/upload-photos-blob.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.27",
@@ -34,6 +35,7 @@
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vercel/blob": "^2.9.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
     "exceljs": "^4.4.0",

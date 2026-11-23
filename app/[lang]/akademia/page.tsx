@@ -45,7 +45,7 @@ export default async function AcademyPage({ params }: PageProps<"/[lang]/akademi
       <section className="bg-paper py-20 lg:py-24">
         <StaggerGroup className="wrap grid grid-cols-1 gap-6 lg:grid-cols-3">
           <StaggerItem>
-            <div className="card-hover h-full rounded-xl border border-line bg-white p-6">
+            <div className="card-hover h-full rounded-xl border border-line bg-card p-6">
               <Icon name="trophy" className="h-7 w-7 text-blue-500" />
               <h3 className="font-display mt-4 text-base font-semibold text-ink">
                 {a.programsTitle}
@@ -54,7 +54,7 @@ export default async function AcademyPage({ params }: PageProps<"/[lang]/akademi
             </div>
           </StaggerItem>
           <StaggerItem>
-            <div className="card-hover h-full rounded-xl border border-line bg-white p-6">
+            <div className="card-hover h-full rounded-xl border border-line bg-card p-6">
               <Icon name="clock" className="h-7 w-7 text-blue-500" />
               <h3 className="font-display mt-4 text-base font-semibold text-ink">
                 {a.infoTitle}
@@ -63,7 +63,7 @@ export default async function AcademyPage({ params }: PageProps<"/[lang]/akademi
             </div>
           </StaggerItem>
           <StaggerItem>
-            <div className="card-hover h-full rounded-xl border border-line bg-white p-6">
+            <div className="card-hover h-full rounded-xl border border-line bg-card p-6">
               <Icon name="users" className="h-7 w-7 text-blue-500" />
               <h3 className="font-display mt-4 text-base font-semibold text-ink">
                 {a.findTitle}
@@ -75,7 +75,7 @@ export default async function AcademyPage({ params }: PageProps<"/[lang]/akademi
       </section>
 
       <section className="bg-surface py-20 lg:py-24">
-        <div className="wrap">
+        <div className="wrap reveal">
           <Reveal>
             <h2 className="font-display text-2xl font-semibold text-ink">
               {a.programsTitle}
@@ -83,7 +83,7 @@ export default async function AcademyPage({ params }: PageProps<"/[lang]/akademi
           </Reveal>
           <Reveal delay={0.1} className="mt-8">
             {programs.length > 0 ? (
-              <ul className="overflow-hidden rounded-xl border border-line bg-white">
+              <ul className="overflow-hidden rounded-xl border border-line bg-card">
                 {programs.map((p, i) => (
                   <li
                     key={p.slug}
@@ -104,7 +104,7 @@ export default async function AcademyPage({ params }: PageProps<"/[lang]/akademi
                       )}
                     </div>
                     {ages(p.ageMin, p.ageMax) && (
-                      <span className="w-fit shrink-0 rounded-full bg-surface px-3 py-1 text-xs font-semibold text-navy-800">
+                      <span className="w-fit shrink-0 rounded-full bg-surface px-3 py-1 text-xs font-semibold text-strong">
                         {ages(p.ageMin, p.ageMax)}
                       </span>
                     )}

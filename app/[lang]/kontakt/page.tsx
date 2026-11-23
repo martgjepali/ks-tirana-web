@@ -30,7 +30,7 @@ export default async function ContactPage({ params }: PageProps<"/[lang]/kontakt
       />
 
       <section className="bg-paper py-20 lg:py-24">
-        <div className="wrap grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="wrap reveal grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <Reveal>
             <h2 className="font-display text-xl font-semibold text-ink">
               {c.formTitle}

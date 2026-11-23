@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { PersonCard as Person } from "@/lib/data/sports";
 import { MediaImage } from "./MediaImage";
 import { Icon } from "./Icons";
+import { ViewTransition } from "react";
 
 export type PersonCardLabels = {
   headCoach: string;
@@ -27,14 +28,20 @@ export function PersonCard({
   labels: PersonCardLabels;
   sizes?: string;
 }) {
+  // href is /<lang>/sportet/<discipline>/<person>
+  const [disciplineSlug, personSlug] = href.split("/").slice(-2);
+  const morphName = `person-${disciplineSlug}-${personSlug}`;
   return (
     <Link
       href={href}
-      className="card-hover group block overflow-hidden rounded-xl border border-line bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+      className="card-hover group block overflow-hidden rounded-xl border border-line bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
     >
       <div className="relative">
         {person.portrait ? (
-          <MediaImage photo={person.portrait} alt="" sizes={sizes} className="aspect-[4/5]" position="center 20%" />
+          // Morphs into the profile page portrait (same name there).
+          <ViewTransition name={morphName} share="morph" default="none">
+            <MediaImage photo={person.portrait} alt="" sizes={sizes} className="aspect-[4/5]" position="center 20%" />
+          </ViewTransition>
         ) : (
           <div className="flex aspect-[4/5] items-center justify-center bg-surface-2">
             <Icon name="users" className="h-10 w-10 text-navy-700/25" />

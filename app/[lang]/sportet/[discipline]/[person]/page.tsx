@@ -8,6 +8,7 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 import { PersonCard, roleLabel } from "@/components/PersonCard";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
+import { ViewTransition } from "react";
 
 export async function generateMetadata({
   params,
@@ -50,14 +51,16 @@ export default async function PersonPage({ params }: PageProps<"/[lang]/sportet/
         <div className="wrap grid grid-cols-1 gap-10 py-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-end lg:gap-16 lg:py-16">
           <Reveal y={0}>
             {person.portrait ? (
-              <MediaImage
-                photo={person.portrait}
-                alt={person.fullName}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="aspect-[4/5] rounded-2xl"
-                position="center 20%"
-                priority
-              />
+              <ViewTransition name={`person-${person.discipline.slug}-${person.slug}`} share="morph" default="none">
+                <MediaImage
+                  photo={person.portrait}
+                  alt={person.fullName}
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="aspect-[4/5] rounded-2xl"
+                  position="center 20%"
+                  priority
+                />
+              </ViewTransition>
             ) : (
               <div className="flex aspect-[4/5] items-center justify-center rounded-2xl bg-navy-900">
                 <Icon name="users" className="h-16 w-16 text-white/15" />
@@ -136,7 +139,7 @@ export default async function PersonPage({ params }: PageProps<"/[lang]/sportet/
             </div>
             <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
               {teammates.map((m) => (
-                <li key={m.slug}>
+                <li key={m.slug} className="reveal">
                   <PersonCard person={m} href={`${base}/${m.slug}`} labels={cardLabels} />
                 </li>
               ))}

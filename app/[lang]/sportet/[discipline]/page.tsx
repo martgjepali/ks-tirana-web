@@ -9,6 +9,7 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 import { PersonCard } from "@/components/PersonCard";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
+import { ViewTransition } from "react";
 
 const PAGE = 24;
 
@@ -51,7 +52,9 @@ export default async function DisciplinePage({ params, searchParams }: PageProps
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-950 text-white">
         {discipline.cover && (
-          <MediaImage photo={discipline.cover} alt="" sizes="100vw" fill priority position="center 35%" />
+          <ViewTransition name={`disc-${discipline.slug}`} share="morph" default="none">
+            <MediaImage photo={discipline.cover} alt="" sizes="100vw" fill priority position="center 35%" className="hero-media" />
+          </ViewTransition>
         )}
         <div
           className="pointer-events-none absolute inset-0"
@@ -123,7 +126,7 @@ export default async function DisciplinePage({ params, searchParams }: PageProps
                 <h2 className="font-display text-2xl font-semibold uppercase tracking-tight text-ink">{t.coaches}</h2>
                 <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                   {discipline.coaches.map((p) => (
-                    <li key={p.slug}>
+                    <li key={p.slug} className="reveal">
                       <PersonCard person={p} href={`${base}/${p.slug}`} labels={cardLabels} />
                     </li>
                   ))}
@@ -135,7 +138,7 @@ export default async function DisciplinePage({ params, searchParams }: PageProps
               {discipline.athletes.length > 0 ? (
                 <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                   {discipline.athletes.map((p) => (
-                    <li key={p.slug}>
+                    <li key={p.slug} className="reveal">
                       <PersonCard person={p} href={`${base}/${p.slug}`} labels={cardLabels} />
                     </li>
                   ))}

@@ -10,6 +10,8 @@ import { getDisciplines, getFeaturedPhotos } from "@/lib/data/sports";
 import { getFixtures, getNews, getShowcasePhotos } from "@/lib/data/site";
 import { NewsCard } from "@/components/NewsCard";
 import { EmptyState } from "@/components/EmptyState";
+import { DisciplineTicker } from "@/components/DisciplineTicker";
+import { ViewTransition } from "react";
 
 export default async function HomePage({
   params,
@@ -38,7 +40,9 @@ export default async function HomePage({
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-950 text-white">
-        {heroPhoto && <MediaImage photo={heroPhoto} alt="" sizes="100vw" fill priority position="center 30%" />}
+        {heroPhoto && (
+          <MediaImage photo={heroPhoto} alt="" sizes="100vw" fill priority position="center 30%" className="hero-media" />
+        )}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -99,6 +103,8 @@ export default async function HomePage({
         />
       </section>
 
+      <DisciplineTicker lang={lang} items={disciplines.map(({ slug, name }) => ({ slug, name }))} />
+
       {/* NEWS + FIXTURE */}
       <section className="bg-paper py-16 lg:py-20">
         <div className="wrap grid grid-cols-1 gap-6 lg:grid-cols-4">
@@ -117,7 +123,7 @@ export default async function HomePage({
           </div>
 
           <Reveal delay={0.15}>
-            <div className="flex h-full flex-col justify-between rounded-xl bg-navy-950 p-6 text-white">
+            <div className="flex h-full flex-col justify-between rounded-xl bg-navy-950 p-6 text-white ring-1 ring-white/10">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-sky-300">
                   {h.calendar.nextLabel}
@@ -162,7 +168,7 @@ export default async function HomePage({
 
       {/* SPORTS */}
       <section className="bg-surface py-16 lg:py-20">
-        <div className="wrap">
+        <div className="wrap reveal">
           <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-xl">
               <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-blue-500">
@@ -174,7 +180,7 @@ export default async function HomePage({
             </div>
             <Link
               href={`/${lang}/sportet`}
-              className="link-underline inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900"
+              className="link-underline inline-flex items-center gap-1.5 text-sm font-semibold text-strong"
             >
               {h.sports.cta}
               <Icon name="chevronRight" className="h-4 w-4" />
@@ -189,7 +195,9 @@ export default async function HomePage({
                   className="card-hover group relative block aspect-[3/4] overflow-hidden rounded-xl bg-navy-900"
                 >
                   {d.cover && (
-                    <MediaImage photo={d.cover} alt="" sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 45vw" fill />
+                    <ViewTransition name={`disc-${d.slug}`} share="morph" default="none">
+                      <MediaImage photo={d.cover} alt="" sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 45vw" fill />
+                    </ViewTransition>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/10 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-3.5">
@@ -209,7 +217,7 @@ export default async function HomePage({
 
       {/* ACADEMY + SHOP PROMO */}
       <section className="bg-paper py-16 lg:py-20">
-        <div className="wrap grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="wrap reveal grid grid-cols-1 gap-6 lg:grid-cols-2">
           <Reveal>
             <Link
               href={`/${lang}/akademia`}
@@ -259,7 +267,7 @@ export default async function HomePage({
 
       {/* WHY */}
       <section className="bg-surface py-16 lg:py-20">
-        <div className="wrap">
+        <div className="wrap reveal">
           <Reveal className="max-w-2xl">
             <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-blue-500">
               {h.why.eyebrow}
@@ -271,7 +279,7 @@ export default async function HomePage({
           <StaggerGroup className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {h.why.items.map((item, i) => (
               <StaggerItem key={item.title}>
-                <div className="card-hover h-full rounded-xl border border-line bg-white p-6">
+                <div className="card-hover h-full rounded-xl border border-line bg-card p-6">
                   <span className="font-display flex h-9 w-9 items-center justify-center rounded-lg bg-surface text-sm font-semibold text-blue-500">
                     0{i + 1}
                   </span>
@@ -290,7 +298,7 @@ export default async function HomePage({
 
       {/* CLUB */}
       <section className="bg-paper py-16 lg:py-20">
-        <div className="wrap grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="wrap reveal grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-blue-500">
               {h.club.eyebrow}
@@ -315,7 +323,7 @@ export default async function HomePage({
       {/* PARTNERS */}
       <section className="relative overflow-hidden bg-navy-950 py-16 text-white lg:py-20">
         <div className="blob -left-20 top-10 h-[320px] w-[320px] bg-gold-500/15" />
-        <div className="wrap relative flex flex-col items-center gap-6 text-center">
+        <div className="wrap reveal relative flex flex-col items-center gap-6 text-center">
           <Icon name="handshake" className="h-8 w-8 text-gold-400" />
           <Reveal>
             <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-sky-300">

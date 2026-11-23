@@ -48,7 +48,7 @@ export function CalendarBoard({
           <h2 className="font-display text-lg font-semibold text-ink">{c.upcoming}</h2>
           <ul className="mt-4 space-y-3">
             {upcoming.filter(match).map((f) => (
-              <li key={f.id} className="rounded-xl border border-line bg-white p-5">
+              <li key={f.id} className="reveal rounded-xl border border-line bg-card p-5">
                 <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-500">
                   {f.discipline.name}
                   {f.competition && <span className="text-ink/40">· {f.competition}</span>}
@@ -69,7 +69,7 @@ export function CalendarBoard({
                     <time dateTime={f.startsAt}>{f.date}</time>
                     {f.venue && <> · {f.venue}</>}
                   </span>
-                  <a href={`/api/fixtures/${f.id}/ics`} className="link-underline text-xs font-semibold text-navy-900">
+                  <a href={`/api/fixtures/${f.id}/ics`} className="link-underline text-xs font-semibold text-strong">
                     {c.addToCalendar}
                   </a>
                 </div>
@@ -83,7 +83,7 @@ export function CalendarBoard({
           <h2 className="font-display text-lg font-semibold text-ink">{c.resultsTitle}</h2>
           <ul className="mt-4 space-y-3">
             {results.filter(match).map((f) => (
-              <li key={f.id} className="rounded-xl border border-line bg-white p-5">
+              <li key={f.id} className="reveal rounded-xl border border-line bg-card p-5">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-xs font-semibold uppercase tracking-wider text-blue-500">{f.discipline.name}</p>
                   <span

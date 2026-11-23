@@ -48,7 +48,7 @@ export function PhotoGallery({
     <>
       <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
         {photos.map((photo, i) => (
-          <li key={photo.id}>
+          <li key={photo.id} className="reveal">
             <button
               type="button"
               onClick={() => show(i)}
@@ -77,7 +77,7 @@ export function PhotoGallery({
           if (Math.abs(dx) > 50) show(dx < 0 ? index + 1 : index - 1);
           touchStart.current = null;
         }}
-        className="m-0 h-dvh max-h-none w-screen max-w-none bg-navy-950/95 p-0 text-white backdrop:bg-black/80"
+        className="lightbox m-0 h-dvh max-h-none w-screen max-w-none bg-navy-950/95 p-0 text-white backdrop:bg-black/80"
       >
         {current && (
           <div className="flex h-full flex-col" onClick={(e) => e.target === e.currentTarget && setIndex(null)}>

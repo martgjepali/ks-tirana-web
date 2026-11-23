@@ -333,6 +333,7 @@
   },
   "common": {
     "backHome": "Back to homepage",
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "theme": "Switch light / dark theme"
   }
 }

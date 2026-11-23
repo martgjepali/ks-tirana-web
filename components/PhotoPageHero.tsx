@@ -16,7 +16,9 @@ export function PhotoPageHero({
 }) {
   return (
     <section className="relative overflow-hidden bg-navy-950 text-white">
-      {photo && <MediaImage photo={photo} alt="" sizes="100vw" fill priority position="center 35%" />}
+      {photo && (
+        <MediaImage photo={photo} alt="" sizes="100vw" fill priority position="center 35%" className="hero-media" />
+      )}
       <div
         className="pointer-events-none absolute inset-0"
         style={{

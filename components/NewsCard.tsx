@@ -7,7 +7,7 @@ export function NewsCard({ item, href, readMore }: { item: NewsItem; href: strin
   return (
     <Link
       href={href}
-      className="card-hover group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+      className="card-hover group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
     >
       {item.cover ? (
         <MediaImage photo={item.cover} alt="" sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" className="aspect-[16/10]" />
@@ -25,7 +25,7 @@ export function NewsCard({ item, href, readMore }: { item: NewsItem; href: strin
           {item.title}
         </h3>
         {item.excerpt && <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink/60">{item.excerpt}</p>}
-        {readMore && <span className="link-underline mt-auto w-fit pt-4 text-sm font-semibold text-navy-900">{readMore}</span>}
+        {readMore && <span className="link-underline mt-auto w-fit pt-4 text-sm font-semibold text-strong">{readMore}</span>}
       </div>
     </Link>
   );

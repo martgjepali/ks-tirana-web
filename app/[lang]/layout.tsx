@@ -5,6 +5,9 @@ import "../globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getDictionary, hasLocale, locales } from "./dictionaries";
+import { ViewTransition } from "react";
+import { THEME_SCRIPT } from "@/lib/theme";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 
 const oswald = Oswald({
   variable: "--font-oswald",
@@ -49,12 +52,23 @@ export default async function RootLayout({
   return (
     <html
       lang={lang}
+      data-theme="light"
+      // The inline script below sets data-theme before React hydrates.
+      suppressHydrationWarning
       className={`${oswald.variable} ${inter.variable} antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="flex min-h-screen flex-col bg-paper text-ink">
-        <Header lang={lang} dict={dict} />
-        <main className="flex-1">{children}</main>
-        <Footer lang={lang} dict={dict} />
+        <MotionProvider>
+          <Header lang={lang} dict={dict} />
+          {/* Route changes fade the page content; the header is anchored (see globals.css). */}
+          <ViewTransition update="page" enter="page" exit="page" default="none">
+            <main className="flex-1">{children}</main>
+          </ViewTransition>
+          <Footer lang={lang} dict={dict} />
+        </MotionProvider>
       </body>
     </html>
   );

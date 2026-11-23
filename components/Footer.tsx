@@ -41,9 +41,9 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 key={s}
                 href="#"
                 aria-label={s}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-white/40 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/75 transition hover:-translate-y-0.5 hover:border-blue-400 hover:bg-blue-500 hover:text-white"
               >
-                <Icon name={s} className="h-4 w-4" />
+                <Icon name={s} className="h-5 w-5" />
               </a>
             ))}
           </div>

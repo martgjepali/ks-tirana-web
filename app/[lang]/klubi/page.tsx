@@ -42,7 +42,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
 
       {/* History */}
       <section className="bg-paper py-20 lg:py-24">
-        <div className="wrap grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="wrap reveal grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <h2 className="font-display text-2xl font-semibold text-ink">
               {c.historyTitle}
@@ -63,7 +63,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
 
       {/* Mission */}
       <section className="bg-surface py-20 lg:py-24">
-        <div className="wrap">
+        <div className="wrap reveal">
           <Reveal>
             <h2 className="font-display text-2xl font-semibold text-ink">
               {c.missionTitle}
@@ -72,7 +72,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
           <StaggerGroup className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
             {c.mission.map((m) => (
               <StaggerItem key={m.title}>
-                <div className="card-hover h-full rounded-xl border border-line bg-white p-6">
+                <div className="card-hover h-full rounded-xl border border-line bg-card p-6">
                   <h3 className="font-display text-base font-semibold text-ink">
                     {m.title}
                   </h3>
@@ -89,7 +89,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
       {/* Trophies */}
       <section className="relative overflow-hidden bg-navy-950 py-20 text-white lg:py-24">
         <div className="blob -right-24 -top-24 h-[340px] w-[340px] bg-gold-500/15" />
-        <div className="wrap relative">
+        <div className="wrap reveal relative">
           <Reveal>
             <h2 className="font-display text-2xl font-semibold">
               {c.trophiesTitle}
@@ -110,7 +110,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
 
       {/* Org chart */}
       <section className="bg-paper py-20 lg:py-24">
-        <div className="wrap">
+        <div className="wrap reveal">
           <Reveal>
             <h2 className="font-display text-2xl font-semibold text-ink">
               {c.orgTitle}
@@ -120,7 +120,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
           <StaggerGroup className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {c.org.map((o, i) => (
               <StaggerItem key={o.role}>
-                <div className="card-hover relative h-full rounded-xl border border-line bg-white p-5">
+                <div className="card-hover relative h-full rounded-xl border border-line bg-card p-5">
                   {i > 0 && (
                     <span className="absolute -left-4 top-1/2 hidden h-px w-4 bg-line lg:block" />
                   )}
@@ -138,7 +138,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
 
       {/* Legends */}
       <section className="bg-surface py-20 lg:py-24">
-        <div className="wrap">
+        <div className="wrap reveal">
           <Reveal>
             <h2 className="font-display text-2xl font-semibold text-ink">
               {c.legendsTitle}
@@ -163,7 +163,7 @@ export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
       {/* Quote CTA */}
       <section className="relative overflow-hidden bg-navy-950 py-20 text-white lg:py-24">
         {quoteBg && <MediaImage photo={quoteBg} alt="" sizes="100vw" className="opacity-30" fill />}
-        <div className="wrap relative text-center">
+        <div className="wrap reveal relative text-center">
           <Reveal>
             <p className="font-display mx-auto max-w-2xl text-2xl font-semibold leading-snug sm:text-3xl">
               &ldquo;{c.quote}&rdquo;

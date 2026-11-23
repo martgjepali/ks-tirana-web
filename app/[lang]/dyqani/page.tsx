@@ -38,20 +38,20 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/dyqani">) 
       />
 
       <section className="bg-paper py-14">
-        <div className="wrap">
-          <p className="rounded-lg border border-gold-400/40 bg-gold-400/10 px-4 py-3 text-sm text-navy-900">
+        <div className="wrap reveal">
+          <p className="rounded-lg border border-gold-400/40 bg-gold-400/10 px-4 py-3 text-sm text-strong">
             {s.note}
           </p>
         </div>
       </section>
 
       <section className="bg-paper pb-20 lg:pb-24">
-        <div className="wrap">
+        <div className="wrap reveal">
           {products.length > 0 ? (
             <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {products.map((item, i) => (
                 <StaggerItem key={item.slug}>
-                  <div className="card-hover h-full overflow-hidden rounded-xl border border-line bg-white">
+                  <div className="card-hover h-full overflow-hidden rounded-xl border border-line bg-card">
                     {item.photo ? (
                       <MediaImage
                         photo={item.photo}
@@ -64,7 +64,7 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/dyqani">) 
                     )}
                     <div className="p-5">
                       <h3 className="font-display text-base font-semibold text-ink">{item.name}</h3>
-                      <p className="mt-1 text-sm font-semibold text-navy-800">{item.price ?? s.priceOnRequest}</p>
+                      <p className="mt-1 text-sm font-semibold text-strong">{item.price ?? s.priceOnRequest}</p>
                       {item.description && <p className="mt-2 text-sm text-ink/60">{item.description}</p>}
                       {item.sizes.length > 0 && (
                         <p className="mt-2 text-xs text-ink/50">
@@ -89,7 +89,7 @@ export default async function ShopPage({ params }: PageProps<"/[lang]/dyqani">) 
 
       <section className="relative overflow-hidden bg-navy-950 py-20 text-white lg:py-24">
         <div className="blob -left-20 top-10 h-[320px] w-[320px] bg-gold-500/15" />
-        <div className="wrap relative grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="wrap reveal relative grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <Icon name="handshake" className="h-8 w-8 text-gold-400" />
             <h2 className="font-display mt-4 text-2xl font-semibold">

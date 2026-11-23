@@ -6,6 +6,7 @@ import { getDisciplines } from "@/lib/data/sports";
 import { sportIcon } from "@/lib/sport-icons";
 import { MediaImage } from "@/components/MediaImage";
 import { Icon } from "@/components/Icons";
+import { ViewTransition } from "react";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/sportet">): Promise<Metadata> {
@@ -25,7 +26,7 @@ export default async function SportsPage({ params }: PageProps<"/[lang]/sportet"
   return (
     <>
       <section className="relative overflow-hidden bg-navy-950 text-white">
-        {hero && <MediaImage photo={hero} alt="" sizes="100vw" fill priority position="center 35%" />}
+        {hero && <MediaImage photo={hero} alt="" sizes="100vw" fill priority position="center 35%" className="hero-media" />}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -50,18 +51,22 @@ export default async function SportsPage({ params }: PageProps<"/[lang]/sportet"
         <StaggerGroup className="wrap grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {disciplines.map((d, i) => (
             <StaggerItem key={d.slug}>
+              <div className="reveal">
               <Link
                 href={`/${lang}/sportet/${d.slug}`}
                 className="card-hover group relative block aspect-[4/3] overflow-hidden rounded-xl bg-navy-900"
               >
                 {d.cover && (
-                  <MediaImage
-                    photo={d.cover}
-                    alt=""
-                    sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
-                    fill
-                    priority={i < 3}
-                  />
+                  // Same name as the discipline page hero: the photo morphs into it.
+                  <ViewTransition name={`disc-${d.slug}`} share="morph" default="none">
+                    <MediaImage
+                      photo={d.cover}
+                      alt=""
+                      sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
+                      fill
+                      priority={i < 3}
+                    />
+                  </ViewTransition>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5">
@@ -84,6 +89,7 @@ export default async function SportsPage({ params }: PageProps<"/[lang]/sportet"
                   </span>
                 </div>
               </Link>
+              </div>
             </StaggerItem>
           ))}
         </StaggerGroup>

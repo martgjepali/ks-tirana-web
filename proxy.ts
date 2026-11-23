@@ -25,5 +25,12 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|webp|ico|txt|xml)$).*)"],
+  // The language redirect only applies to the public site. Skipped:
+  //   /api    route handlers (auth, health, forms)
+  //   /admin  staff panel (Albanian only, own root layout)
+  //   /media  processed photo files
+  // Each is matched as a whole segment, so e.g. /administrata still gets a language.
+  matcher: [
+    "/((?!_next|api(?:/|$)|admin(?:/|$)|media(?:/|$)|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|webp|avif|ico|txt|xml)$).*)",
+  ],
 };

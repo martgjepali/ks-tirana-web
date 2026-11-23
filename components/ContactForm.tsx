@@ -18,7 +18,7 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
   if (status === "done") {
     return (
       <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 p-8 text-center">
-        <p className="font-display text-lg font-semibold text-navy-900">
+        <p className="font-display text-lg font-semibold text-strong">
           {f.success}
         </p>
       </div>

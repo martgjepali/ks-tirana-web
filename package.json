@@ -15,9 +15,11 @@
     "admin:create": "tsx scripts/create-admin.ts",
     "db:reset": "tsx scripts/db-reset.ts && tsx scripts/db-migrate.ts",
     "import:photos": "tsx scripts/import-photos.ts",
-    "import:workbook": "tsx scripts/import-workbook.ts"
+    "import:workbook": "tsx scripts/import-workbook.ts",
+    "blob:upload": "tsx scripts/upload-photos-blob.ts"
   },
   "dependencies": {
+    "@vercel/blob": "^2.9.0",
     "better-auth": "^1.7.27",
     "exif-reader": "^2.0.3",
     "motion": "^14.10.1",

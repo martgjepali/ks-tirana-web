@@ -1,9 +1,9 @@
 import { getStorage } from "@/lib/storage";
 
 /**
- * Serves processed photos from STORAGE_DIR in development and on hosts without
- * a web server in front. On the VPS, Caddy serves /media directly from disk and
- * this route is never reached.
+ * Serves processed photos from the configured storage: STORAGE_DIR locally, the
+ * private Vercel Blob store on Vercel. On a VPS, Caddy can serve /media straight
+ * from disk instead.
  *
  * Files never change once written (each photo has its own random id), so they
  * are cached by browsers for a year.
@@ -33,7 +33,8 @@ export async function GET(_request: Request, { params }: { params: Promise<{ pat
     headers: {
       "Content-Type": type,
       "Content-Length": String(data.length),
-      "Cache-Control": "public, max-age=31536000, immutable",
+      // Browsers and the CDN (s-maxage) keep each file for a year.
+      "Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable",
       "X-Content-Type-Options": "nosniff",
     },
   });

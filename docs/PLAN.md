@@ -78,6 +78,18 @@ Photo files follow one convention, so no variants table is needed:
 
 **Done when:** all migrations apply cleanly on an empty database and are reviewed.
 
+**Status: done (2026-11-23).** `0003_content.sql` (disciplines, people, photos, photo_people) and
+`0004_site.sql` (news, fixtures, academy, contact, form log, products). `npm run db:reset` wipes a
+**local** database only and re-applies everything. Rules enforced by the database itself:
+- A person cannot be published unless `consent_confirmed` is true.
+- Photo ids are random UUIDs, so file URLs cannot be guessed; `sha256` is unique (no duplicates).
+- Deleting a photo clears covers/portraits/tags; a discipline with people cannot be deleted.
+- Slugs must be lowercase-hyphenated; finished fixtures need both scores; age ranges must be valid.
+- Academy applications store a discipline (the form's "sport") and an optional program.
+- `form_submissions_log` stores a salted IP hash for rate limiting, never the raw IP.
+- Known limit: a person belongs to one discipline (matches the archive). Someone in two
+  disciplines would be two rows; revisit only if the client needs it.
+
 ## Phase 3 — Import script
 
 `npm run import:photos -- "D:\KS Tirana WEB"` — safe to re-run.

@@ -46,7 +46,8 @@ async function main() {
     let ran = 0;
     for (const file of files) {
       const sql = await readFile(path.join(MIGRATIONS_DIR, file), "utf8");
-      const checksum = createHash("sha256").update(sql).digest("hex");
+      // Line endings ignored: a Windows (CRLF) and a Linux (LF) checkout must match.
+      const checksum = createHash("sha256").update(sql.replace(/\r\n/g, "\n")).digest("hex");
       const previous = applied.get(file);
 
       if (previous) {

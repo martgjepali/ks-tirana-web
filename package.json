@@ -12,7 +12,8 @@
     "db:migrate": "tsx scripts/db-migrate.ts",
     "db:status": "tsx scripts/db-migrate.ts status",
     "db:psql": "docker compose -f docker-compose.dev.yml exec db psql -U kstirana -d kstirana",
-    "admin:create": "tsx scripts/create-admin.ts"
+    "admin:create": "tsx scripts/create-admin.ts",
+    "db:reset": "tsx scripts/db-reset.ts && tsx scripts/db-migrate.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.27",

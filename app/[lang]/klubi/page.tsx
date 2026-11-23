@@ -1,32 +1,40 @@
+import type { Metadata } from "next";
 import { getDictionary, hasLocale } from "../dictionaries";
 import { notFound } from "next/navigation";
+import { getHeroPhoto, getShowcasePhotos } from "@/lib/data/site";
 import { PhotoPageHero } from "@/components/PhotoPageHero";
-import { Photo, type PhotoName } from "@/components/Photo";
+import { MediaImage } from "@/components/MediaImage";
 import { Icon } from "@/components/Icons";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
 
-const legendPhotos: PhotoName[] = [
-  "athletePortrait",
-  "sportBasketball",
-  "sportVolleyball",
-  "sportWrestling",
-];
+export async function generateMetadata({ params }: PageProps<"/[lang]/klubi">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  const dict = await getDictionary(lang);
+  return { title: `${dict.club.title} · KS Tirana`, description: dict.club.subtitle };
+}
 
-export default async function ClubPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+/** One curated portrait-style shot from each of these teams for the gallery strip. */
+const GALLERY_FROM = ["basketboll-femra", "volejboll-femra", "atletike", "basketboll-meshkuj"];
+
+export default async function ClubPage({ params }: PageProps<"/[lang]/klubi">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const dict = await getDictionary(lang);
+  const [dict, hero, [history], [quoteBg], ...gallerySets] = await Promise.all([
+    getDictionary(lang),
+    getHeroPhoto(lang, "mundje-e-lire"),
+    getShowcasePhotos(lang, { discipline: "volejboll-meshkuj", orientation: "landscape" }),
+    getShowcasePhotos(lang, { discipline: "basketboll-femra", orientation: "landscape" }),
+    ...GALLERY_FROM.map((discipline) => getShowcasePhotos(lang, { discipline, orientation: "portrait" })),
+  ]);
+  const gallery = gallerySets.flat();
   const c = dict.club;
 
   return (
     <>
       <PhotoPageHero
-        photo="clubHistoryHero"
+        photo={hero}
         eyebrow={dict.nav.club}
         title={c.title}
         subtitle={c.subtitle}
@@ -41,14 +49,15 @@ export default async function ClubPage({
             </h2>
             <p className="mt-4 leading-relaxed text-ink/65">{c.historyBody}</p>
           </Reveal>
-          <Reveal y={0}>
-            <Photo
-              name="clubHistoryHero"
-              alt={c.historyTitle}
-              sizes="(min-width: 1024px) 48vw, 100vw"
-              className="aspect-[4/3] rounded-2xl"
-            />
-          </Reveal>
+          {history && (
+            <Reveal y={0}>
+              <MediaImage
+                photo={history}
+                sizes="(min-width: 1024px) 48vw, 100vw"
+                className="aspect-[4/3] rounded-2xl"
+              />
+            </Reveal>
+          )}
         </div>
       </section>
 
@@ -137,13 +146,13 @@ export default async function ClubPage({
             <p className="mt-2 max-w-xl text-ink/60">{c.legendsBody}</p>
           </Reveal>
           <StaggerGroup className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {legendPhotos.map((p) => (
-              <StaggerItem key={p}>
-                <Photo
-                  name={p}
-                  alt={c.legendsTitle}
+            {gallery.map((p) => (
+              <StaggerItem key={p.id}>
+                <MediaImage
+                  photo={p}
                   sizes="(min-width: 1024px) 23vw, 45vw"
-                  className="aspect-square rounded-xl"
+                  className="aspect-[4/5] rounded-xl"
+                  position="center 25%"
                 />
               </StaggerItem>
             ))}
@@ -153,13 +162,7 @@ export default async function ClubPage({
 
       {/* Quote CTA */}
       <section className="relative overflow-hidden bg-navy-950 py-20 text-white lg:py-24">
-        <Photo
-          name="clubTeamHuddle"
-          alt=""
-          sizes="100vw"
-          className="opacity-30"
-          fill
-        />
+        {quoteBg && <MediaImage photo={quoteBg} alt="" sizes="100vw" className="opacity-30" fill />}
         <div className="wrap relative text-center">
           <Reveal>
             <p className="font-display mx-auto max-w-2xl text-2xl font-semibold leading-snug sm:text-3xl">

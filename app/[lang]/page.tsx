@@ -3,13 +3,13 @@ import Image from "next/image";
 import { getDictionary, hasLocale } from "./dictionaries";
 import { notFound } from "next/navigation";
 import { Icon } from "@/components/Icons";
-import { Photo, type PhotoName } from "@/components/Photo";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
 import { MediaImage } from "@/components/MediaImage";
 import { getDisciplines, getFeaturedPhotos } from "@/lib/data/sports";
-
-const newsPhotos: PhotoName[] = ["sportVolleyball", "academyTraining", "sportBasketball"];
+import { getFixtures, getNews, getShowcasePhotos } from "@/lib/data/site";
+import { NewsCard } from "@/components/NewsCard";
+import { EmptyState } from "@/components/EmptyState";
 
 export default async function HomePage({
   params,
@@ -18,11 +18,18 @@ export default async function HomePage({
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, disciplines, featured] = await Promise.all([
-    getDictionary(lang),
-    getDisciplines(lang),
-    getFeaturedPhotos(lang, 60),
-  ]);
+  const [dict, disciplines, featured, news, fixtures, [academyPhoto], [shopPhoto], [clubPhoto]] =
+    await Promise.all([
+      getDictionary(lang),
+      getDisciplines(lang),
+      getFeaturedPhotos(lang, 60),
+      getNews(lang, 3),
+      getFixtures(lang),
+      getShowcasePhotos(lang, { discipline: "atletike", orientation: "landscape", limit: 2 }).then((p) => p.slice(1)),
+      getShowcasePhotos(lang, { discipline: "volejboll-femra", orientation: "landscape", limit: 2 }).then((p) => p.slice(1)),
+      getShowcasePhotos(lang, { discipline: "mundje-e-lire", orientation: "landscape" }),
+    ]);
+  const next = fixtures.upcoming[0];
   const h = dict.home;
   // A wide action shot reads best behind the left-aligned hero text.
   const heroPhoto = featured.find((p) => p.width > p.height * 1.3) ?? featured[0];
@@ -31,11 +38,7 @@ export default async function HomePage({
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-950 text-white">
-        {heroPhoto ? (
-          <MediaImage photo={heroPhoto} alt="" sizes="100vw" fill priority position="center 30%" />
-        ) : (
-          <Photo name="heroVolleyball" alt="" priority sizes="100vw" fill />
-        )}
+        {heroPhoto && <MediaImage photo={heroPhoto} alt="" sizes="100vw" fill priority position="center 30%" />}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -99,68 +102,57 @@ export default async function HomePage({
       {/* NEWS + FIXTURE */}
       <section className="bg-paper py-16 lg:py-20">
         <div className="wrap grid grid-cols-1 gap-6 lg:grid-cols-4">
-          <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:col-span-3">
-            {h.news.items.map((n, i) => (
-              <StaggerItem key={n.title}>
-                <Link
-                  href={`/${lang}/lajme`}
-                  className="card-hover group block h-full overflow-hidden rounded-xl border border-line bg-white"
-                >
-                  <Photo
-                    name={newsPhotos[i]}
-                    alt={n.title}
-                    sizes="(min-width: 1024px) 24vw, 90vw"
-                    className="aspect-[4/3]"
-                  />
-                  <div className="p-5">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-blue-500">
-                      {n.tag} · {n.date}
-                    </p>
-                    <h3 className="font-display mt-2 text-base font-semibold leading-snug text-ink">
-                      {n.title}
-                    </h3>
-                  </div>
-                </Link>
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
+          <div className="lg:col-span-3">
+            {news.length > 0 ? (
+              <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                {news.map((item) => (
+                  <StaggerItem key={item.slug}>
+                    <NewsCard item={item} href={`/${lang}/lajme/${item.slug}`} />
+                  </StaggerItem>
+                ))}
+              </StaggerGroup>
+            ) : (
+              <EmptyState icon="mail" text={h.news.empty} />
+            )}
+          </div>
 
           <Reveal delay={0.15}>
             <div className="flex h-full flex-col justify-between rounded-xl bg-navy-950 p-6 text-white">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-sky-300">
-                  {h.calendar.next.label}
+                  {h.calendar.nextLabel}
                 </p>
-                <div className="mt-5 flex items-center justify-between gap-2">
-                  <div className="flex flex-col items-center gap-2 text-center">
-                    <Image
-                      src="/images/Tirana_Club_Logo.svg.webp"
-                      alt=""
-                      width={36}
-                      height={57}
-                      className="h-9 w-auto"
-                    />
-                    <span className="text-xs font-semibold">KS Tirana</span>
-                  </div>
-                  <span className="font-display text-sm font-semibold text-white/40">
-                    VS
-                  </span>
-                  <div className="flex flex-col items-center gap-2 text-center">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-                      <Icon name="shield" className="h-5 w-5 text-white/70" />
-                    </span>
-                    <span className="text-xs font-semibold">Partizani</span>
-                  </div>
-                </div>
+                {next ? (
+                  <>
+                    <p className="mt-2 text-xs text-white/60">{next.discipline.name}</p>
+                    <div className="mt-5 flex items-center justify-between gap-2">
+                      {[next.home, next.away].map((team, i) => (
+                        <div key={i} className="flex min-w-0 flex-1 flex-col items-center gap-2 text-center">
+                          {team === "KS Tirana" ? (
+                            <Image src="/images/Tirana_Club_Logo.svg.webp" alt="" width={36} height={57} className="h-9 w-auto" />
+                          ) : (
+                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                              <Icon name="shield" className="h-5 w-5 text-white/70" />
+                            </span>
+                          )}
+                          <span className="text-xs font-semibold">{team}</span>
+                          {i === 0 && <span className="sr-only">–</span>}
+                        </div>
+                      ))}
+                    </div>
+                    <p className="mt-6 flex items-start gap-2 text-sm text-white/60">
+                      <Icon name="calendar" className="mt-0.5 h-4 w-4 shrink-0" />
+                      <span>
+                        <time dateTime={next.startsAt}>{next.date}</time>
+                        {next.venue && <> · {next.venue}</>}
+                      </span>
+                    </p>
+                  </>
+                ) : (
+                  <p className="mt-5 text-sm leading-relaxed text-white/60">{h.calendar.noFixture}</p>
+                )}
               </div>
-              <p className="mt-6 flex items-center gap-2 text-sm text-white/55">
-                <Icon name="calendar" className="h-4 w-4" />
-                {h.calendar.next.detail}
-              </p>
-              <Link
-                href={`/${lang}/kalendari`}
-                className="btn btn-ghost-light mt-5 justify-center"
-              >
+              <Link href={`/${lang}/kalendari`} className="btn btn-ghost-light mt-6 justify-center">
                 {h.calendar.cta}
               </Link>
             </div>
@@ -223,12 +215,9 @@ export default async function HomePage({
               href={`/${lang}/akademia`}
               className="card-hover group relative block aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10]"
             >
-              <Photo
-                name="academyTraining"
-                alt={h.academy.title}
-                sizes="(min-width: 1024px) 48vw, 100vw"
-                fill
-              />
+              {academyPhoto && (
+                <MediaImage photo={academyPhoto} alt="" sizes="(min-width: 1024px) 48vw, 100vw" fill />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/40 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
@@ -249,12 +238,7 @@ export default async function HomePage({
               href={`/${lang}/dyqani`}
               className="card-hover group relative block aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10]"
             >
-              <Photo
-                name="shopFlatlay"
-                alt={h.shop.title}
-                sizes="(min-width: 1024px) 48vw, 100vw"
-                fill
-              />
+              {shopPhoto && <MediaImage photo={shopPhoto} alt="" sizes="(min-width: 1024px) 48vw, 100vw" fill />}
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/40 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
@@ -321,12 +305,9 @@ export default async function HomePage({
             </Link>
           </Reveal>
           <Reveal y={0}>
-            <Photo
-              name="clubHistoryHero"
-              alt={h.club.title}
-              sizes="(min-width: 1024px) 48vw, 100vw"
-              className="aspect-[4/3] rounded-2xl"
-            />
+            {clubPhoto && (
+              <MediaImage photo={clubPhoto} sizes="(min-width: 1024px) 48vw, 100vw" className="aspect-[4/3] rounded-2xl" />
+            )}
           </Reveal>
         </div>
       </section>

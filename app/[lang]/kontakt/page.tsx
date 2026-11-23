@@ -1,24 +1,29 @@
+import type { Metadata } from "next";
 import { getDictionary, hasLocale } from "../dictionaries";
+import { getHeroPhoto } from "@/lib/data/site";
 import { notFound } from "next/navigation";
 import { PhotoPageHero } from "@/components/PhotoPageHero";
 import { ContactForm } from "@/components/ContactForm";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
 
-export default async function ContactPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export async function generateMetadata({ params }: PageProps<"/[lang]/kontakt">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  const dict = await getDictionary(lang);
+  return { title: `${dict.contact.title} · KS Tirana`, description: dict.contact.subtitle };
+}
+
+export default async function ContactPage({ params }: PageProps<"/[lang]/kontakt">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const dict = await getDictionary(lang);
+  const [dict, hero] = await Promise.all([getDictionary(lang), getHeroPhoto(lang, "mundje-e-lire", 1)]);
   const c = dict.contact;
 
   return (
     <>
       <PhotoPageHero
-        photo="clubTeamHuddle"
+        photo={hero}
         eyebrow={dict.nav.contact}
         title={c.title}
         subtitle={c.subtitle}

@@ -31,7 +31,7 @@
       "ctaSecondary": "Shiko disiplinat",
       "stats": [
         {
-          "value": "9",
+          "value": "16",
           "label": "disiplina sportive"
         },
         {
@@ -88,38 +88,14 @@
       "title": "Çdo ndeshje, çdo rezultat",
       "body": "Filtro sipas sportit dhe muajit — dhe shto ndeshjen e radhës direkt në kalendarin tënd.",
       "cta": "Shiko kalendarin e plotë",
-      "next": {
-        "label": "Ndeshja e radhës",
-        "teams": "KS Tirana — Partizani",
-        "detail": "Kategoria Superiore · E shtunë, ora 19:00"
-      },
-      "last": {
-        "label": "Rezultati i fundit",
-        "teams": "Vllaznia 1 — 2 KS Tirana",
-        "detail": "Kategoria Superiore · Javë e kaluar"
-      }
+      "noFixture": "Ndeshja e radhës do të njoftohet së shpejti.",
+      "nextLabel": "Ndeshja e radhës"
     },
     "news": {
       "eyebrow": "Lajme & Media",
       "title": "Çfarë ndodhi javën e fundit",
       "cta": "Të gjitha lajmet",
-      "items": [
-        {
-          "tag": "Futboll",
-          "title": "Fitore e sigurt në transfertë",
-          "date": "3 Nëntor"
-        },
-        {
-          "tag": "Akademia",
-          "title": "Regjistrimet për sezonin e ri janë hapur",
-          "date": "29 Tetor"
-        },
-        {
-          "tag": "Klubi",
-          "title": "Organigrama e re e drejtimit sportiv",
-          "date": "21 Tetor"
-        }
-      ]
+      "empty": "Lajmet e para do të publikohen së shpejti."
     },
     "club": {
       "eyebrow": "Historia & identiteti",
@@ -194,28 +170,6 @@
     "infoBody": "Trajnerët, oraret, ambientet dhe tarifat, kur aplikohen.",
     "findTitle": "Gjej sportin tënd",
     "findBody": "Përzgjedhje sipas moshës dhe disiplinës së preferuar.",
-    "programs": [
-      {
-        "name": "Futboll U8–U12",
-        "schedule": "E Hënë / E Mërkurë / E Premte · 17:00–18:30",
-        "age": "6–12 vjeç"
-      },
-      {
-        "name": "Basketboll U10–U14",
-        "schedule": "E Martë / E Enjte · 17:30–19:00",
-        "age": "8–14 vjeç"
-      },
-      {
-        "name": "Not fillestarë",
-        "schedule": "E Shtunë · 10:00–11:30",
-        "age": "6–16 vjeç"
-      },
-      {
-        "name": "Atletikë shkollore",
-        "schedule": "E Hënë / E Mërkurë · 16:30–18:00",
-        "age": "7–15 vjeç"
-      }
-    ],
     "formTitle": "Apliko në Akademi",
     "formBody": "Plotëso formularin dhe stafi i Akademisë do t'ju kontaktojë brenda 2 ditëve pune.",
     "form": {
@@ -236,7 +190,12 @@
       "submitting": "Duke dërguar…",
       "success": "Faleminderit! Aplikimi u regjistrua — stafi i Akademisë do t'ju kontaktojë së shpejti.",
       "required": "Ky fushë është e detyrueshme."
-    }
+    },
+    "emptyPrograms": "Programet e sezonit do të publikohen së shpejti. Plotësoni formularin dhe ju kontaktojmë.",
+    "ages": "{min}–{max} vjeç",
+    "agesFrom": "nga {min} vjeç",
+    "coach": "Trajner",
+    "fee": "Tarifa"
   },
   "club": {
     "title": "Klubi",
@@ -289,7 +248,7 @@
         "label": "viti i themelimit"
       },
       {
-        "value": "9",
+        "value": "16",
         "label": "disiplina aktive"
       },
       {
@@ -297,8 +256,8 @@
         "label": "sportistë në Akademi"
       }
     ],
-    "legendsTitle": "Legjendat bardhe e blu",
-    "legendsBody": "Galeri ilustruese për sportistët që kanë lënë gjurmë në historinë e klubit.",
+    "legendsTitle": "Bardhe e blu, sot",
+    "legendsBody": "Momente nga ekipet e KS Tiranës në sezonin aktual.",
     "quote": "Breza që mbajnë të njëjtat ngjyra."
   },
   "calendar": {
@@ -310,133 +269,30 @@
     "upcoming": "Ndeshjet e ardhshme",
     "resultsTitle": "Rezultatet e fundit",
     "addToCalendar": "Shto në kalendar",
-    "fixtures": [
-      {
-        "sport": "Futboll",
-        "home": "KS Tirana",
-        "away": "Partizani",
-        "date": "9 Nëntor, 19:00",
-        "venue": "Stadiumi Selman Stërmasi"
-      },
-      {
-        "sport": "Basketboll",
-        "home": "KS Tirana",
-        "away": "Vllaznia",
-        "date": "12 Nëntor, 18:00",
-        "venue": "Pallati i Sportit"
-      },
-      {
-        "sport": "Volejboll",
-        "home": "Dinamo",
-        "away": "KS Tirana",
-        "date": "15 Nëntor, 17:30",
-        "venue": "Pallati Asllan Rusi"
-      }
-    ],
-    "results": [
-      {
-        "sport": "Futboll",
-        "home": "Vllaznia",
-        "away": "KS Tirana",
-        "score": "1 – 2",
-        "date": "2 Nëntor"
-      },
-      {
-        "sport": "Basketboll",
-        "home": "KS Tirana",
-        "away": "Tirana BC",
-        "score": "78 – 65",
-        "date": "30 Tetor"
-      },
-      {
-        "sport": "Volejboll",
-        "home": "KS Tirana",
-        "away": "Studenti",
-        "score": "3 – 1",
-        "date": "27 Tetor"
-      }
-    ]
+    "emptyUpcoming": "Nuk ka ndeshje të planifikuara për momentin.",
+    "emptyResults": "Rezultatet do të shfaqen këtu pas ndeshjeve të para.",
+    "status": {
+      "live": "Live",
+      "postponed": "Shtyrë",
+      "cancelled": "Anuluar"
+    },
+    "won": "Fitore",
+    "lost": "Humbje",
+    "draw": "Barazim"
   },
   "news": {
     "title": "Lajme & Media",
     "subtitle": "Njoftimet, projektet dhe momentet e fundit nga klubi.",
     "readMore": "Lexo më shumë",
-    "items": [
-      {
-        "tag": "Futboll",
-        "title": "Fitore e sigurt në transfertë ndaj Vllaznisë",
-        "date": "3 Nëntor 2026",
-        "excerpt": "Ekipi i parë siguroi tri pikë të rëndësishme në xhiron e njëmbëdhjetë të Kategorisë Superiore."
-      },
-      {
-        "tag": "Akademia",
-        "title": "Regjistrimet për sezonin e ri janë hapur",
-        "date": "29 Tetor 2026",
-        "excerpt": "Prindërit mund të regjistrojnë fëmijët në të gjitha disiplinat e Akademisë përmes formularit online."
-      },
-      {
-        "tag": "Klubi",
-        "title": "Organigrama e re e drejtimit sportiv",
-        "date": "21 Tetor 2026",
-        "excerpt": "Kryesia miratoi strukturën e re të drejtimit sportiv dhe administrativ për sezonin aktual."
-      },
-      {
-        "tag": "Basketboll",
-        "title": "Fitore bindëse në Pallatin e Sportit",
-        "date": "18 Tetor 2026",
-        "excerpt": "Ekipi i basketbollit mposhti Tirana BC në një ndeshje të fortë në shtëpi."
-      },
-      {
-        "tag": "Shop",
-        "title": "Fanella e re e sezonit vjen në shop",
-        "date": "12 Tetor 2026",
-        "excerpt": "Fanella zyrtare e sezonit 2026/27 është tashmë e disponueshme për porosi online."
-      },
-      {
-        "tag": "Partneritet",
-        "title": "Marrëveshje e re mbështetjeje për Akademinë",
-        "date": "5 Tetor 2026",
-        "excerpt": "Një partner i ri lokal do të mbështesë ambientet dhe pajisjet e Akademisë për sezonin."
-      }
-    ]
+    "empty": "Lajmet e para do të publikohen së shpejti.",
+    "back": "Të gjitha lajmet",
+    "latest": "Lajme të tjera"
   },
   "shop": {
     "title": "Shop Zyrtar",
     "subtitle": "Fanella, veshje dhe aksesorë zyrtarë të KS Tiranës.",
     "note": "Pagesa online vjen në një fazë të mëvonshme — për momentin, porositë konfirmohen me kontakt direkt.",
     "cta": "Kërko informacion",
-    "items": [
-      {
-        "name": "Fanella Zyrtare Hostes 2026/27",
-        "price": "6 500 Lekë",
-        "tag": "E re"
-      },
-      {
-        "name": "Fanella Zyrtare Trasfertë 2026/27",
-        "price": "6 500 Lekë",
-        "tag": "E re"
-      },
-      {
-        "name": "Xhaketë Stërvitore",
-        "price": "4 900 Lekë",
-        "tag": ""
-      },
-      {
-        "name": "Shall Zyrtar Bardhe e Blu",
-        "price": "1 800 Lekë",
-        "tag": ""
-      },
-      {
-        "name": "Çantë Sportive",
-        "price": "3 200 Lekë",
-        "tag": ""
-      },
-      {
-        "name": "Kapele Zyrtare",
-        "price": "1 500 Lekë",
-        "tag": ""
-      }
-    ],
     "partnerTitle": "Bëhu partner",
     "partnerBody": "Mbështet një disiplinë, Akademinë ose një aktivitet specifik të klubit.",
     "partnerItems": [
@@ -444,7 +300,11 @@
       "Mbështetje për Akademinë",
       "Sponsorizim aktivitetesh",
       "Hapësira ekspozimi dhe prani institucionale"
-    ]
+    ],
+    "empty": "Produktet zyrtare do të shtohen së shpejti.",
+    "priceOnRequest": "Çmimi në klub",
+    "outOfStock": "Jashtë stoku",
+    "sizes": "Masat"
   },
   "contact": {
     "title": "Kontakt",

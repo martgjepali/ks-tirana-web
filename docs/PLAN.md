@@ -159,7 +159,13 @@ only if every person tagged in it is visible. Verified on a production build. `C
 shows everyone, in `next dev` only.
 Open question for the client: untagged photos (curated folders, discipline-only photos) are visible
 without consent because nobody is tagged in them.
-Part 2: news, calendar, academy programs, shop, club page from the database; remove AI images.
+**Part 2 done (2026-11-23):** `lib/data/site.ts` — news (`/lajme`, new `/lajme/[slug]`; drafts and
+future-dated posts hidden), fixtures (`/kalendari` with discipline filter, win/loss badges, `.ics`
+download at `/api/fixtures/[id]/ics`), academy programs, shop products, page artwork. The home page
+shows the latest news and the next match. All AI images and the fake football/news/products content
+are removed; every page hero uses a curated club photo (`getHeroPhoto`), and empty sections show a
+"coming soon" message until staff add content in the admin panel. Tested with temporary rows on a
+production build (removed afterwards).
 
 ## Phase 5 — Admin panel
 

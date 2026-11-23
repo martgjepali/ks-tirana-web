@@ -70,6 +70,16 @@ body {
   }
 }
 
+/* Narrower containers for reading. Declared after .wrap so they win over its max-width
+   (Tailwind max-w-* utilities sit in a lower cascade layer and cannot). */
+.wrap-narrow {
+  max-width: 54rem;
+}
+
+.wrap-medium {
+  max-width: 62rem;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;

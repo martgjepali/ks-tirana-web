@@ -53,7 +53,7 @@ export function Crest({ className }: { className?: string }) {
       >
         <div className="crest-float relative h-full w-full [transform-style:preserve-3d]">
           <Image
-            src="/images/Tirana_Club_Logo.svg.webp"
+            src="/images/ks-tirana-crest.png"
             alt="Stema e Klubit Sportiv Tirana"
             fill
             priority

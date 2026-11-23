@@ -1,5 +1,6 @@
+import type { PhotoRef } from "@/lib/data/photos";
 import { Reveal } from "./motion/Reveal";
-import { Photo, type PhotoName } from "./Photo";
+import { MediaImage } from "./MediaImage";
 
 export function PhotoPageHero({
   photo,
@@ -7,14 +8,17 @@ export function PhotoPageHero({
   title,
   subtitle,
 }: {
-  photo: PhotoName;
+  /** A photo from storage; without one the hero is plain navy. */
+  photo: PhotoRef | null;
   eyebrow: string;
   title: string;
   subtitle?: string;
 }) {
   return (
     <section className="relative overflow-hidden bg-navy-950 text-white">
-      <Photo name={photo} alt="" priority sizes="100vw" fill />
+      {photo && (
+        <MediaImage photo={photo} alt="" sizes="100vw" fill priority position="center 35%" className="hero-media" />
+      )}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -31,9 +35,7 @@ export function PhotoPageHero({
           <h1 className="font-display mt-4 max-w-xl text-4xl font-bold uppercase tracking-tight sm:text-5xl lg:text-6xl">
             {title}
           </h1>
-          {subtitle && (
-            <p className="mt-4 max-w-md text-white/65">{subtitle}</p>
-          )}
+          {subtitle && <p className="mt-4 max-w-md text-white/70">{subtitle}</p>}
         </Reveal>
       </div>
     </section>

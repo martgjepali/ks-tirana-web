@@ -9,6 +9,8 @@ import path from "node:path";
  * Keys are forward-slash relative paths, e.g. "photos/<uuid>/md.webp".
  */
 export interface Storage {
+  /** Which driver is active ("local" or "blob"), for health checks. */
+  readonly kind: "local" | "blob";
   put(key: string, data: Buffer, contentType: string): Promise<void>;
   get(key: string): Promise<Buffer | null>;
   exists(key: string): Promise<boolean>;
@@ -40,6 +42,7 @@ export function createLocalStorage(rootDir: string, baseUrl: string): Storage {
   }
 
   return {
+    kind: "local",
     async put(key, data) {
       const full = resolve(key);
       await mkdir(path.dirname(full), { recursive: true });
@@ -84,6 +87,7 @@ export function createBlobStorage(token: string, baseUrl: string): Storage {
   const sdk = () => import("@vercel/blob");
 
   return {
+    kind: "blob",
     async put(key, data, contentType) {
       assertKey(key);
       const { put } = await sdk();

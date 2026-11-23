@@ -111,6 +111,20 @@ Second script, `npm run import:workbook -- file.xlsx`, loads the client's correc
 **Done when:** the local database holds 16 disciplines, 98 people and ~607 photos, and the report
 lists exactly the known exceptions.
 
+**Status: done (2026-11-23).** First run: 631 files → 607 unique photos (24 duplicate copies merged),
+16 disciplines, 98 people (11 coaches, 3 captains), 533 person tags, 60 featured, 598 with date taken,
+0 failures, 159 s. 1.5 GB of originals → 188 MB of WebP. Report saved to `storage/import-report.md`.
+- Re-running: 606 unchanged, missing files regenerated, nothing duplicated (tested).
+- Every discipline gets a cover (prefers curated landscape) and every person a portrait (prefers solo,
+  upright shots); both editable later in admin.
+- Discipline mapping lives in `scripts/import/disciplines.ts`. Curated `Mundje` folder is assigned to
+  freestyle wrestling until the client confirms (none of its photos appear in a person folder).
+- Imported people are **unpublished** until consent is recorded; disciplines and photos are published.
+- `npm run import:workbook -- file.xlsx [--dry-run] [--update-slugs]`: matches rows by original
+  folder name, applies only non-empty cells that differ, consent Po/Jo also publishes/unpublishes,
+  reports invalid cells, and prints the client's answers to the questions sheet. Tested with a filled
+  copy of the workbook. `0005_discipline_details.sql` adds age groups, schedule, venue and trophies.
+
 ## Phase 4 — Public site on real data
 
 Routes (existing language prefix kept):

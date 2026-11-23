@@ -3,15 +3,9 @@
 import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 
-export function AcademyForm({
-  dict,
-  sports,
-}: {
-  dict: Dictionary;
-  /** Disciplines from the database: value is the slug, label the localised name. */
-  sports: { slug: string; name: string }[];
-}) {
+export function AcademyForm({ dict }: { dict: Dictionary }) {
   const f = dict.academy.form;
+  const sports = dict.home.sports.items.map((s) => s.name);
   const [status, setStatus] = useState<"idle" | "submitting" | "done">(
     "idle"
   );
@@ -25,7 +19,7 @@ export function AcademyForm({
   if (status === "done") {
     return (
       <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 p-8 text-center">
-        <p className="font-display text-lg font-semibold text-strong">
+        <p className="font-display text-lg font-semibold text-navy-900">
           {f.success}
         </p>
       </div>
@@ -53,13 +47,13 @@ export function AcademyForm({
         />
       </Field>
       <Field label={f.sport} required>
-        <select name="discipline" required defaultValue="" className="field">
+        <select required defaultValue="" className="field">
           <option value="" disabled>
             {f.sportPlaceholder}
           </option>
           {sports.map((s) => (
-            <option key={s.slug} value={s.slug}>
-              {s.name}
+            <option key={s} value={s}>
+              {s}
             </option>
           ))}
         </select>

@@ -1,110 +1,104 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Fixture } from "@/lib/data/site";
-import type { Dictionary } from "@/app/[lang]/dictionaries";
 import { Icon } from "./Icons";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
 
-export function CalendarBoard({
-  dict,
-  upcoming,
-  results,
-}: {
-  dict: Dictionary;
-  upcoming: Fixture[];
-  results: Fixture[];
-}) {
+export function CalendarBoard({ dict }: { dict: Dictionary }) {
   const c = dict.calendar;
-  const sports = useMemo(() => {
-    const seen = new Map<string, string>();
-    for (const f of [...upcoming, ...results]) seen.set(f.discipline.slug, f.discipline.name);
-    return [...seen];
-  }, [upcoming, results]);
-  const [sport, setSport] = useState<string | null>(null);
-  const match = (f: Fixture) => sport === null || f.discipline.slug === sport;
+  const sports = useMemo(
+    () => Array.from(new Set(c.fixtures.map((f) => f.sport))),
+    [c.fixtures]
+  );
+  const [sport, setSport] = useState<string>(c.all);
+
+  const fixtures = c.fixtures.filter(
+    (f) => sport === c.all || f.sport === sport
+  );
+  const results = c.results.filter(
+    (r) => sport === c.all || r.sport === sport
+  );
 
   return (
     <div>
-      {sports.length > 1 && (
-        <div className="flex flex-wrap gap-2" role="group" aria-label={c.filterSport}>
-          {[[null, c.all] as const, ...sports].map(([slug, name]) => (
-            <button
-              key={slug ?? "all"}
-              type="button"
-              onClick={() => setSport(slug)}
-              aria-pressed={sport === slug}
-              className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-                sport === slug ? "border-blue-500 bg-blue-500 text-white" : "border-line text-ink/70 hover:border-navy-700"
-              }`}
-            >
-              {name}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="flex flex-wrap gap-2">
+        {[c.all, ...sports].map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => setSport(s)}
+            className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+              sport === s
+                ? "border-blue-500 bg-blue-500 text-white"
+                : "border-line text-ink/70 hover:border-navy-700"
+            }`}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
 
       <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div>
-          <h2 className="font-display text-lg font-semibold text-ink">{c.upcoming}</h2>
-          <ul className="mt-4 space-y-3">
-            {upcoming.filter(match).map((f) => (
-              <li key={f.id} className="reveal rounded-xl border border-line bg-card p-5">
-                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-500">
-                  {f.discipline.name}
-                  {f.competition && <span className="text-ink/40">· {f.competition}</span>}
-                  {f.status !== "scheduled" && (
-                    <span
-                      className={`rounded px-1.5 py-0.5 text-[0.625rem] ${f.status === "live" ? "bg-red-600 text-white" : "bg-surface-2 text-ink/70"}`}
-                    >
-                      {c.status[f.status as "live" | "postponed"]}
-                    </span>
-                  )}
+          <h3 className="font-display text-lg font-semibold text-ink">
+            {c.upcoming}
+          </h3>
+          <div className="mt-4 space-y-3">
+            {fixtures.map((f) => (
+              <div
+                key={f.home + f.away + f.date}
+                className="card-hover rounded-xl border border-line bg-white p-5"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-blue-500">
+                  {f.sport}
                 </p>
                 <p className="font-display mt-2 text-base font-semibold text-ink">
                   {f.home} — {f.away}
                 </p>
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm text-ink/60">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm text-ink/55">
                   <span className="flex items-center gap-1.5">
                     <Icon name="calendar" className="h-4 w-4" />
-                    <time dateTime={f.startsAt}>{f.date}</time>
-                    {f.venue && <> · {f.venue}</>}
+                    {f.date} · {f.venue}
                   </span>
-                  <a href={`/api/fixtures/${f.id}/ics`} className="link-underline text-xs font-semibold text-strong">
+                  <button
+                    type="button"
+                    className="link-underline text-xs font-semibold text-navy-900"
+                  >
                     {c.addToCalendar}
-                  </a>
+                  </button>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
-          {upcoming.filter(match).length === 0 && <p className="mt-4 text-sm text-ink/50">{c.emptyUpcoming}</p>}
+            {fixtures.length === 0 && (
+              <p className="text-sm text-ink/50">—</p>
+            )}
+          </div>
         </div>
 
         <div>
-          <h2 className="font-display text-lg font-semibold text-ink">{c.resultsTitle}</h2>
-          <ul className="mt-4 space-y-3">
-            {results.filter(match).map((f) => (
-              <li key={f.id} className="reveal rounded-xl border border-line bg-card p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-500">{f.discipline.name}</p>
-                  <span
-                    className={`rounded px-1.5 py-0.5 text-[0.625rem] font-semibold uppercase ${
-                      f.won === true ? "bg-blue-500 text-white" : f.won === false ? "bg-surface-2 text-ink/60" : "bg-gold-400 text-navy-950"
-                    }`}
-                  >
-                    {f.won === true ? c.won : f.won === false ? c.lost : c.draw}
-                  </span>
+          <h3 className="font-display text-lg font-semibold text-ink">
+            {c.resultsTitle}
+          </h3>
+          <div className="mt-4 space-y-3">
+            {results.map((r) => (
+              <div
+                key={r.home + r.away + r.date}
+                className="card-hover rounded-xl border border-line bg-white p-5"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-blue-500">
+                  {r.sport}
+                </p>
+                <div className="mt-2 flex items-center justify-between">
+                  <p className="font-display text-base font-semibold text-ink">
+                    {r.home} <span className="text-blue-500">{r.score}</span>{" "}
+                    {r.away}
+                  </p>
                 </div>
-                <p className="font-display mt-2 text-base font-semibold text-ink">
-                  {f.home} <span className="text-blue-500">{f.score}</span> {f.away}
-                </p>
-                <p className="mt-3 text-sm text-ink/60">
-                  <time dateTime={f.startsAt}>{f.date}</time>
-                  {f.competition && <> · {f.competition}</>}
-                </p>
-              </li>
+                <p className="mt-3 text-sm text-ink/55">{r.date}</p>
+              </div>
             ))}
-          </ul>
-          {results.filter(match).length === 0 && <p className="mt-4 text-sm text-ink/50">{c.emptyResults}</p>}
+            {results.length === 0 && <p className="text-sm text-ink/50">—</p>}
+          </div>
         </div>
       </div>
     </div>

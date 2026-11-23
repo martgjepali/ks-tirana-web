@@ -22,11 +22,11 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         <div>
           <div className="flex items-center gap-2.5 text-white">
             <Image
-              src="/images/ks-tirana-crest.png"
-              alt="KS Tirana"
-              width={39}
-              height={48}
-              className="h-10 w-auto"
+              src="/images/Tirana_Club_Logo.svg.webp"
+              alt="KF Tirana"
+              width={32}
+              height={51}
+              className="h-8 w-auto"
             />
             <span className="font-display text-lg font-semibold tracking-wide">
               KS TIRANA
@@ -41,9 +41,9 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 key={s}
                 href="#"
                 aria-label={s}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/75 transition hover:-translate-y-0.5 hover:border-blue-400 hover:bg-blue-500 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-white/40 hover:text-white"
               >
-                <Icon name={s} className="h-5 w-5" />
+                <Icon name={s} className="h-4 w-4" />
               </a>
             ))}
           </div>

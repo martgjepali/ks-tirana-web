@@ -1,2 +1,0 @@
-# Keep LF line endings in the repo so files match on Windows and on a Linux VPS.
-* text=auto eol=lf

@@ -17,29 +17,9 @@
   --color-surface-2: #eef1f9;
   --color-line: #e1e6f0;
   --color-line-dark: #223154;
-  /* Semantic tokens that flip in dark mode */
-  --color-card: #ffffff;
-  --color-strong: #0a1730; /* headings/links on page background */
-  --color-header: rgba(255, 255, 255, 0.86);
-  --shadow-card: 0 16px 32px -20px rgba(10, 23, 48, 0.35);
-  color-scheme: light;
 
   --font-display: var(--font-oswald);
   --font-body: var(--font-inter);
-}
-
-/* Dark theme. Set on <html> before first paint by the inline script in app/[lang]/layout.tsx. */
-:root[data-theme="dark"] {
-  --color-ink: #e6ecf7;
-  --color-paper: #0a1324;
-  --color-surface: #0e1930;
-  --color-surface-2: #14213d;
-  --color-line: #22314f;
-  --color-card: #111d36;
-  --color-strong: #d4e0ff;
-  --color-header: rgba(10, 19, 36, 0.82);
-  --shadow-card: 0 18px 36px -18px rgba(0, 0, 0, 0.7);
-  color-scheme: dark;
 }
 
 @theme inline {
@@ -59,8 +39,6 @@
   --color-surface-2: var(--color-surface-2);
   --color-line: var(--color-line);
   --color-line-dark: var(--color-line-dark);
-  --color-card: var(--color-card);
-  --color-strong: var(--color-strong);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -90,16 +68,6 @@ body {
   .wrap {
     padding-inline: 2.5rem;
   }
-}
-
-/* Narrower containers for reading. Declared after .wrap so they win over its max-width
-   (Tailwind max-w-* utilities sit in a lower cascade layer and cannot). */
-.wrap-narrow {
-  max-width: 54rem;
-}
-
-.wrap-medium {
-  max-width: 62rem;
 }
 
 .btn {
@@ -143,7 +111,7 @@ body {
 }
 
 .btn-ghost:hover {
-  border-color: var(--color-blue-500);
+  border-color: var(--color-navy-700);
   transform: translateY(-1px);
 }
 
@@ -166,8 +134,8 @@ body {
 }
 
 .card-hover:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -20px rgba(10, 23, 48, 0.35);
 }
 
 .link-underline {
@@ -196,7 +164,7 @@ body {
   width: 100%;
   border-radius: 0.6rem;
   border: 1px solid var(--color-line);
-  background: var(--color-card);
+  background: #fff;
   padding: 0.65rem 0.85rem;
   font-size: 0.9375rem;
   color: var(--color-ink);
@@ -262,313 +230,11 @@ body {
   color: transparent;
 }
 
-/* ============================================================== motion
- * Everything below is progressive enhancement: without support (or with
- * reduced motion) content is simply shown, never hidden.
- */
-
-/* Scroll-driven reveal: elements rise in as they enter the viewport.
-   Pure CSS (no JS, no IntersectionObserver), so nothing can get stuck invisible. */
-@keyframes reveal-up {
-  from {
-    opacity: 0;
-    transform: translateY(32px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Hero photo: slow settle on load, gentle parallax while scrolling away. */
-@keyframes hero-settle {
-  from {
-    transform: scale(1.12);
-    filter: saturate(0.6) brightness(0.8);
-  }
-  to {
-    transform: scale(1.04);
-    filter: none;
-  }
-}
-
-@keyframes hero-parallax {
-  to {
-    transform: translateY(14%);
-  }
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal-up linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 24%;
-    }
-  }
-
-  .hero-media img {
-    animation: hero-settle 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  @supports (animation-timeline: scroll()) {
-    .hero-media {
-      animation: hero-parallax linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 100vh;
-    }
-  }
-
-  .marquee-track {
-    animation: marquee 48s linear infinite;
-  }
-
-  .marquee:hover .marquee-track,
-  .marquee:focus-within .marquee-track {
-    animation-play-state: paused;
-  }
-
-  .lightbox[open] {
-    animation: lightbox-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-}
-
-@keyframes lightbox-in {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-}
-
-/* Theme toggle icon: sun in dark mode, moon in light mode, with a spin-swap. */
-.theme-icon {
-  transition:
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s ease;
-}
-
-:root:not([data-theme="dark"]) .theme-icon-sun,
-:root[data-theme="dark"] .theme-icon-moon {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.5);
-}
-
-/* =========================================================== splash */
-.splash {
-  display: none;
-}
-
-:root[data-splash="show"] .splash {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(29, 90, 230, 0.35), transparent 55%),
-    var(--color-navy-950);
-  color: #fff;
-  clip-path: inset(0 0 0 0);
-  animation: splash-exit 0.6s cubic-bezier(0.76, 0, 0.24, 1) 1.45s forwards;
-}
-
-.splash-mark {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 160px;
-  height: 160px;
-  animation: splash-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-
-.splash-ring {
-  position: absolute;
-  inset: 0;
-  transform: rotate(-90deg);
-}
-
-.splash-ring circle {
-  fill: none;
-  stroke: var(--color-blue-400);
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-dasharray: 578;
-  stroke-dashoffset: 578;
-  animation: splash-draw 1s cubic-bezier(0.65, 0, 0.35, 1) 0.1s forwards;
-  filter: drop-shadow(0 0 8px rgba(63, 124, 255, 0.7));
-}
-
-.splash-crest {
-  height: 92px;
-  width: auto;
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.5));
-}
-
-.splash-word {
-  margin-top: 1.75rem;
-  font-size: 1.75rem;
-  font-weight: 700;
-  animation: splash-word 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-}
-
-.splash-year {
-  margin-top: 0.4rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-gold-400);
-  animation: splash-fade 0.6s ease 0.6s both;
-}
-
-.splash-bar {
-  margin-top: 2rem;
-  width: 140px;
-  height: 2px;
-  overflow: hidden;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.splash-bar span {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-blue-400), var(--color-gold-400));
-  transform-origin: left;
-  animation: splash-load 1.25s cubic-bezier(0.65, 0, 0.35, 1) both;
-}
-
-@keyframes splash-pop {
-  from {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-}
-
-@keyframes splash-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes splash-word {
-  from {
-    opacity: 0;
-    letter-spacing: 0.7em;
-  }
-  to {
-    opacity: 1;
-    letter-spacing: 0.22em;
-  }
-}
-
-@keyframes splash-fade {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-}
-
-@keyframes splash-load {
-  from {
-    transform: scaleX(0);
-  }
-}
-
-/* The panel lifts like a curtain, then stops catching clicks. */
-@keyframes splash-exit {
-  to {
-    clip-path: inset(0 0 100% 0);
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
-/* ==================================================== view transitions */
-
-/* Page navigation: header stays put, content fades and rises. */
-::view-transition {
-  pointer-events: none;
-}
-
-::view-transition-group(site-header) {
-  animation: none;
-  z-index: 100;
-}
-
-::view-transition-old(site-header) {
-  display: none;
-}
-
-::view-transition-new(site-header) {
-  animation: none;
-}
-
-::view-transition-old(.page) {
-  animation: 160ms ease-in both page-out;
-}
-
-::view-transition-new(.page) {
-  animation: 320ms cubic-bezier(0.16, 1, 0.3, 1) 60ms both page-in;
-}
-
-@keyframes page-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-}
-
-/* Card photo → page hero morph. */
-::view-transition-group(.morph) {
-  animation-duration: 420ms;
-  animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1);
-}
-
-::view-transition-image-pair(.morph) {
-  animation-name: via-blur;
-}
-
-@keyframes via-blur {
-  30% {
-    filter: blur(3px);
-  }
-}
-
-/* Theme switch: the new theme grows as a circle from the toggle (see ThemeToggle). */
-.theme-switching::view-transition-old(root),
-.theme-switching::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-.theme-switching .site-header {
-  view-transition-name: none !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

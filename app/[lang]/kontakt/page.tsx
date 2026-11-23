@@ -1,36 +1,31 @@
-import type { Metadata } from "next";
 import { getDictionary, hasLocale } from "../dictionaries";
-import { getHeroPhoto } from "@/lib/data/site";
 import { notFound } from "next/navigation";
 import { PhotoPageHero } from "@/components/PhotoPageHero";
 import { ContactForm } from "@/components/ContactForm";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
 
-export async function generateMetadata({ params }: PageProps<"/[lang]/kontakt">): Promise<Metadata> {
-  const { lang } = await params;
-  if (!hasLocale(lang)) return {};
-  const dict = await getDictionary(lang);
-  return { title: `${dict.contact.title} · KS Tirana`, description: dict.contact.subtitle };
-}
-
-export default async function ContactPage({ params }: PageProps<"/[lang]/kontakt">) {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, hero] = await Promise.all([getDictionary(lang), getHeroPhoto(lang, "mundje-e-lire", 1)]);
+  const dict = await getDictionary(lang);
   const c = dict.contact;
 
   return (
     <>
       <PhotoPageHero
-        photo={hero}
+        photo="clubTeamHuddle"
         eyebrow={dict.nav.contact}
         title={c.title}
         subtitle={c.subtitle}
       />
 
       <section className="bg-paper py-20 lg:py-24">
-        <div className="wrap reveal grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="wrap grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <Reveal>
             <h2 className="font-display text-xl font-semibold text-ink">
               {c.formTitle}

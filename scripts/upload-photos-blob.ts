@@ -1,6 +1,7 @@
 /**
- * Copies the processed photos (storage/photos/<id>/{sm,md,lg}.webp) to a
- * Vercel Blob store, keeping the same paths, so the deployed site can show them.
+ * Copies the processed photos (storage/photos/<id>/{sm,md,lg}.webp) to the
+ * project's private Vercel Blob store, keeping the same paths. The deployed site
+ * reads them from there and serves them through its /media route.
  *
  *   BLOB_READ_WRITE_TOKEN=... npm run blob:upload
  *
@@ -39,21 +40,19 @@ async function main() {
 
   let done = 0;
   let failed = 0;
-  let sampleUrl = "";
   const queue = [...todo];
   await Promise.all(
     Array.from({ length: 8 }, async () => {
       for (let key = queue.shift(); key; key = queue.shift()) {
         try {
-          const blob = await put(key, await readFile(path.join(root, key)), {
-            access: "public",
+          await put(key, await readFile(path.join(root, key)), {
+            access: "private", // the store is private; the site serves files via /media
             addRandomSuffix: false,
             allowOverwrite: true,
             contentType: "image/webp",
             cacheControlMaxAge: 31536000, // files never change: each photo has its own id
             token,
           });
-          sampleUrl ||= blob.url;
         } catch (error) {
           failed++;
           console.error(`\n${key}: ${error instanceof Error ? error.message : error}`);
@@ -63,7 +62,6 @@ async function main() {
     }),
   );
   console.log(`\nUploaded ${done - failed}, failed ${failed}.`);
-  if (sampleUrl) console.log(`Example URL: ${sampleUrl}`);
   if (failed) process.exitCode = 1;
 }
 

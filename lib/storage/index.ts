@@ -74,25 +74,72 @@ export function createLocalStorage(rootDir: string, baseUrl: string): Storage {
 }
 
 /**
- * Public URL prefix of a Vercel Blob store, derived from its token
- * ("vercel_blob_rw_<storeId>_<secret>" → https://<storeId>.public.blob.vercel-storage.com),
- * so a Vercel deployment needs no extra setting once the store is connected.
+ * Vercel Blob driver (private store). Files are fetched with the store token and
+ * served through the /media route, which sets long cache headers so the CDN
+ * keeps them. Keys keep the same layout as on disk: photos/<id>/<size>.webp.
  */
-function blobBaseUrl(): string | undefined {
-  const storeId = process.env.BLOB_READ_WRITE_TOKEN?.split("_")[3];
-  return storeId ? `https://${storeId}.public.blob.vercel-storage.com` : undefined;
+export function createBlobStorage(token: string, baseUrl: string): Storage {
+  const base = baseUrl.replace(/\/+$/, "");
+  // Loaded lazily so local development never needs the Blob SDK at runtime.
+  const sdk = () => import("@vercel/blob");
+
+  return {
+    async put(key, data, contentType) {
+      assertKey(key);
+      const { put } = await sdk();
+      await put(key, data, { access: "private", addRandomSuffix: false, allowOverwrite: true, contentType, token });
+    },
+    async get(key) {
+      assertKey(key);
+      const { get } = await sdk();
+      const result = await get(key, { access: "private", token });
+      if (!result || !("stream" in result) || !result.stream) return null;
+      return Buffer.from(await new Response(result.stream).arrayBuffer());
+    },
+    async exists(key) {
+      assertKey(key);
+      const { head } = await sdk();
+      try {
+        await head(key, { token });
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    async remove(keyOrPrefix) {
+      assertKey(keyOrPrefix);
+      const { del, list } = await sdk();
+      if (!keyOrPrefix.endsWith("/")) return void (await del(keyOrPrefix, { token }));
+      let cursor: string | undefined;
+      do {
+        const page = await list({ prefix: keyOrPrefix, cursor, token });
+        if (page.blobs.length) await del(page.blobs.map((b) => b.url), { token });
+        cursor = page.hasMore ? page.cursor : undefined;
+      } while (cursor);
+    },
+    url(key) {
+      assertKey(key);
+      return `${base}/${key}`;
+    },
+  };
 }
 
 let instance: Storage | undefined;
 
 /**
- * The configured storage. Files are read/written on STORAGE_DIR; public URLs use
- * MEDIA_BASE_URL, else a connected Vercel Blob store, else the local /media route.
+ * The configured storage. STORAGE_DRIVER picks it explicitly ("local" | "blob");
+ * by default a connected Vercel Blob store (BLOB_READ_WRITE_TOKEN) is used on
+ * Vercel, and the local STORAGE_DIR everywhere else. Public URLs always start
+ * with MEDIA_BASE_URL (default /media).
  */
 export function getStorage(): Storage {
-  instance ??= createLocalStorage(
-    process.env.STORAGE_DIR ?? "./storage",
-    process.env.MEDIA_BASE_URL ?? blobBaseUrl() ?? "/media",
-  );
+  if (instance) return instance;
+  const base = process.env.MEDIA_BASE_URL ?? "/media";
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  const driver = process.env.STORAGE_DRIVER ?? (token && process.env.VERCEL ? "blob" : "local");
+  instance =
+    driver === "blob" && token
+      ? createBlobStorage(token, base)
+      : createLocalStorage(process.env.STORAGE_DIR ?? "./storage", base);
   return instance;
 }

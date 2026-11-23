@@ -3,9 +3,15 @@
 import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 
-export function AcademyForm({ dict }: { dict: Dictionary }) {
+export function AcademyForm({
+  dict,
+  sports,
+}: {
+  dict: Dictionary;
+  /** Disciplines from the database: value is the slug, label the localised name. */
+  sports: { slug: string; name: string }[];
+}) {
   const f = dict.academy.form;
-  const sports = dict.home.sports.items.map((s) => s.name);
   const [status, setStatus] = useState<"idle" | "submitting" | "done">(
     "idle"
   );
@@ -47,13 +53,13 @@ export function AcademyForm({ dict }: { dict: Dictionary }) {
         />
       </Field>
       <Field label={f.sport} required>
-        <select required defaultValue="" className="field">
+        <select name="discipline" required defaultValue="" className="field">
           <option value="" disabled>
             {f.sportPlaceholder}
           </option>
           {sports.map((s) => (
-            <option key={s} value={s}>
-              {s}
+            <option key={s.slug} value={s.slug}>
+              {s.name}
             </option>
           ))}
         </select>

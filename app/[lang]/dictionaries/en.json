@@ -30,9 +30,18 @@
       "ctaPrimary": "Apply to the Academy",
       "ctaSecondary": "See the sports",
       "stats": [
-        { "value": "9", "label": "sports disciplines" },
-        { "value": "40+", "label": "national trophies" },
-        { "value": "1920", "label": "year founded" }
+        {
+          "value": "9",
+          "label": "sports disciplines"
+        },
+        {
+          "value": "40+",
+          "label": "national trophies"
+        },
+        {
+          "value": "1920",
+          "label": "year founded"
+        }
       ]
     },
     "why": {
@@ -59,17 +68,9 @@
     },
     "sports": {
       "eyebrow": "Sports disciplines",
-      "title": "Nine disciplines, one shirt",
+      "title": "{n} sports, one shirt",
       "body": "From the pitch to the sports hall, every KS Tirana team carries the same heritage.",
-      "cta": "See all disciplines",
-      "items": [
-        { "name": "Basketball", "teams": "Men & Women", "icon": "hoop" },
-        { "name": "Volleyball", "teams": "Senior & Junior", "icon": "volley" },
-        { "name": "Athletics", "teams": "Track & field", "icon": "track" },
-        { "name": "Wrestling", "teams": "Freestyle & Greco-Roman", "icon": "wrestling" },
-        { "name": "Swimming", "teams": "Academy & competitive", "icon": "swim" },
-        { "name": "Boxing", "teams": "Amateur & professional", "icon": "boxing" }
-      ]
+      "cta": "See all disciplines"
     },
     "academy": {
       "eyebrow": "Academy",
@@ -87,17 +88,37 @@
       "title": "Every match, every result",
       "body": "Filter by sport and month — and add the next fixture straight to your own calendar.",
       "cta": "See the full calendar",
-      "next": { "label": "Next match", "teams": "KS Tirana — Partizani", "detail": "Superior League · Saturday, 19:00" },
-      "last": { "label": "Latest result", "teams": "Vllaznia 1 — 2 KS Tirana", "detail": "Superior League · Last week" }
+      "next": {
+        "label": "Next match",
+        "teams": "KS Tirana — Partizani",
+        "detail": "Superior League · Saturday, 19:00"
+      },
+      "last": {
+        "label": "Latest result",
+        "teams": "Vllaznia 1 — 2 KS Tirana",
+        "detail": "Superior League · Last week"
+      }
     },
     "news": {
       "eyebrow": "News & Media",
       "title": "What happened this past week",
       "cta": "All news",
       "items": [
-        { "tag": "Football", "title": "A solid away win", "date": "Nov 3" },
-        { "tag": "Academy", "title": "Registration for the new season is open", "date": "Oct 29" },
-        { "tag": "Club", "title": "New sporting leadership structure", "date": "Oct 21" }
+        {
+          "tag": "Football",
+          "title": "A solid away win",
+          "date": "Nov 3"
+        },
+        {
+          "tag": "Academy",
+          "title": "Registration for the new season is open",
+          "date": "Oct 29"
+        },
+        {
+          "tag": "Club",
+          "title": "New sporting leadership structure",
+          "date": "Oct 21"
+        }
       ]
     },
     "club": {
@@ -120,15 +141,49 @@
     }
   },
   "sports": {
-    "title": "Sports Disciplines",
-    "subtitle": "The teams, categories and athletes of KS Tirana, sport by sport.",
-    "profileTitle": "Athlete profile",
-    "profileBody": "Illustrative concept for an individual profile: portrait, short biography, role, achievements and statistics.",
-    "categories": "Teams and categories",
-    "staff": "Athletes and staff",
-    "results": "Calendar and results",
-    "gallery": "News and gallery",
-    "history": "History and trophies"
+    "eyebrow": "KS Tirana",
+    "title": "Sports",
+    "subtitle": "The teams, coaches and athletes of KS Tirana, sport by sport.",
+    "members": "Athletes & staff",
+    "photos": "Photos",
+    "viewTeam": "View team",
+    "allSports": "All sports",
+    "about": "About the team",
+    "noDescription": "A description of this sport is coming soon.",
+    "ageGroups": "Age groups",
+    "schedule": "Training schedule",
+    "venue": "Venue",
+    "achievements": "Achievements",
+    "coaches": "Coaching staff",
+    "athletes": "Athletes",
+    "headCoach": "Head coach",
+    "assistantCoach": "Assistant coach",
+    "athlete": "Athlete",
+    "captain": "Captain",
+    "emptyRoster": "The roster will be published soon.",
+    "gallery": "Gallery",
+    "emptyGallery": "Photos are coming soon.",
+    "showMore": "Show more photos",
+    "showing": "{shown} of {total} photos",
+    "profile": {
+      "number": "Number",
+      "position": "Position",
+      "born": "Born",
+      "nationality": "Nationality",
+      "bio": "Biography",
+      "noBio": "A biography is coming soon.",
+      "achievements": "Achievements",
+      "photos": "Photos",
+      "teammates": "Teammates",
+      "back": "Back to"
+    },
+    "lightbox": {
+      "open": "Open photo",
+      "close": "Close",
+      "previous": "Previous photo",
+      "next": "Next photo",
+      "counter": "{n} / {total}"
+    }
   },
   "academy": {
     "title": "Academy",
@@ -140,10 +195,26 @@
     "findTitle": "Find your sport",
     "findBody": "Filter by age and preferred discipline.",
     "programs": [
-      { "name": "Football U8–U12", "schedule": "Mon / Wed / Fri · 17:00–18:30", "age": "6–12 years" },
-      { "name": "Basketball U10–U14", "schedule": "Tue / Thu · 17:30–19:00", "age": "8–14 years" },
-      { "name": "Beginner Swimming", "schedule": "Saturday · 10:00–11:30", "age": "6–16 years" },
-      { "name": "School Athletics", "schedule": "Mon / Wed · 16:30–18:00", "age": "7–15 years" }
+      {
+        "name": "Football U8–U12",
+        "schedule": "Mon / Wed / Fri · 17:00–18:30",
+        "age": "6–12 years"
+      },
+      {
+        "name": "Basketball U10–U14",
+        "schedule": "Tue / Thu · 17:30–19:00",
+        "age": "8–14 years"
+      },
+      {
+        "name": "Beginner Swimming",
+        "schedule": "Saturday · 10:00–11:30",
+        "age": "6–16 years"
+      },
+      {
+        "name": "School Athletics",
+        "schedule": "Mon / Wed · 16:30–18:00",
+        "age": "7–15 years"
+      }
     ],
     "formTitle": "Apply to the Academy",
     "formBody": "Fill in the form and the Academy staff will contact you within 2 business days.",
@@ -174,24 +245,57 @@
     "historyBody": "Founded in 1920, KS Tirana is one of the oldest and most decorated names in Albanian sport — generations of athletes have carried the white-and-blue colours in football, basketball, volleyball and beyond.",
     "missionTitle": "Mission and values",
     "mission": [
-      { "title": "Sporting excellence", "body": "Continuous athlete development, from the Academy to the first team." },
-      { "title": "Education and character", "body": "Sport as a school of discipline, respect and teamwork." },
-      { "title": "Community", "body": "A club open to families, fans and the city." }
+      {
+        "title": "Sporting excellence",
+        "body": "Continuous athlete development, from the Academy to the first team."
+      },
+      {
+        "title": "Education and character",
+        "body": "Sport as a school of discipline, respect and teamwork."
+      },
+      {
+        "title": "Community",
+        "body": "A club open to families, fans and the city."
+      }
     ],
     "orgTitle": "Leadership and organization",
     "orgBody": "The sporting and administrative leadership structure, kept current with the latest approvals.",
     "org": [
-      { "role": "Club President", "name": "KS Tirana Board" },
-      { "role": "Sporting Director", "name": "Sporting Department" },
-      { "role": "Academy Director", "name": "Academy Leadership" },
-      { "role": "Administrative Director", "name": "Administration" }
+      {
+        "role": "Club President",
+        "name": "KS Tirana Board"
+      },
+      {
+        "role": "Sporting Director",
+        "name": "Sporting Department"
+      },
+      {
+        "role": "Academy Director",
+        "name": "Academy Leadership"
+      },
+      {
+        "role": "Administrative Director",
+        "name": "Administration"
+      }
     ],
     "trophiesTitle": "KS Tirana in numbers",
     "trophies": [
-      { "value": "40+", "label": "national trophies" },
-      { "value": "1920", "label": "year founded" },
-      { "value": "9", "label": "active disciplines" },
-      { "value": "500+", "label": "athletes in the Academy" }
+      {
+        "value": "40+",
+        "label": "national trophies"
+      },
+      {
+        "value": "1920",
+        "label": "year founded"
+      },
+      {
+        "value": "9",
+        "label": "active disciplines"
+      },
+      {
+        "value": "500+",
+        "label": "athletes in the Academy"
+      }
     ],
     "legendsTitle": "White-and-blue legends",
     "legendsBody": "Illustrative gallery of the athletes who shaped the club's history.",
@@ -207,14 +311,50 @@
     "resultsTitle": "Latest results",
     "addToCalendar": "Add to calendar",
     "fixtures": [
-      { "sport": "Football", "home": "KS Tirana", "away": "Partizani", "date": "Nov 9, 19:00", "venue": "Selman Stërmasi Stadium" },
-      { "sport": "Basketball", "home": "KS Tirana", "away": "Vllaznia", "date": "Nov 12, 18:00", "venue": "Sports Palace" },
-      { "sport": "Volleyball", "home": "Dinamo", "away": "KS Tirana", "date": "Nov 15, 17:30", "venue": "Asllan Rusi Palace" }
+      {
+        "sport": "Football",
+        "home": "KS Tirana",
+        "away": "Partizani",
+        "date": "Nov 9, 19:00",
+        "venue": "Selman Stërmasi Stadium"
+      },
+      {
+        "sport": "Basketball",
+        "home": "KS Tirana",
+        "away": "Vllaznia",
+        "date": "Nov 12, 18:00",
+        "venue": "Sports Palace"
+      },
+      {
+        "sport": "Volleyball",
+        "home": "Dinamo",
+        "away": "KS Tirana",
+        "date": "Nov 15, 17:30",
+        "venue": "Asllan Rusi Palace"
+      }
     ],
     "results": [
-      { "sport": "Football", "home": "Vllaznia", "away": "KS Tirana", "score": "1 – 2", "date": "Nov 2" },
-      { "sport": "Basketball", "home": "KS Tirana", "away": "Tirana BC", "score": "78 – 65", "date": "Oct 30" },
-      { "sport": "Volleyball", "home": "KS Tirana", "away": "Studenti", "score": "3 – 1", "date": "Oct 27" }
+      {
+        "sport": "Football",
+        "home": "Vllaznia",
+        "away": "KS Tirana",
+        "score": "1 – 2",
+        "date": "Nov 2"
+      },
+      {
+        "sport": "Basketball",
+        "home": "KS Tirana",
+        "away": "Tirana BC",
+        "score": "78 – 65",
+        "date": "Oct 30"
+      },
+      {
+        "sport": "Volleyball",
+        "home": "KS Tirana",
+        "away": "Studenti",
+        "score": "3 – 1",
+        "date": "Oct 27"
+      }
     ]
   },
   "news": {
@@ -222,12 +362,42 @@
     "subtitle": "The latest announcements, projects and moments from the club.",
     "readMore": "Read more",
     "items": [
-      { "tag": "Football", "title": "A solid away win over Vllaznia", "date": "Nov 3, 2026", "excerpt": "The first team secured three important points in matchday eleven of the Superior League." },
-      { "tag": "Academy", "title": "Registration for the new season is open", "date": "Oct 29, 2026", "excerpt": "Parents can now register children across all Academy disciplines through the online form." },
-      { "tag": "Club", "title": "New sporting leadership structure", "date": "Oct 21, 2026", "excerpt": "The Board approved a new sporting and administrative leadership structure for the current season." },
-      { "tag": "Basketball", "title": "Convincing win at the Sports Palace", "date": "Oct 18, 2026", "excerpt": "The basketball team defeated Tirana BC in a tight home fixture." },
-      { "tag": "Shop", "title": "The new season shirt arrives in the shop", "date": "Oct 12, 2026", "excerpt": "The official 2026/27 season shirt is now available for online order." },
-      { "tag": "Partnership", "title": "New support agreement for the Academy", "date": "Oct 5, 2026", "excerpt": "A new local partner will support Academy facilities and equipment for the season." }
+      {
+        "tag": "Football",
+        "title": "A solid away win over Vllaznia",
+        "date": "Nov 3, 2026",
+        "excerpt": "The first team secured three important points in matchday eleven of the Superior League."
+      },
+      {
+        "tag": "Academy",
+        "title": "Registration for the new season is open",
+        "date": "Oct 29, 2026",
+        "excerpt": "Parents can now register children across all Academy disciplines through the online form."
+      },
+      {
+        "tag": "Club",
+        "title": "New sporting leadership structure",
+        "date": "Oct 21, 2026",
+        "excerpt": "The Board approved a new sporting and administrative leadership structure for the current season."
+      },
+      {
+        "tag": "Basketball",
+        "title": "Convincing win at the Sports Palace",
+        "date": "Oct 18, 2026",
+        "excerpt": "The basketball team defeated Tirana BC in a tight home fixture."
+      },
+      {
+        "tag": "Shop",
+        "title": "The new season shirt arrives in the shop",
+        "date": "Oct 12, 2026",
+        "excerpt": "The official 2026/27 season shirt is now available for online order."
+      },
+      {
+        "tag": "Partnership",
+        "title": "New support agreement for the Academy",
+        "date": "Oct 5, 2026",
+        "excerpt": "A new local partner will support Academy facilities and equipment for the season."
+      }
     ]
   },
   "shop": {
@@ -236,12 +406,36 @@
     "note": "Online payment is coming in a later phase — for now, orders are confirmed by direct contact.",
     "cta": "Request information",
     "items": [
-      { "name": "Home Shirt 2026/27", "price": "€55", "tag": "New" },
-      { "name": "Away Shirt 2026/27", "price": "€55", "tag": "New" },
-      { "name": "Training Jacket", "price": "€40", "tag": "" },
-      { "name": "Official White-and-Blue Scarf", "price": "€15", "tag": "" },
-      { "name": "Sports Bag", "price": "€27", "tag": "" },
-      { "name": "Official Cap", "price": "€13", "tag": "" }
+      {
+        "name": "Home Shirt 2026/27",
+        "price": "€55",
+        "tag": "New"
+      },
+      {
+        "name": "Away Shirt 2026/27",
+        "price": "€55",
+        "tag": "New"
+      },
+      {
+        "name": "Training Jacket",
+        "price": "€40",
+        "tag": ""
+      },
+      {
+        "name": "Official White-and-Blue Scarf",
+        "price": "€15",
+        "tag": ""
+      },
+      {
+        "name": "Sports Bag",
+        "price": "€27",
+        "tag": ""
+      },
+      {
+        "name": "Official Cap",
+        "price": "€13",
+        "tag": ""
+      }
     ],
     "partnerTitle": "Become a partner",
     "partnerBody": "Support a discipline, the Academy, or a specific club activity.",

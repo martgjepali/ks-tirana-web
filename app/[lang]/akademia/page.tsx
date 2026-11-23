@@ -2,6 +2,7 @@ import { getDictionary, hasLocale } from "../dictionaries";
 import { notFound } from "next/navigation";
 import { PhotoPageHero } from "@/components/PhotoPageHero";
 import { AcademyForm } from "@/components/AcademyForm";
+import { getDisciplines } from "@/lib/data/sports";
 import { Icon } from "@/components/Icons";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 
@@ -12,7 +13,7 @@ export default async function AcademyPage({
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const dict = await getDictionary(lang);
+  const [dict, disciplines] = await Promise.all([getDictionary(lang), getDisciplines(lang)]);
   const a = dict.academy;
 
   return (
@@ -91,7 +92,7 @@ export default async function AcademyPage({
           </h2>
           <p className="mt-2 text-ink/60">{a.formBody}</p>
           <div className="mt-8">
-            <AcademyForm dict={dict} />
+            <AcademyForm dict={dict} sports={disciplines.map(({ slug, name }) => ({ slug, name }))} />
           </div>
         </Reveal>
       </section>

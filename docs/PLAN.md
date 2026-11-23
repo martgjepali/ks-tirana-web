@@ -140,13 +140,26 @@ Routes (existing language prefix kept):
 ```
 
 - Data access only through `lib/data/*` functions (`getDisciplines()`, `getPerson()`, …).
-- `next/image` with a custom loader that maps requested widths to our 3 sizes; explicit width/height
-  and blur placeholder on every photo (no layout jumps).
+- `MediaImage`: plain `<img>` with an exact `srcset` of our 3 stored sizes (files are pre-optimised at
+  import, so no runtime image service on any host); explicit width/height and blur placeholder on
+  every photo (no layout jumps). Changed from the original "next/image custom loader" idea.
 - UI strings stay in the dictionaries; content comes from `_sq` / `_en` columns.
 - Remove the AI-generated placeholder photos from `public/` once real photos are wired in.
 - Fix the crest once the client sends the official KS Tirana logo.
 
 **Done when:** every public page renders from the database in both languages, mobile and desktop.
+
+**Progress (2026-11-23) — part 1 done:** data layer `lib/data/*` (every function calls `connection()`,
+so builds never need a database), `/media/[...path]` route, `/sportet` → `/sportet/[discipline]`
+(hero, about + facts, coaches, roster, gallery with lightbox and "show more" link) →
+`/sportet/[discipline]/[person]` (profile, photos, teammates), home hero + sports grid and the Academy
+form's sport list now come from the database.
+Visibility (`lib/data/visibility.ts`): a person shows only when published (= consent); a photo shows
+only if every person tagged in it is visible. Verified on a production build. `CONTENT_PREVIEW=true`
+shows everyone, in `next dev` only.
+Open question for the client: untagged photos (curated folders, discipline-only photos) are visible
+without consent because nobody is tagged in them.
+Part 2: news, calendar, academy programs, shop, club page from the database; remove AI images.
 
 ## Phase 5 — Admin panel
 

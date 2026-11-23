@@ -1,5 +1,6 @@
 import sharp from "sharp";
 import exifReader from "exif-reader";
+import { PHOTO_SIZES, type PhotoSize } from "./sizes";
 
 /**
  * One pipeline for every photo, used by the archive import and (later) by
@@ -8,13 +9,7 @@ import exifReader from "exif-reader";
  *
  * Stored at <storageKey>/{sm,md,lg}.webp — no variants table needed.
  */
-export const PHOTO_SIZES = {
-  sm: 480, // cards, grids on phones
-  md: 1200, // gallery, profile
-  lg: 2000, // hero, lightbox
-} as const;
-
-export type PhotoSize = keyof typeof PHOTO_SIZES;
+export { PHOTO_SIZES, type PhotoSize };
 
 const QUALITY: Record<PhotoSize, number> = { sm: 72, md: 78, lg: 80 };
 

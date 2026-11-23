@@ -6,15 +6,8 @@ import { Icon } from "@/components/Icons";
 import { Photo, type PhotoName } from "@/components/Photo";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
-
-const sportPhotos: PhotoName[] = [
-  "sportBasketball",
-  "sportVolleyball",
-  "sportAthletics",
-  "sportWrestling",
-  "sportSwimming",
-  "sportBoxing",
-];
+import { MediaImage } from "@/components/MediaImage";
+import { getDisciplines, getFeaturedPhotos } from "@/lib/data/sports";
 
 const newsPhotos: PhotoName[] = ["sportVolleyball", "academyTraining", "sportBasketball"];
 
@@ -25,14 +18,24 @@ export default async function HomePage({
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const dict = await getDictionary(lang);
+  const [dict, disciplines, featured] = await Promise.all([
+    getDictionary(lang),
+    getDisciplines(lang),
+    getFeaturedPhotos(lang, 60),
+  ]);
   const h = dict.home;
+  // A wide action shot reads best behind the left-aligned hero text.
+  const heroPhoto = featured.find((p) => p.width > p.height * 1.3) ?? featured[0];
 
   return (
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-950 text-white">
-        <Photo name="heroVolleyball" alt="" priority sizes="100vw" fill />
+        {heroPhoto ? (
+          <MediaImage photo={heroPhoto} alt="" sizes="100vw" fill priority position="center 30%" />
+        ) : (
+          <Photo name="heroVolleyball" alt="" priority sizes="100vw" fill />
+        )}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -174,12 +177,12 @@ export default async function HomePage({
                 {h.sports.eyebrow}
               </p>
               <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                {h.sports.title}
+                {h.sports.title.replace("{n}", String(disciplines.length))}
               </h2>
             </div>
             <Link
               href={`/${lang}/sportet`}
-              className="link-underline hidden items-center gap-1.5 text-sm font-semibold text-navy-900 sm:inline-flex"
+              className="link-underline inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900"
             >
               {h.sports.cta}
               <Icon name="chevronRight" className="h-4 w-4" />
@@ -187,24 +190,23 @@ export default async function HomePage({
           </Reveal>
 
           <StaggerGroup className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {h.sports.items.map((s, i) => (
-              <StaggerItem key={s.name}>
+            {disciplines.slice(0, 6).map((d) => (
+              <StaggerItem key={d.slug}>
                 <Link
-                  href={`/${lang}/sportet`}
-                  className="card-hover group relative block aspect-[3/4] overflow-hidden rounded-xl"
+                  href={`/${lang}/sportet/${d.slug}`}
+                  className="card-hover group relative block aspect-[3/4] overflow-hidden rounded-xl bg-navy-900"
                 >
-                  <Photo
-                    name={sportPhotos[i]}
-                    alt={s.name}
-                    sizes="(min-width: 1024px) 16vw, 45vw"
-                    fill
-                  />
+                  {d.cover && (
+                    <MediaImage photo={d.cover} alt="" sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 45vw" fill />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/10 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-3.5">
-                    <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-                      {s.name}
-                    </p>
-                    <p className="mt-0.5 text-[0.6875rem] text-white/60">{s.teams}</p>
+                    <p className="font-display text-sm font-bold uppercase tracking-wide text-white">{d.name}</p>
+                    {d.peopleCount > 0 && (
+                      <p className="mt-0.5 text-[0.6875rem] text-white/70">
+                        {d.peopleCount} {dict.sports.members.toLowerCase()}
+                      </p>
+                    )}
                   </div>
                 </Link>
               </StaggerItem>

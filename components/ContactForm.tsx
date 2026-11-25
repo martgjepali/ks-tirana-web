@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 
-export function ContactForm({ dict }: { dict: Dictionary }) {
+export function ContactForm({ dict, defaultSubject }: { dict: Dictionary; defaultSubject?: string }) {
   const f = dict.contact.form;
   const [status, setStatus] = useState<"idle" | "submitting" | "done">(
     "idle"
@@ -50,6 +50,7 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
           <span className="text-sm font-medium text-ink/80">{f.subject}</span>
           <input
             type="text"
+            defaultValue={defaultSubject}
             placeholder={f.subjectPlaceholder}
             className="field mt-1.5"
           />

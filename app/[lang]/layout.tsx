@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Oswald, Inter } from "next/font/google";
+import { Archivo, Caveat, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { Header } from "@/components/Header";
@@ -11,10 +11,18 @@ import { InlineScript } from "@/components/InlineScript";
 import { Splash } from "@/components/Splash";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 
-const oswald = Oswald({
-  variable: "--font-oswald",
+// Heavy grotesque for headings, like the mockups. The width axis gives the condensed card titles.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin", "latin-ext"],
-  weight: ["500", "600", "700"],
+  axes: ["wdth"],
+});
+
+// Handwritten accents ("Sot më mirë se dje").
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin", "latin-ext"],
+  weight: ["600"],
 });
 
 const inter = Inter({
@@ -59,7 +67,7 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
       // The inline script below sets data-theme / data-splash before React hydrates.
       suppressHydrationWarning
-      className={`${oswald.variable} ${inter.variable} antialiased`}
+      className={`${archivo.variable} ${caveat.variable} ${inter.variable} antialiased`}
     >
       <head>
         <InlineScript html={`${THEME_SCRIPT};${SPLASH_SCRIPT}`} />

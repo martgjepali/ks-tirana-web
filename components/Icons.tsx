@@ -30,7 +30,22 @@ export type IconName =
   | "wrestling"
   | "boxing"
   | "sun"
-  | "moon";
+  | "moon"
+  | "search"
+  | "bag"
+  | "download"
+  | "play"
+  | "camera"
+  | "check"
+  | "chart"
+  | "run"
+  | "dots"
+  | "arrowLeft"
+  | "chevronDown"
+  | "linkedin"
+  | "weights"
+  | "table"
+  | "org";
 
 const paths: Record<IconName, React.ReactNode> = {
   sun: (
@@ -169,6 +184,75 @@ const paths: Record<IconName, React.ReactNode> = {
       <path d="M5 13V8a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v3" />
       <path d="M11 11V7a2.3 2.3 0 0 1 4.6 0v6.5" />
       <path d="M15.6 10.3a2 2 0 0 1 4 .2v4c0 3.3-2.3 6-6 7l-2 .5-5-3.3a3 3 0 0 1-1.3-2.5V13" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m16 16 4.5 4.5" />
+    </>
+  ),
+  bag: (
+    <>
+      <path d="M5 8h14l-1 12H6L5 8z" />
+      <path d="M9 10V7a3 3 0 0 1 6 0v3" />
+    </>
+  ),
+  download: <path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" />,
+  play: <path d="M8 5.5v13l10.5-6.5z" fill="currentColor" stroke="none" />,
+  camera: (
+    <>
+      <path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.3l1.5-2h5.4l1.5 2h2.3A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z" />
+      <circle cx="12" cy="12.8" r="3.3" />
+    </>
+  ),
+  check: <path d="m5.5 12.5 4 4 9-9" />,
+  chart: (
+    <>
+      <path d="M4 20h16" />
+      <path d="M6.5 20v-5M11 20v-8M15.5 20V9M20 20V5" />
+    </>
+  ),
+  run: (
+    <>
+      <circle cx="14.5" cy="4.5" r="1.8" />
+      <path d="M8 21l3-6 3 2.5V21M6 12l2.5-3.5 4-1 2.5 3 3 1M11 15l1.5-6.5" />
+    </>
+  ),
+  dots: (
+    <>
+      <circle cx="5.5" cy="12" r="1.6" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" />
+      <circle cx="18.5" cy="12" r="1.6" fill="currentColor" stroke="none" />
+    </>
+  ),
+  arrowLeft: <path d="M20 12H4M10 6l-6 6 6 6" />,
+  chevronDown: <path d="m6 9 6 6 6-6" />,
+  linkedin: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="2.5" />
+      <path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V16" />
+    </>
+  ),
+  weights: (
+    <>
+      <path d="M3 12h18" />
+      <rect x="5" y="7" width="3" height="10" rx="1" />
+      <rect x="16" y="7" width="3" height="10" rx="1" />
+    </>
+  ),
+  table: (
+    <>
+      <path d="M3 10h18l-2 3H5z" />
+      <path d="M7 13v6M17 13v6M12 4v6" />
+    </>
+  ),
+  org: (
+    <>
+      <rect x="9" y="3.5" width="6" height="4.5" rx="1" />
+      <rect x="3" y="16" width="6" height="4.5" rx="1" />
+      <rect x="15" y="16" width="6" height="4.5" rx="1" />
+      <path d="M12 8v4M6 16v-4h12v4" />
     </>
   ),
 };

@@ -2,7 +2,8 @@
 #   docker compose -f docker-compose.dev.yml up -d
 services:
   db:
-    image: postgres:17-alpine
+    # Same major version as the deployed Neon database, so `npm run db:pull` can dump it.
+    image: postgres:18-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: kstirana
@@ -13,7 +14,8 @@ services:
       # Host port 5433 avoids clashing with any Postgres already installed on the machine.
       - "5433:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      # Postgres 18 images keep data in a versioned folder under /var/lib/postgresql.
+      - pgdata18:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U kstirana -d kstirana"]
       interval: 5s
@@ -21,4 +23,4 @@ services:
       retries: 10
 
 volumes:
-  pgdata:
+  pgdata18:

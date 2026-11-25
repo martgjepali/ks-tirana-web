@@ -12,9 +12,18 @@ import { Icon } from "./Icons";
 export function PhotoGallery({
   photos,
   labels,
+  media,
+  gridClassName = "grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4",
 }: {
   photos: PhotoRef[];
   labels: { open: string; close: string; previous: string; next: string; counter: string };
+  /**
+   * "MEDIA MË TË FUNDIT" layout (athlete profile): a heading, "Shiko të gjitha"
+   * and three wide cards; the lightbox still browses every photo.
+   */
+  media?: { title: string; seeAll: string; kind: string; fallbackTitle: string };
+  /** Overrides the thumbnail grid's columns (e.g. a one-row strip). */
+  gridClassName?: string;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState<number | null>(null);
@@ -46,13 +55,45 @@ export function PhotoGallery({
 
   return (
     <>
-      <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+      {media ? (
+        <>
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <span className="rule" />
+              <h2 className="display mt-3 text-3xl text-strong lg:text-4xl">{media.title}</h2>
+            </div>
+            {photos.length > 3 && (
+              <button type="button" onClick={() => show(0)} className="link-arrow">
+                {media.seeAll}
+                <Icon name="arrowRight" className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+          <ul className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {photos.slice(0, 3).map((photo, i) => (
+              <li key={photo.id}>
+                <button
+                  type="button"
+                  onClick={() => show(i)}
+                  className="group block w-full cursor-zoom-in text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+                  aria-label={`${labels.open}: ${photo.alt || media.fallbackTitle}`}
+                >
+                  <MediaImage photo={photo} sizes="(min-width: 640px) 30vw, 100vw" className="aspect-[16/6]" position="center 30%" />
+                  <p className="mt-3 text-[0.6875rem] font-bold uppercase tracking-wider text-blue-500">{media.kind}</p>
+                  <p className="mt-0.5 font-semibold text-strong group-hover:text-blue-500">{photo.alt || media.fallbackTitle}</p>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+      <ul className={`grid ${gridClassName}`}>
         {photos.map((photo, i) => (
           <li key={photo.id} className="reveal">
             <button
               type="button"
               onClick={() => show(i)}
-              className="group block w-full cursor-zoom-in overflow-hidden rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              className="group block w-full cursor-zoom-in overflow-hidden rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               aria-label={`${labels.open}: ${photo.alt}`}
             >
               <MediaImage
@@ -65,6 +106,7 @@ export function PhotoGallery({
           </li>
         ))}
       </ul>
+      )}
 
       <dialog
         ref={dialog}

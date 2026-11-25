@@ -1,43 +1,45 @@
 @import "tailwindcss";
 
+/* Palette sampled from the client's Web Proposal mockups (docs/Klubi_Sportiv_TIRANA_Web_Proposal.pdf). */
 :root {
-  --color-navy-950: #060e1f;
-  --color-navy-900: #0a1730;
-  --color-navy-800: #0f2049;
-  --color-navy-700: #152c62;
-  --color-blue-600: #1549c4;
-  --color-blue-500: #1d5ae6;
-  --color-blue-400: #3f7cff;
+  --color-navy-950: #011a3e; /* hero overlays */
+  --color-navy-900: #021f48; /* brand navy: top bar, wordmark, cards */
+  --color-navy-800: #062c5b;
+  --color-navy-700: #0a3a73;
+  --color-blue-600: #004eba; /* deep blue bands */
+  --color-blue-500: #0057d8; /* primary: buttons, active states */
+  --color-blue-400: #1f6fe5; /* "BARDHEBLU" accents, hover */
   --color-sky-300: #8fb4ff;
   --color-gold-500: #c89a3f;
   --color-gold-400: #dab766;
-  --color-ink: #0b1220;
+  --color-ink: #0d1b33;
   --color-paper: #ffffff;
-  --color-surface: #f4f6fb;
-  --color-surface-2: #eef1f9;
-  --color-line: #e1e6f0;
+  --color-surface: #eff1f7;
+  --color-surface-2: #e6eaf2;
+  --color-line: #dde3ee;
   --color-line-dark: #223154;
   /* Semantic tokens that flip in dark mode */
   --color-card: #ffffff;
-  --color-strong: #0a1730; /* headings/links on page background */
-  --color-header: rgba(255, 255, 255, 0.86);
-  --shadow-card: 0 16px 32px -20px rgba(10, 23, 48, 0.35);
+  --color-strong: #021f48; /* headings/links on page background */
+  --color-header: #ffffff;
+  --shadow-card: 0 16px 32px -20px rgba(2, 31, 72, 0.35);
   color-scheme: light;
 
-  --font-display: var(--font-oswald);
+  --font-display: var(--font-archivo);
   --font-body: var(--font-inter);
+  --font-script: var(--font-caveat);
 }
 
 /* Dark theme. Set on <html> before first paint by the inline script in app/[lang]/layout.tsx. */
 :root[data-theme="dark"] {
   --color-ink: #e6ecf7;
-  --color-paper: #0a1324;
-  --color-surface: #0e1930;
-  --color-surface-2: #14213d;
-  --color-line: #22314f;
-  --color-card: #111d36;
-  --color-strong: #d4e0ff;
-  --color-header: rgba(10, 19, 36, 0.82);
+  --color-paper: #07142b;
+  --color-surface: #0c1d3a;
+  --color-surface-2: #112549;
+  --color-line: #1f3459;
+  --color-card: #0e2142;
+  --color-strong: #d9e5ff;
+  --color-header: #07142b;
   --shadow-card: 0 18px 36px -18px rgba(0, 0, 0, 0.7);
   color-scheme: dark;
 }
@@ -79,9 +81,76 @@ body {
   font-family: var(--font-display);
 }
 
+/* Big uppercase headings as in the mockups ("NE JEMI TIRANA", "DISIPLINAT"). */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+}
+
+/* Condensed variant for card titles ("BASKETBOLL", "LEGJENDAT"). */
+.condensed {
+  font-stretch: 78%;
+}
+
+/* Handwritten accents ("Sot më mirë se dje", "Më shumë se sport"). */
+.script {
+  font-family: var(--font-script);
+  font-weight: 600;
+  line-height: 0.95;
+}
+
+/* Small letter-spaced labels above headings ("MË SHUMË SE NJË KLUB"). */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+/* Section titles in content rows ("LAJMET E FUNDIT", "SPORTET TANË"). */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-strong);
+}
+
+/* "TË GJITHA LAJMET →" style links. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-blue-500);
+}
+
+.link-arrow svg {
+  transition: transform 0.2s ease;
+}
+
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+
+/* Short blue rule above headings (profile, history cards). */
+.rule {
+  display: block;
+  width: 2.25rem;
+  height: 3px;
+  background: var(--color-blue-500);
+}
+
 .wrap {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1360px;
   margin-inline: auto;
   padding-inline: 1.5rem;
 }
@@ -106,12 +175,13 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  border-radius: 0.6rem;
-  padding: 0.75rem 1.4rem;
-  font-weight: 600;
-  font-size: 0.9375rem;
-  letter-spacing: 0.01em;
+  gap: 0.6rem;
+  border-radius: 0.25rem;
+  padding: 0.85rem 1.4rem;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   transition:
     transform 0.15s ease,
     background-color 0.15s ease,
@@ -132,8 +202,46 @@ body {
 }
 
 .btn-primary:hover {
-  background: var(--color-blue-400);
+  background: var(--color-blue-600);
   transform: translateY(-1px);
+}
+
+.btn-white {
+  background: #fff;
+  color: var(--color-blue-500);
+}
+
+.btn-white:hover {
+  background: #eaf1ff;
+  transform: translateY(-1px);
+}
+
+/* Filter chips (Calendar, Media) and tabs (Disciplines). */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 0.25rem;
+  background: var(--color-surface);
+  padding: 0.55rem 0.95rem;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-strong);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.chip:hover {
+  background: var(--color-surface-2);
+}
+
+.chip[aria-pressed="true"],
+.chip[aria-current="page"],
+.chip[aria-current="true"] {
+  background: var(--color-blue-500);
+  color: #fff;
 }
 
 .btn-ghost {
@@ -148,9 +256,9 @@ body {
 }
 
 .btn-ghost-light {
-  background: rgba(255, 255, 255, 0.06);
+  background: transparent;
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.85);
 }
 
 .btn-ghost-light:hover {
@@ -194,7 +302,7 @@ body {
 
 .field {
   width: 100%;
-  border-radius: 0.6rem;
+  border-radius: 0.25rem;
   border: 1px solid var(--color-line);
   background: var(--color-card);
   padding: 0.65rem 0.85rem;
@@ -260,6 +368,21 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Archive look for history photos: black and white, toned blue by an overlay. */
+.archive img {
+  filter: grayscale(1) contrast(1.08) brightness(0.92);
+}
+
+/* Hero slides cross-fade; only the active one is visible and clickable. */
+.hero-slide {
+  transition: opacity 0.9s ease;
+}
+
+.hero-slide[data-active="false"] {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ============================================================== motion

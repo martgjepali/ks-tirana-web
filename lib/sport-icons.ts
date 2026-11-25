@@ -1,17 +1,12 @@
 import type { IconName } from "@/components/Icons";
+import { groupOf } from "./sport-groups";
 
-/** Icon per discipline slug; anything unknown gets the club shield. */
+/** Icons that differ from the discipline's group icon. */
 const ICONS: Record<string, IconName> = {
-  "basketboll-meshkuj": "hoop",
-  "basketboll-femra": "hoop",
-  "volejboll-meshkuj": "volley",
-  "volejboll-femra": "volley",
-  atletike: "track",
-  "mundje-e-lire": "wrestling",
-  "mundje-greko-romake": "wrestling",
   boks: "boxing",
-  not: "swim",
-  ciklizem: "bike",
+  karate: "boxing",
+  taekwondo: "boxing",
+  pingpong: "table",
 };
 
-export const sportIcon = (slug: string): IconName => ICONS[slug] ?? "shield";
+export const sportIcon = (slug: string): IconName => ICONS[slug] ?? groupOf(slug).icon;

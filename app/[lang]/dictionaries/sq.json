@@ -3,156 +3,139 @@
     "title": "Klubi Sportiv Tirana",
     "description": "Faqja zyrtare e Klubit Sportiv Tirana — lajme, disiplinat sportive, Akademia, kalendari dhe rezultatet."
   },
+  "header": {
+    "tagline": ["Sport", "Edukim", "Komunitet", "Një Tiranë më të fortë"],
+    "motto": "Së bashku më lart",
+    "search": "Kërko",
+    "menu": "Menu",
+    "theme": "Ndrysho temën (e çelët / e errët)"
+  },
   "nav": {
-    "sports": "Disiplinat",
+    "home": "Kryefaqja",
+    "sports": "Sportet",
     "academy": "Akademia",
     "calendar": "Kalendari",
-    "news": "Lajme",
+    "media": "Media",
     "club": "Klubi",
-    "shop": "Shop",
+    "history": "Historia",
+    "management": "Drejtimi & Organizimi",
+    "partner": "Bëhu partner",
     "contact": "Kontakt",
-    "apply": "Apliko në Akademi"
+    "shop": "Shop"
   },
   "footer": {
-    "tagline": "Themeluar 1920. Bardhe e blu, në çdo disiplinë.",
-    "nav": "Navigimi",
-    "club": "Klubi",
-    "contactTitle": "Kontakt",
-    "address": "Komplekset Sportive, Tiranë",
-    "follow": "Na ndiqni",
-    "rights": "Të gjitha të drejtat e rezervuara."
+    "tagline": ["Sport", "Edukim", "Komunitet"],
+    "rights": "Të gjitha të drejtat e rezervuara.",
+    "partners": "Partnerët tanë"
   },
   "home": {
     "hero": {
-      "eyebrow": "Klubi Sportiv Tirana · Themeluar 1920",
-      "title": "Bardhe e blu, në çdo fushë.",
-      "subtitle": "Lajmet, rezultatet dhe arritjet e sportistëve të KS Tiranës, në një vend të vetëm — i qartë për tifozët, prindërit dhe partnerët.",
-      "ctaPrimary": "Apliko në Akademi",
-      "ctaSecondary": "Shiko disiplinat",
-      "stats": [
-        {
-          "value": "16",
-          "label": "disiplina sportive"
-        },
-        {
-          "value": "40+",
-          "label": "trofe kombëtare"
-        },
-        {
-          "value": "1920",
-          "label": "viti i themelimit"
-        }
-      ]
-    },
-    "why": {
-      "eyebrow": "Pse një faqe e re",
-      "title": "Një faqe që shërben klubin, jo e kundërta",
-      "items": [
-        {
-          "title": "Pasqyrimi i aktivitetit aktual",
-          "body": "Lajme, rezultate dhe aktivitete të ardhshme, të përditësuara rregullisht për çdo disiplinë."
-        },
-        {
-          "title": "Informacion i saktë dhe i besueshëm",
-          "body": "Ekipet, trajnerët, drejtimi, oraret dhe kontaktet — të verifikuara dhe gjithmonë aktuale."
-        },
-        {
-          "title": "Orientim i lehtë për çdo vizitor",
-          "body": "Një prind gjen Akademinë në dy klikime, një tifoz ndjek kalendarin, një partner gjen kontaktin e duhur."
-        },
-        {
-          "title": "Mbështetje për zhvillimin e klubit",
-          "body": "Imazh institucional i fortë, promovim i sportistëve dhe mundësi të qarta sponsorizimi."
-        }
-      ]
-    },
-    "sports": {
-      "eyebrow": "Disiplinat sportive",
-      "title": "{n} disiplina, një fanellë",
-      "body": "Nga fusha te pallati sportiv, çdo ekip i KS Tiranës përfaqëson të njëjtën trashëgimi.",
-      "cta": "Shiko të gjitha disiplinat"
-    },
-    "academy": {
-      "eyebrow": "Akademia",
-      "title": "Fillimi i çdo kampioni",
-      "body": "Programe sipas grupmoshës, trajnerë të licensuar dhe një formular aplikimi që plotësohet në më pak se dy minuta.",
-      "points": [
-        "Disiplina dhe grupmosha nga 6 deri 18 vjeç",
-        "Trajnerë dhe staf mjekësor i çertifikuar",
-        "Ambiente, orare dhe tarifa të qarta"
-      ],
-      "cta": "Apliko tani"
-    },
-    "calendar": {
-      "eyebrow": "Kalendari & Rezultatet",
-      "title": "Çdo ndeshje, çdo rezultat",
-      "body": "Filtro sipas sportit dhe muajit — dhe shto ndeshjen e radhës direkt në kalendarin tënd.",
-      "cta": "Shiko kalendarin e plotë",
-      "noFixture": "Ndeshja e radhës do të njoftohet së shpejti.",
-      "nextLabel": "Ndeshja e radhës"
+      "eyebrow": "Më shumë se një klub",
+      "title": ["Ne jemi", "Tirana"],
+      "subtitle": "Sport, karakter dhe komunitet. Së bashku ndërtojmë një Tiranë më të fortë.",
+      "cta": "Zbulo më shumë",
+      "readNews": "Lexo lajmin",
+      "slide": "Slajdi {n}"
     },
     "news": {
-      "eyebrow": "Lajme & Media",
-      "title": "Çfarë ndodhi javën e fundit",
-      "cta": "Të gjitha lajmet",
+      "title": "Lajmet e fundit",
+      "all": "Të gjitha lajmet",
       "empty": "Lajmet e para do të publikohen së shpejti."
     },
-    "club": {
-      "eyebrow": "Historia & identiteti",
-      "title": "Një trashëgimi prej 1920",
-      "body": "Misioni, vlerat, legjendat bardhe e blu dhe trofetë që kanë ndërtuar emrin e klubit.",
-      "cta": "Njihuni me klubin"
+    "next": {
+      "title": "Ndeshja e radhës",
+      "calendar": "Kalendari",
+      "vs": "VS",
+      "empty": "Ndeshja e radhës do të njoftohet së shpejti.",
+      "lastResult": "Rezultati i fundit"
+    },
+    "sports": {
+      "title": "Sportet tanë",
+      "all": "Zbulo të gjitha sportet"
+    },
+    "academy": {
+      "eyebrow": "Akademia KS Tirana",
+      "title": ["Talente sot,", "kampionë nesër"],
+      "body": "Një program i strukturuar për gjeneratën e re.",
+      "cta": "Më shumë rreth akademisë"
     },
     "shop": {
-      "eyebrow": "Shop zyrtar",
-      "title": "Vishu bardhe e blu",
-      "body": "Fanella, veshje dhe aksesorë zyrtarë — porosi online, dorëzim në të gjithë vendin.",
-      "cta": "Vizito shop-in"
+      "eyebrow": "KS Tirana Shop",
+      "title": ["Vesh ngjyrat", "e tua"],
+      "body": "Për tifozët, për sportistët, për Tiranën.",
+      "cta": "Zbulo produktet"
+    },
+    "history": {
+      "eyebrow": "Historia bardheblu",
+      "title": "Breza që mbajnë të njëjtat ngjyra",
+      "body": "Që nga viti 1920, KS Tirana është më shumë se një klub – është pjesë e identitetit të qytetit.",
+      "cta": "Zbulo historinë"
     },
     "partners": {
-      "eyebrow": "Partneritetet",
-      "title": "Bëhu partner i klubit",
-      "body": "Mbështet disiplinat, Akademinë ose një aktivitet specifik — dhe fito dukshmëri institucionale.",
-      "cta": "Shiko mundësitë"
+      "eyebrow": "Partnerët",
+      "title": "Së bashku më lart",
+      "body": "Mbështet disiplinat, Akademinë dhe aktivitetet e KS Tiranës.",
+      "cta": "Bëhu partner"
     }
   },
   "sports": {
-    "eyebrow": "KS Tirana",
-    "title": "Disiplinat Sportive",
-    "subtitle": "Ekipet, trajnerët dhe sportistët e KS Tiranës, sport pas sporti.",
+    "hero": {
+      "eyebrow": ["Disiplinë", "Punë", "Rezultate"],
+      "title": "Disiplinat",
+      "subtitle": "Një klub, shumë sporte, e njëjta frymë. KS Tirana zhvillon talente, ndërton karakter dhe përfaqëson Tiranën me krenari."
+    },
+    "filters": {
+      "all": "Të gjitha",
+      "team": "Sportet me ekip",
+      "individual": "Sportet individuale",
+      "gender": "Gjinia",
+      "genderAll": "Të gjitha",
+      "men": "Meshkuj",
+      "women": "Femra",
+      "season": "Sezoni",
+      "empty": "Asnjë disiplinë për këtë përzgjedhje."
+    },
+    "card": {
+      "team": "Ekipi",
+      "calendar": "Kalendari"
+    },
+    "academy": {
+      "eyebrow": "Akademia KS Tirana",
+      "title": ["Talentet e sotme", "kampionët e nesërme"],
+      "body": "Zhvillojmë talentet e reja të klubit në çdo disiplinë dhe grupmoshë.",
+      "cta": "Më shumë rreth akademisë"
+    },
+    "stats": {
+      "sports": "Sportet kryesore",
+      "athletes": "Sportistë",
+      "events": "Gara në vit",
+      "medals": "Medalje"
+    },
+    "detail": {
+      "allSports": "Të gjitha disiplinat",
+      "about": "Ekipet dhe kategoritë",
+      "noDescription": "Përshkrimi i kësaj discipline do të shtohet së shpejti.",
+      "ageGroups": "Kategoritë",
+      "schedule": "Orari i stërvitjeve",
+      "venue": "Ambienti",
+      "staff": "Stafi",
+      "athletes": "Sportistët",
+      "emptyRoster": "Lista e sportistëve do të publikohet së shpejti.",
+      "fixtures": "Kalendari dhe rezultatet",
+      "noFixtures": "Nuk ka ndeshje të planifikuara për momentin.",
+      "news": "Lajmet",
+      "gallery": "Galeria",
+      "emptyGallery": "Fotot do të shtohen së shpejti.",
+      "showMore": "Shfaq më shumë foto",
+      "showing": "{shown} nga {total} foto",
+      "history": "Historia dhe trofetë"
+    },
     "members": "Sportistë & staf",
     "photos": "Foto",
-    "viewTeam": "Shiko ekipin",
-    "allSports": "Të gjitha disiplinat",
-    "about": "Rreth ekipit",
-    "noDescription": "Përshkrimi i kësaj discipline do të shtohet së shpejti.",
-    "ageGroups": "Kategoritë",
-    "schedule": "Orari i stërvitjeve",
-    "venue": "Ambienti",
-    "achievements": "Arritjet",
-    "coaches": "Stafi teknik",
-    "athletes": "Sportistët",
     "headCoach": "Trajner",
     "assistantCoach": "Zëvendëstrajner",
     "athlete": "Sportist",
     "captain": "Kapiten/e",
-    "emptyRoster": "Lista e sportistëve do të publikohet së shpejti.",
-    "gallery": "Galeria",
-    "emptyGallery": "Fotot do të shtohen së shpejti.",
-    "showMore": "Shfaq më shumë foto",
-    "showing": "{shown} nga {total} foto",
-    "profile": {
-      "number": "Numri",
-      "position": "Pozicioni",
-      "born": "Viti i lindjes",
-      "nationality": "Kombësia",
-      "bio": "Biografia",
-      "noBio": "Biografia do të shtohet së shpejti.",
-      "achievements": "Arritjet",
-      "photos": "Fotot",
-      "teammates": "Shokët e ekipit",
-      "back": "Kthehu te"
-    },
     "lightbox": {
       "open": "Hap foton",
       "close": "Mbyll",
@@ -161,15 +144,56 @@
       "counter": "{n} / {total}"
     }
   },
+  "profile": {
+    "title": "Profili i sportistit",
+    "coachTitle": "Profili i trajnerit",
+    "bio": "Biografia",
+    "noBio": "Biografia do të shtohet së shpejti.",
+    "achievements": "Arritjet",
+    "discipline": "Disciplina",
+    "born": "Datëlindja",
+    "birthplace": "Vendlindja",
+    "club": "Klubi",
+    "number": "Numri",
+    "media": "Media më të fundit",
+    "seeAll": "Shiko të gjitha",
+    "photo": "Foto",
+    "photoTitle": "Nga përditshmëria e klubit",
+    "noMedia": "Fotot dhe videot do të shtohen së shpejti."
+  },
   "academy": {
-    "title": "Akademia",
-    "subtitle": "Programet, grupmoshat dhe hapi i parë drejt fanellës bardhe e blu.",
-    "programsTitle": "Programet",
-    "programsBody": "Disiplinat, grupmoshat dhe kushtet e pranimit, sipas sezonit aktual.",
-    "infoTitle": "Informacioni praktik",
-    "infoBody": "Trajnerët, oraret, ambientet dhe tarifat, kur aplikohen.",
-    "findTitle": "Gjej sportin tënd",
-    "findBody": "Përzgjedhje sipas moshës dhe disiplinës së preferuar.",
+    "hero": {
+      "eyebrow": ["KS Tirana", "Akademia"],
+      "title": ["Akademia", "KS Tirana"],
+      "subtitle": "Zhvillojmë talentet e reja të sportit, për çdo grupmoshë dhe disiplinë.",
+      "cta": "Apliko në Akademi",
+      "script": ["Sot", "më mirë", "se dje"]
+    },
+    "groups": {
+      "title": "Zgjidh grupmoshën tënde",
+      "subtitle": "Njihu me programet e Akademisë.",
+      "program": "Njihu me programin"
+    },
+    "coaches": {
+      "eyebrow": "Trajnerët tanë",
+      "title": ["Përvoja që", "ndërton kampionë"],
+      "body": "Trajnerë të kualifikuar, me përvojë ndërkombëtare dhe përkushtim për zhvillimin e çdo sportisti.",
+      "cta": "Njihuni me stafin",
+      "empty": "Stafi i trajnerëve do të prezantohet së shpejti."
+    },
+    "values": [
+      { "title": "Mjedis gjithëpërfshirës", "body": "Për çdo talent, pa dallim." },
+      { "title": "Zhvillim i plotë", "body": "Në sport, shkollë dhe jetë." },
+      { "title": "Vlera për të ardhmen", "body": "Disiplinë, respekt, ekip." }
+    ],
+    "programs": {
+      "title": "Informacioni praktik",
+      "body": "Trajnerët, oraret, ambientet dhe tarifat, kur aplikohen.",
+      "ages": "{min}–{max} vjeç",
+      "agesFrom": "nga {min} vjeç",
+      "coach": "Trajner",
+      "fee": "Tarifa"
+    },
     "formTitle": "Apliko në Akademi",
     "formBody": "Plotëso formularin dhe stafi i Akademisë do t'ju kontaktojë brenda 2 ditëve pune.",
     "form": {
@@ -188,89 +212,28 @@
       "notesPlaceholder": "Përvojë e mëparshme, shqetësime shëndetësore, etj.",
       "submit": "Dërgo aplikimin",
       "submitting": "Duke dërguar…",
-      "success": "Faleminderit! Aplikimi u regjistrua — stafi i Akademisë do t'ju kontaktojë së shpejti.",
-      "required": "Ky fushë është e detyrueshme."
-    },
-    "emptyPrograms": "Programet e sezonit do të publikohen së shpejti. Plotësoni formularin dhe ju kontaktojmë.",
-    "ages": "{min}–{max} vjeç",
-    "agesFrom": "nga {min} vjeç",
-    "coach": "Trajner",
-    "fee": "Tarifa"
-  },
-  "club": {
-    "title": "Klubi",
-    "subtitle": "Trashëgimia sportive, drejtimi dhe vlerat që mbajnë gjallë fanellën bardhe e blu.",
-    "historyTitle": "Historia",
-    "historyBody": "Themeluar në 1920, KS Tirana është një nga emrat më të vjetër dhe më të dekoruar të sportit shqiptar — me breza sportistësh që kanë mbajtur lart ngjyrat bardhe e blu në futboll, basketboll, volejboll e më gjerë.",
-    "missionTitle": "Misioni dhe vlerat",
-    "mission": [
-      {
-        "title": "Përsosmëri sportive",
-        "body": "Zhvillim i vazhdueshëm i sportistëve, nga Akademia te ekipi i parë."
-      },
-      {
-        "title": "Edukim dhe karakter",
-        "body": "Sporti si shkollë disipline, respekti dhe pune në ekip."
-      },
-      {
-        "title": "Komunitet",
-        "body": "Një klub i hapur për familjet, tifozët dhe qytetin."
-      }
-    ],
-    "orgTitle": "Drejtimi dhe organigrama",
-    "orgBody": "Struktura e drejtimit sportiv dhe administrativ, e përditësuar sipas miratimeve të fundit.",
-    "org": [
-      {
-        "role": "Kryetar i Klubit",
-        "name": "Kryesia e KS Tiranës"
-      },
-      {
-        "role": "Drejtor Sportiv",
-        "name": "Drejtimi Sportiv"
-      },
-      {
-        "role": "Drejtor i Akademisë",
-        "name": "Drejtimi i Akademisë"
-      },
-      {
-        "role": "Drejtor Administrativ",
-        "name": "Administrata"
-      }
-    ],
-    "trophiesTitle": "KS Tirana në shifra",
-    "trophies": [
-      {
-        "value": "40+",
-        "label": "trofe kombëtare"
-      },
-      {
-        "value": "1920",
-        "label": "viti i themelimit"
-      },
-      {
-        "value": "16",
-        "label": "disiplina aktive"
-      },
-      {
-        "value": "500+",
-        "label": "sportistë në Akademi"
-      }
-    ],
-    "legendsTitle": "Bardhe e blu, sot",
-    "legendsBody": "Momente nga ekipet e KS Tiranës në sezonin aktual.",
-    "quote": "Breza që mbajnë të njëjtat ngjyra."
+      "success": "Faleminderit! Aplikimi u regjistrua — stafi i Akademisë do t'ju kontaktojë së shpejti."
+    }
   },
   "calendar": {
-    "title": "Kalendari & Rezultatet",
-    "subtitle": "Ndeshjet e ardhshme dhe rezultatet e fundit, sipas disiplinës.",
-    "filterSport": "Sporti",
-    "filterMonth": "Muaji",
+    "hero": {
+      "eyebrow": ["Gara", "Ekip", "Pasion"],
+      "title": ["Kalendari &", "Rezultatet"],
+      "subtitle": "Të gjitha ndeshjet, rezultatet dhe aktivitetet e KS Tirana në çdo sport, në një vend të vetëm.",
+      "script": ["Më shumë", "se sport"]
+    },
     "all": "Të gjitha",
-    "upcoming": "Ndeshjet e ardhshme",
-    "resultsTitle": "Rezultatet e fundit",
+    "others": "Sportet e tjera",
+    "filterSport": "Sporti",
+    "month": "Muaji",
+    "prevMonth": "Muaji i mëparshëm",
+    "nextMonth": "Muaji tjetër",
+    "sidebar": "Kalendari",
+    "weekdays": ["H", "M", "M", "E", "P", "S", "D"],
     "addToCalendar": "Shto në kalendar",
-    "emptyUpcoming": "Nuk ka ndeshje të planifikuara për momentin.",
-    "emptyResults": "Rezultatet do të shfaqen këtu pas ndeshjeve të para.",
+    "addAll": "Shto të gjitha ndeshjet në kalendar",
+    "empty": "Nuk ka ndeshje ose aktivitete në këtë muaj.",
+    "competition": "Kampionati",
     "status": {
       "live": "Live",
       "postponed": "Shtyrë",
@@ -278,36 +241,198 @@
     },
     "won": "Fitore",
     "lost": "Humbje",
-    "draw": "Barazim"
+    "draw": "Barazim",
+    "more": {
+      "title": "Më shumë nga KS Tirana",
+      "all": "Shiko të gjitha",
+      "cards": ["Programi i javës", "Ndeshjet e radhës", "Kalendari i sezonit", "Aktivitetet dhe gara"]
+    }
   },
   "news": {
     "title": "Lajme & Media",
-    "subtitle": "Njoftimet, projektet dhe momentet e fundit nga klubi.",
+    "subtitle": "Të fundit nga sportet, akademia dhe jeta e klubit",
+    "filters": {
+      "all": "Të gjitha",
+      "sports": "Sportet",
+      "academy": "Akademia",
+      "interviews": "Intervista"
+    },
+    "categories": {
+      "lajm": "Lajme",
+      "akademia": "Akademia",
+      "intervista": "Intervista",
+      "klubi": "Klubi",
+      "komuniteti": "Komuniteti"
+    },
+    "photos": {
+      "title": "Foto të fundit",
+      "body": "Momente, ndeshje dhe prapaskena nga jeta e klubit."
+    },
+    "mediaCenter": {
+      "title": "Qendra për median",
+      "body": "Foto, video, njoftime për shtyp dhe materiale zyrtare për median.",
+      "cta": "Shko në qendrën"
+    },
+    "latest": "Të fundit",
+    "all": "Shiko të gjitha lajmet",
     "readMore": "Lexo më shumë",
     "empty": "Lajmet e para do të publikohen së shpejti.",
     "back": "Të gjitha lajmet",
-    "latest": "Lajme të tjera"
+    "more": "Lajme të tjera"
+  },
+  "history": {
+    "hero": {
+      "eyebrow": "Klubi",
+      "title": ["Historia", "Bardheblu"],
+      "body": "Një histori që tejkalon sportin. KS Tirana është më shumë se një klub – është një pjesë e identitetit të qytetit, e ndërtuar nga breza sportistësh, tifozësh dhe njerëzish që besojnë në vlerat bardheblu."
+    },
+    "timeline": [
+      { "label": "Fillet", "body": "1920 — Themelohet Klubi Sportiv Tirana, në zemër të kryeqytetit." },
+      { "label": "Ngritja", "body": "Klubi rritet me disiplina të reja dhe breza të rinj sportistësh." },
+      { "label": "Sfidat", "body": "Periudha të vështira që provuan qëndrueshmërinë e klubit dhe të tifozëve të tij." },
+      { "label": "Sukseset", "body": "Tituj dhe fitore që e bënë bardheblunë një nga emrat më të njohur të sportit shqiptar." },
+      { "label": "Brezat", "body": "Nga një brez te tjetri, ngjyrat bardheblu mbahen gjallë nga sportistët dhe tifozët." },
+      { "label": "Sot", "body": "16 disiplina sportive dhe një Akademi që përgatit kampionët e nesërm." }
+    ],
+    "prev": "Periudha e mëparshme",
+    "next": "Periudha tjetër",
+    "cards": [
+      { "title": "Legjendat", "body": "Sportistët që kanë lënë gjurmë të paharrueshme në historinë e klubit." },
+      { "title": "Trofetë", "body": "Simbolet e një rruge të ndërtuar me punë, përkushtim dhe pasion." },
+      { "title": "Rekordet", "body": "Momente dhe arritje që kanë shënuar historinë bardheblu ndër vite." }
+    ],
+    "quote": {
+      "eyebrow": "Më shumë se një histori",
+      "text": ["Breza që mbajnë", "të njëjtat ngjyra."],
+      "body": "Nga fusha sportive te komuniteti, historia jonë është historia e njerëzve që nuk ndaluan kurrë së besuari. KS Tirana vazhdon të frymëzojë dhe të bashkojë breza, sot dhe gjithmonë."
+    },
+    "mission": {
+      "title": "Misioni dhe vlerat",
+      "items": [
+        { "title": "Përsosmëri sportive", "body": "Zhvillim i vazhdueshëm i sportistëve, nga Akademia te ekipi i parë." },
+        { "title": "Edukim dhe karakter", "body": "Sporti si shkollë disipline, respekti dhe pune në ekip." },
+        { "title": "Komunitet", "body": "Një klub i hapur për familjet, tifozët dhe qytetin." }
+      ]
+    },
+    "numbers": {
+      "title": "KS Tirana në shifra",
+      "founded": "Viti i themelimit",
+      "disciplines": "Disiplina sportive",
+      "people": "Sportistë dhe trajnerë",
+      "photos": "Fotografi në arkiv"
+    }
+  },
+  "org": {
+    "hero": {
+      "eyebrow": "Klubi",
+      "title": ["Drejtimi &", "Organizimi"],
+      "body": "Një strukturë që mbështet zhvillimin e sporteve, kontribuon në rritjen e talenteve dhe forcon komunitetin."
+    },
+    "label": "Strukturë ilustruese",
+    "note": "Kjo paraqitje është një strukturë ilustruese e përgjithshme dhe nuk përfaqëson domosdoshmërisht strukturën aktuale të klubit.",
+    "download": "Shkarko PDF",
+    "unit": "Njësia {n}",
+    "responsibilities": "Përgjegjësitë kryesore",
+    "close": "Mbyll",
+    "root": {
+      "name": "Drejtimi",
+      "body": "Drejton klubin, miraton strategjinë dhe koordinon punën e të gjitha njësive.",
+      "items": ["Strategjia dhe objektivat e klubit", "Miratimi i buxhetit dhe i strukturës", "Përfaqësimi institucional", "Mbikëqyrja e njësive"]
+    },
+    "units": [
+      {
+        "name": "Zhvillimi sportiv",
+        "body": "Përgjegjëse për koordinimin dhe mbështetjen e zhvillimit të aktiviteteve sportive, në bashkëpunim me njësitë e tjera të klubit.",
+        "items": ["Mbështetja e programeve sportive", "Koordinimi me stafet dhe njësitë përkatëse", "Nxitja e zhvillimit të talenteve", "Ndjekja dhe vlerësimi i progresit"]
+      },
+      {
+        "name": "Akademia",
+        "body": "Organizon programet për të rinjtë, grupmoshat dhe pranimet në Akademi.",
+        "items": ["Programet sipas grupmoshave", "Pranimet dhe komunikimi me prindërit", "Koordinimi i trajnerëve të Akademisë", "Zhvillimi i plotë i sportistëve të rinj"]
+      },
+      {
+        "name": "Administrata & Komunikimi",
+        "body": "Mbështet funksionimin e përditshëm të klubit, dokumentet, median dhe partneritetet.",
+        "items": ["Dokumentet dhe transparenca", "Komunikimi me median dhe publikun", "Partneritetet dhe sponsorizimet", "Ambientet dhe logjistika"]
+      }
+    ],
+    "governance": {
+      "eyebrow": "Qeverisje e mirë",
+      "title": ["Transparencë,", "përgjegjësi, zhvillim"],
+      "body": "KS Tirana synon të ndërtojë një kulturë të qëndrueshme drejtimi, me standarde të larta qeverisjeje, në shërbim të sportistëve, komunitetit dhe së ardhmes.",
+      "cta": "Më shumë rreth klubit"
+    }
   },
   "shop": {
-    "title": "Shop Zyrtar",
-    "subtitle": "Fanella, veshje dhe aksesorë zyrtarë të KS Tiranës.",
-    "note": "Pagesa online vjen në një fazë të mëvonshme — për momentin, porositë konfirmohen me kontakt direkt.",
-    "cta": "Kërko informacion",
-    "partnerTitle": "Bëhu partner",
-    "partnerBody": "Mbështet një disiplinë, Akademinë ose një aktivitet specifik të klubit.",
-    "partnerItems": [
-      "Mbështetje për disiplinat",
-      "Mbështetje për Akademinë",
-      "Sponsorizim aktivitetesh",
-      "Hapësira ekspozimi dhe prani institucionale"
-    ],
+    "hero": {
+      "title": ["Vishu", "Bardheblu"],
+      "tagline": "Më shumë se një ngjyrë",
+      "cta": "Zbulo koleksionin",
+      "side": ["Sport", "Komunitet", "Krenari", "Tiranë"]
+    },
+    "tabs": {
+      "fanella": "Fanella",
+      "stervitje": "Stërvitje",
+      "aksesore": "Aksesorë"
+    },
+    "view": "Shiko produktin",
     "empty": "Produktet zyrtare do të shtohen së shpejti.",
-    "priceOnRequest": "Çmimi në klub",
-    "outOfStock": "Jashtë stoku",
-    "sizes": "Masat"
+    "collection": {
+      "eyebrow": "Koleksioni zyrtar",
+      "title": ["Për tifozët", "në çdo moment"],
+      "tagline": "Në stadium, në qytet, kudo që je.",
+      "cta": "Shiko të gjitha produktet"
+    },
+    "product": {
+      "back": "Kthehu te Shop",
+      "priceOnRequest": "Çmimi në klub",
+      "sizes": "Masat",
+      "inStock": "Në stok",
+      "outOfStock": "Jashtë stoku",
+      "order": "Porosit",
+      "orderNote": "Porositë konfirmohen me kontakt direkt me klubin. Pagesa online vjen në një fazë të mëvonshme."
+    }
+  },
+  "partner": {
+    "hero": {
+      "eyebrow": "Partneritet",
+      "title": ["Bëhu", "Partner"],
+      "body": "Së bashku ndërtojmë më shumë mundësi për sport, të rinj dhe një komunitet më të fortë.",
+      "mediaKit": "Shkarko Media Kit",
+      "requestKit": "Kërko Media Kit",
+      "contact": "Na kontakto"
+    },
+    "platform": {
+      "eyebrow": "Mundësi bashkëpunimi",
+      "title": ["Platforma për", "rritje të përbashkët"],
+      "body": "Partneritetet tona mbështesin zhvillimin e sportistëve, programeve të akademisë dhe aktiviteteve që frymëzojnë komunitetin e Tiranës.",
+      "cards": [
+        { "title": "Disiplinat", "body": "Ekspozim në të gjitha disiplinat e klubit përmes kanaleve tona dhe në aktivitetet zyrtare." },
+        { "title": "Akademia", "body": "Mbështetja e programeve për të rinjtë dhe zhvillimi i talenteve të së ardhmes." },
+        { "title": "Aktivitetet", "body": "Prani në evente, turne dhe iniciativa komunitare gjatë gjithë vitit." }
+      ]
+    },
+    "kit": {
+      "eyebrow": "Media Kit",
+      "title": "Shkarko materialin prezantues",
+      "body": "Një përmbledhje e mundësive të partneritetit dhe platformave tona."
+    },
+    "partners": "Partnerët tanë"
+  },
+  "search": {
+    "title": "Kërkim",
+    "subtitle": "Gjej shpejt sportistë, ekipe dhe lajme.",
+    "placeholder": "Kërko sportistë, ekipe ose lajme…",
+    "submit": "Kërko",
+    "hint": "Shkruaj të paktën 2 shkronja.",
+    "none": "Asnjë rezultat për “{q}”.",
+    "athletes": "Sportistët",
+    "teams": "Ekipet",
+    "news": "Lajmet"
   },
   "contact": {
-    "title": "Kontakt",
+    "eyebrow": "Kontakt",
+    "title": "Na kontaktoni",
     "subtitle": "Pyetje për Akademinë, median, partneritetin apo shop-in? Na shkruani.",
     "formTitle": "Na dërgo një mesazh",
     "form": {
@@ -323,6 +448,11 @@
       "submitting": "Duke dërguar…",
       "success": "Faleminderit! Mesazhi juaj u dërgua — do t'ju përgjigjemi së shpejti."
     },
+    "subjects": {
+      "partner": "Partneritet / Media Kit",
+      "media": "Media",
+      "shop": "Porosi në Shop"
+    },
     "infoTitle": "Informacion kontakti",
     "address": "Komplekset Sportive, Tiranë",
     "email": "info@kstirana.example",
@@ -330,10 +460,5 @@
     "pressEmail": "media@kstirana.example",
     "hoursTitle": "Orari i sekretarisë",
     "hours": "E Hënë – E Premte, 09:00 – 17:00"
-  },
-  "common": {
-    "backHome": "Kthehu te kryefaqja",
-    "learnMore": "Mëso më shumë",
-    "theme": "Ndrysho temën (e çelët / e errët)"
   }
 }

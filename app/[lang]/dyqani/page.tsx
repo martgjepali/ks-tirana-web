@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getDictionary, hasLocale } from "../dictionaries";
 import { notFound } from "next/navigation";
-import { getHeroPhoto, getProducts, getShowcasePhotos } from "@/lib/data/site";
+import { getDictionary, hasLocale } from "../dictionaries";
+import { getHeroPhoto, getProducts, PRODUCT_CATEGORIES, type ProductCategory } from "@/lib/data/site";
 import { PhotoPageHero } from "@/components/PhotoPageHero";
 import { MediaImage } from "@/components/MediaImage";
-import { PhotoFrame } from "@/components/PhotoFrame";
 import { EmptyState } from "@/components/EmptyState";
 import { Icon } from "@/components/Icons";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
@@ -14,112 +13,98 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/dyqani">):
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang);
-  return { title: `${dict.shop.title} · KS Tirana`, description: dict.shop.subtitle };
+  return { title: `${dict.nav.shop} · KS Tirana`, description: dict.shop.hero.tagline };
 }
 
-export default async function ShopPage({ params }: PageProps<"/[lang]/dyqani">) {
+/** "SHOP" — client proposal, slide 10/16. */
+export default async function ShopPage({ params, searchParams }: PageProps<"/[lang]/dyqani">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, products, hero, [partnerPhoto]] = await Promise.all([
+  const requested = (await searchParams).kategoria;
+  const category = PRODUCT_CATEGORIES.find((c) => c === requested) as ProductCategory | undefined;
+  const [dict, products, hero, fansPhoto] = await Promise.all([
     getDictionary(lang),
-    getProducts(lang),
-    getHeroPhoto(lang, "basketboll-femra"),
-    getShowcasePhotos(lang, { discipline: "volejboll-meshkuj", orientation: "landscape" }),
+    getProducts(lang, category),
+    getHeroPhoto(lang, "volejboll-femra", 2),
+    getHeroPhoto(lang, "basketboll-femra", 2),
   ]);
   const s = dict.shop;
 
   return (
     <>
-      <PhotoPageHero
-        photo={hero}
-        eyebrow={dict.nav.shop}
-        title={s.title}
-        subtitle={s.subtitle}
-      />
+      <PhotoPageHero photo={hero} title={s.hero.title} accentLine={1} side={s.hero.side} size="md">
+        <p className="w-full text-sm font-semibold uppercase tracking-[0.35em] text-white/90 lg:text-base">{s.hero.tagline}</p>
+        <Link href="#koleksioni" className="btn btn-primary">
+          {s.hero.cta}
+          <Icon name="arrowRight" className="h-4 w-4" />
+        </Link>
+      </PhotoPageHero>
 
-      <section className="bg-paper py-14">
-        <div className="wrap reveal">
-          <p className="rounded-lg border border-gold-400/40 bg-gold-400/10 px-4 py-3 text-sm text-strong">
-            {s.note}
-          </p>
+      <section id="koleksioni" className="scroll-mt-28 bg-paper py-8 lg:py-10">
+        <div className="wrap">
+          <nav className="flex justify-center gap-8 sm:gap-14" aria-label={dict.nav.shop}>
+            {PRODUCT_CATEGORIES.map((c) => (
+              <Link
+                key={c}
+                href={category === c ? `/${lang}/dyqani#koleksioni` : `/${lang}/dyqani?kategoria=${c}#koleksioni`}
+                aria-current={category === c ? "true" : undefined}
+                className={`border-b-2 px-3 pb-2 text-lg font-semibold transition ${
+                  category === c ? "border-blue-500 text-blue-500" : "border-transparent text-strong hover:text-blue-500"
+                }`}
+              >
+                {s.tabs[c]}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="mt-8">
+            {products.length > 0 ? (
+              <StaggerGroup className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+                {products.map((p) => (
+                  <StaggerItem key={p.slug}>
+                    <Link href={`/${lang}/dyqani/${p.slug}`} className="group block">
+                      {p.photo ? (
+                        <MediaImage photo={p.photo} alt={p.name} sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 48vw" className="aspect-square bg-surface" />
+                      ) : (
+                        <div className="flex aspect-square items-center justify-center bg-surface">
+                          <Icon name="shirt" className="h-16 w-16 text-navy-700/25" />
+                        </div>
+                      )}
+                      <p className="mt-3 text-sm font-semibold leading-snug text-strong">{p.name}</p>
+                      {p.price && <p className="mt-0.5 text-sm text-ink/60">{p.price}</p>}
+                      <span className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-blue-500">
+                        {s.view}
+                        <Icon name="arrowRight" className="h-4 w-4 transition group-hover:translate-x-1" />
+                      </span>
+                    </Link>
+                  </StaggerItem>
+                ))}
+              </StaggerGroup>
+            ) : (
+              <EmptyState icon="shirt" text={s.empty} />
+            )}
+          </div>
         </div>
       </section>
 
-      <section className="bg-paper pb-20 lg:pb-24">
-        <div className="wrap reveal">
-          {products.length > 0 ? (
-            <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {products.map((item, i) => (
-                <StaggerItem key={item.slug}>
-                  <div className="card-hover h-full overflow-hidden rounded-xl border border-line bg-card">
-                    {item.photo ? (
-                      <MediaImage
-                        photo={item.photo}
-                        alt={item.name}
-                        sizes="(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
-                        className="aspect-square"
-                      />
-                    ) : (
-                      <PhotoFrame icon="shirt" variant={i % 2 === 0 ? "navy" : "blue"} label={item.name} className="aspect-square" />
-                    )}
-                    <div className="p-5">
-                      <h3 className="font-display text-base font-semibold text-ink">{item.name}</h3>
-                      <p className="mt-1 text-sm font-semibold text-strong">{item.price ?? s.priceOnRequest}</p>
-                      {item.description && <p className="mt-2 text-sm text-ink/60">{item.description}</p>}
-                      {item.sizes.length > 0 && (
-                        <p className="mt-2 text-xs text-ink/50">
-                          {s.sizes}: {item.sizes.join(" · ")}
-                        </p>
-                      )}
-                      {!item.inStock && (
-                        <span className="mt-3 inline-block rounded-full bg-surface-2 px-2.5 py-0.5 text-xs font-semibold text-ink/60">
-                          {s.outOfStock}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerGroup>
-          ) : (
-            <EmptyState icon="shirt" text={s.empty} />
-          )}
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-navy-950 py-20 text-white lg:py-24">
-        <div className="blob -left-20 top-10 h-[320px] w-[320px] bg-gold-500/15" />
-        <div className="wrap reveal relative grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <Icon name="handshake" className="h-8 w-8 text-gold-400" />
-            <h2 className="font-display mt-4 text-2xl font-semibold">
-              {s.partnerTitle}
-            </h2>
-            <p className="mt-3 text-white/60">{s.partnerBody}</p>
-            <ul className="mt-6 space-y-3">
-              {s.partnerItems.map((p) => (
-                <li key={p} className="flex items-start gap-3 text-sm text-white/75">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-400" />
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <Link href={`/${lang}/kontakt`} className="btn btn-primary mt-8">
-              {s.cta}
-              <Icon name="arrowRight" className="h-4 w-4" />
-            </Link>
-          </Reveal>
-          {partnerPhoto && (
-            <Reveal y={0}>
-              <MediaImage
-                photo={partnerPhoto}
-                alt=""
-                sizes="(min-width: 1024px) 48vw, 100vw"
-                className="aspect-[4/3] rounded-2xl"
-              />
-            </Reveal>
-          )}
-        </div>
+      {/* Official collection */}
+      <section className="grid grid-cols-1 bg-navy-900 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
+        <Reveal className="flex flex-col justify-center px-6 py-12 lg:py-14 lg:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] lg:pr-12">
+          <p className="eyebrow tracking-[0.3em] text-white/85">{s.collection.eyebrow}</p>
+          <h2 className="display mt-3 text-4xl lg:text-5xl">
+            {s.collection.title.map((l) => (
+              <span key={l} className="block">
+                {l}
+              </span>
+            ))}
+          </h2>
+          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/80">{s.collection.tagline}</p>
+          <Link href={`/${lang}/dyqani#koleksioni`} className="btn btn-ghost-light mt-7 w-fit">
+            {s.collection.cta}
+            <Icon name="arrowRight" className="h-4 w-4" />
+          </Link>
+        </Reveal>
+        {fansPhoto && <MediaImage photo={fansPhoto} alt="" sizes="(min-width: 1024px) 60vw, 100vw" className="min-h-[260px]" />}
       </section>
     </>
   );

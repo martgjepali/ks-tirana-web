@@ -1,213 +1,173 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getDictionary, hasLocale } from "./dictionaries";
 import { notFound } from "next/navigation";
+import { getDictionary, hasLocale } from "./dictionaries";
 import { Icon } from "@/components/Icons";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
-import { Counter } from "@/components/motion/Counter";
 import { MediaImage } from "@/components/MediaImage";
-import { getDisciplines, getFeaturedPhotos } from "@/lib/data/sports";
-import { getFixtures, getNews, getShowcasePhotos } from "@/lib/data/site";
 import { NewsCard } from "@/components/NewsCard";
 import { EmptyState } from "@/components/EmptyState";
 import { DisciplineTicker } from "@/components/DisciplineTicker";
-import { ViewTransition } from "react";
+import { HeroSlider, type HeroSlide } from "@/components/HeroSlider";
+import { Jersey } from "@/components/Jersey";
+import { getDisciplines, getFeaturedPhotos } from "@/lib/data/sports";
+import { CLUB, getHeroPhoto, getNews, getNextAndLast } from "@/lib/data/site";
+import { SPORT_GROUPS } from "@/lib/sport-groups";
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+/*
+ * Home page, in the order of the client's proposal (slide 05):
+ *   01 main news with photo   02 next match and last result   03 news by sport
+ *   04 sports                 05 academy                       06 shop, history, partners
+ */
+export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, disciplines, featured, news, fixtures, [academyPhoto], [shopPhoto], [clubPhoto]] =
-    await Promise.all([
-      getDictionary(lang),
-      getDisciplines(lang),
-      getFeaturedPhotos(lang, 60),
-      getNews(lang, 3),
-      getFixtures(lang),
-      getShowcasePhotos(lang, { discipline: "atletike", orientation: "landscape", limit: 2 }).then((p) => p.slice(1)),
-      getShowcasePhotos(lang, { discipline: "volejboll-femra", orientation: "landscape", limit: 2 }).then((p) => p.slice(1)),
-      getShowcasePhotos(lang, { discipline: "mundje-e-lire", orientation: "landscape" }),
-    ]);
-  const next = fixtures.upcoming[0];
+  const [dict, disciplines, featured, news, { next, last }, academyPhoto, historyPhoto] = await Promise.all([
+    getDictionary(lang),
+    getDisciplines(lang),
+    getFeaturedPhotos(lang, 60),
+    getNews(lang, 6),
+    getNextAndLast(lang),
+    getHeroPhoto(lang, "basketboll-meshkuj", 1),
+    getHeroPhoto(lang, "volejboll-meshkuj", 2),
+  ]);
   const h = dict.home;
-  // A wide action shot reads best behind the left-aligned hero text.
-  const heroPhoto = featured.find((p) => p.width > p.height * 1.3) ?? featured[0];
+  const label = (item: (typeof news)[number]) => item.discipline ?? dict.news.categories[item.category];
+
+  // Slide 1 is the club's message; slides 2–3 are the latest news with a photo,
+  // or more club photos until news exists.
+  const wide = featured.filter((p) => p.width > p.height * 1.3);
+  const brand = (i: number): HeroSlide => ({
+    photo: wide[i] ?? featured[i] ?? null,
+    eyebrow: h.hero.eyebrow,
+    title: h.hero.title,
+    big: true,
+    body: h.hero.subtitle,
+    cta: { href: `/${lang}/klubi`, label: h.hero.cta },
+  });
+  const newsSlides: HeroSlide[] = news
+    .filter((n) => n.cover)
+    .slice(0, 2)
+    .map((n) => ({
+      photo: n.cover,
+      eyebrow: `${label(n)} · ${n.shortDate}`,
+      title: [n.title],
+      big: false,
+      body: n.excerpt,
+      cta: { href: `/${lang}/lajme/${n.slug}`, label: h.hero.readNews },
+    }));
+  const slides = [brand(0), ...newsSlides, brand(1), brand(2)].slice(0, 3);
 
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-navy-950 text-white">
-        {heroPhoto && (
-          <MediaImage photo={heroPhoto} alt="" sizes="100vw" fill priority position="center 30%" className="hero-media" />
-        )}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(100deg, rgba(6,14,31,0.96) 20%, rgba(6,14,31,0.75) 48%, rgba(6,14,31,0.25) 75%), linear-gradient(0deg, rgba(6,14,31,0.9), transparent 45%)",
-          }}
-        />
-        <div className="wrap relative flex min-h-[560px] flex-col justify-end py-16 lg:min-h-[680px] lg:py-20">
-          <Reveal>
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-sky-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
-              {h.hero.eyebrow}
-            </span>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h1 className="font-display mt-5 max-w-2xl text-5xl font-bold uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
-              {h.hero.title}
-            </h1>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/75 lg:text-lg">
-              {h.hero.subtitle}
-            </p>
-          </Reveal>
-          <Reveal delay={0.24}>
-            <div className="mt-9 flex flex-wrap gap-3.5">
-              <Link href={`/${lang}/akademia`} className="btn btn-primary">
-                {h.hero.ctaPrimary}
-                <Icon name="arrowRight" className="h-4 w-4" />
-              </Link>
-              <Link href={`/${lang}/sportet`} className="btn btn-ghost-light">
-                {h.hero.ctaSecondary}
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal delay={0.32}>
-            <dl className="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-white/15 pt-7">
-              {h.hero.stats.map((s) => (
-                <div key={s.label}>
-                  <dt className="sr-only">{s.label}</dt>
-                  <dd className="font-display text-3xl font-semibold text-white sm:text-4xl">
-                    <Counter value={s.value} />
-                  </dd>
-                  <dd className="mt-1 text-xs leading-snug text-white/60">
-                    {s.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-        </div>
-        <Image
-          src="/images/ks-tirana-crest.png"
-          alt=""
-          width={122}
-          height={150}
-          className="pointer-events-none absolute right-6 top-6 hidden h-24 w-auto opacity-90 drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] sm:block lg:right-10 lg:top-10 lg:h-32"
-        />
-      </section>
+      <HeroSlider slides={slides} slideLabel={h.hero.slide} />
 
       <DisciplineTicker lang={lang} items={disciplines.map(({ slug, name }) => ({ slug, name }))} />
 
-      {/* NEWS + FIXTURE */}
-      <section className="bg-paper py-16 lg:py-20">
-        <div className="wrap grid grid-cols-1 gap-6 lg:grid-cols-4">
-          <div className="lg:col-span-3">
-            {news.length > 0 ? (
-              <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                {news.map((item) => (
-                  <StaggerItem key={item.slug}>
-                    <NewsCard item={item} href={`/${lang}/lajme/${item.slug}`} />
-                  </StaggerItem>
-                ))}
-              </StaggerGroup>
-            ) : (
-              <EmptyState icon="mail" text={h.news.empty} />
-            )}
-          </div>
-
-          <Reveal delay={0.15}>
-            <div className="flex h-full flex-col justify-between rounded-xl bg-navy-950 p-6 text-white ring-1 ring-white/10">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-sky-300">
-                  {h.calendar.nextLabel}
-                </p>
-                {next ? (
-                  <>
-                    <p className="mt-2 text-xs text-white/60">{next.discipline.name}</p>
-                    <div className="mt-5 flex items-center justify-between gap-2">
-                      {[next.home, next.away].map((team, i) => (
-                        <div key={i} className="flex min-w-0 flex-1 flex-col items-center gap-2 text-center">
-                          {team === "KS Tirana" ? (
-                            <Image src="/images/ks-tirana-crest.png" alt="" width={29} height={36} className="h-9 w-auto" />
-                          ) : (
-                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-                              <Icon name="shield" className="h-5 w-5 text-white/70" />
-                            </span>
-                          )}
-                          <span className="text-xs font-semibold">{team}</span>
-                          {i === 0 && <span className="sr-only">–</span>}
-                        </div>
-                      ))}
-                    </div>
-                    <p className="mt-6 flex items-start gap-2 text-sm text-white/60">
-                      <Icon name="calendar" className="mt-0.5 h-4 w-4 shrink-0" />
-                      <span>
-                        <time dateTime={next.startsAt}>{next.date}</time>
-                        {next.venue && <> · {next.venue}</>}
-                      </span>
-                    </p>
-                  </>
-                ) : (
-                  <p className="mt-5 text-sm leading-relaxed text-white/60">{h.calendar.noFixture}</p>
-                )}
-              </div>
-              <Link href={`/${lang}/kalendari`} className="btn btn-ghost-light mt-6 justify-center">
-                {h.calendar.cta}
+      {/* 01–03 LATEST NEWS + NEXT MATCH */}
+      <section className="bg-paper py-10 lg:py-12">
+        <div className="wrap grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,2.15fr)_minmax(0,1fr)] lg:gap-0">
+          <div className="lg:border-r lg:border-line lg:pr-8">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="section-label">{h.news.title}</h2>
+              <Link href={`/${lang}/lajme`} className="link-arrow">
+                {h.news.all}
+                <Icon name="arrowRight" className="h-3.5 w-3.5" />
               </Link>
             </div>
-          </Reveal>
+            <div className="mt-5">
+              {news.length > 0 ? (
+                <StaggerGroup className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  {news.slice(0, 3).map((item) => (
+                    <StaggerItem key={item.slug}>
+                      <NewsCard item={item} href={`/${lang}/lajme/${item.slug}`} label={label(item)} variant="row" />
+                    </StaggerItem>
+                  ))}
+                </StaggerGroup>
+              ) : (
+                <EmptyState icon="mail" text={h.news.empty} />
+              )}
+            </div>
+          </div>
+
+          <div className="lg:pl-8">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="section-label">{h.next.title}</h2>
+              <Link href={`/${lang}/kalendari`} className="link-arrow">
+                {h.next.calendar}
+                <Icon name="arrowRight" className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+            <Reveal delay={0.1} className="mt-5">
+              <div className="rounded-md bg-navy-900 p-5 text-white">
+                {next ? (
+                  <>
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-[0.6875rem] font-bold uppercase tracking-wider text-white/85">
+                      <span>
+                        {next.discipline.name}
+                        {next.competition && <> • {next.competition}</>}
+                      </span>
+                      <time dateTime={next.startsAt}>
+                        {next.weekday}, {next.day} • {next.time}
+                      </time>
+                    </div>
+                    <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+                      {[next.home, next.away].map((team, i) => (
+                        <div key={i} className={`flex items-center gap-3 ${i === 0 ? "justify-end text-right" : "order-3"}`}>
+                          {i === 1 && <Jersey club={team === CLUB} />}
+                          <span className="font-display text-sm font-extrabold uppercase leading-tight xl:text-base">{team}</span>
+                          {i === 0 && <Jersey club={team === CLUB} />}
+                        </div>
+                      ))}
+                      <span className="order-2 text-lg font-bold text-white/50">{h.next.vs}</span>
+                    </div>
+                    {next.venue && (
+                      <p className="mt-5 flex items-center justify-center gap-2 text-[0.6875rem] font-bold uppercase tracking-wider text-white/85">
+                        <Icon name="pin" className="h-4 w-4 shrink-0" />
+                        {next.venue}
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <p className="py-6 text-center text-sm leading-relaxed text-white/70">{h.next.empty}</p>
+                )}
+                {last && (
+                  <p className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-white/15 pt-4 text-xs text-white/70">
+                    <span className="font-bold uppercase tracking-wider">{h.next.lastResult}</span>
+                    <span>
+                      {last.home} <strong className="text-white">{last.score}</strong> {last.away}
+                    </span>
+                  </p>
+                )}
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* SPORTS */}
-      <section className="bg-surface py-16 lg:py-20">
-        <div className="wrap reveal">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6">
-            <div className="max-w-xl">
-              <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-blue-500">
-                {h.sports.eyebrow}
-              </p>
-              <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                {h.sports.title.replace("{n}", String(disciplines.length))}
-              </h2>
-            </div>
-            <Link
-              href={`/${lang}/sportet`}
-              className="link-underline inline-flex items-center gap-1.5 text-sm font-semibold text-strong"
-            >
-              {h.sports.cta}
-              <Icon name="chevronRight" className="h-4 w-4" />
+      {/* 04 SPORTS */}
+      <section className="bg-paper pb-12">
+        <div className="wrap">
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="section-label">{h.sports.title}</h2>
+            <Link href={`/${lang}/sportet`} className="link-arrow">
+              {h.sports.all}
+              <Icon name="arrowRight" className="h-3.5 w-3.5" />
             </Link>
-          </Reveal>
-
-          <StaggerGroup className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {disciplines.slice(0, 6).map((d) => (
-              <StaggerItem key={d.slug}>
+          </div>
+          <StaggerGroup className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
+            {SPORT_GROUPS.map((g) => (
+              <StaggerItem key={g.key}>
                 <Link
-                  href={`/${lang}/sportet/${d.slug}`}
-                  className="card-hover group relative block aspect-[3/4] overflow-hidden rounded-xl bg-navy-900"
+                  href={g.slugs.length === 1 ? `/${lang}/sportet/${g.slugs[0]}` : `/${lang}/sportet?sport=${g.key}`}
+                  className="group relative flex h-full min-h-[88px] flex-col items-center justify-center gap-2 rounded-sm bg-surface px-3 py-4 text-center text-strong transition hover:bg-blue-500 hover:text-white"
                 >
-                  {d.cover && (
-                    <ViewTransition name={`disc-${d.slug}`} share="morph" default="none">
-                      <MediaImage photo={d.cover} alt="" sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 45vw" fill />
-                    </ViewTransition>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-3.5">
-                    <p className="font-display text-sm font-bold uppercase tracking-wide text-white">{d.name}</p>
-                    {d.peopleCount > 0 && (
-                      <p className="mt-0.5 text-[0.6875rem] text-white/70">
-                        {d.peopleCount} {dict.sports.members.toLowerCase()}
-                      </p>
-                    )}
-                  </div>
+                  <Icon name={g.icon} className="h-7 w-7" />
+                  <span className="text-sm font-bold">{g.name[lang]}</span>
+                  <Icon
+                    name="arrowRight"
+                    className="absolute bottom-3 right-3 h-4 w-4 opacity-0 transition group-hover:opacity-100"
+                  />
                 </Link>
               </StaggerItem>
             ))}
@@ -215,131 +175,94 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* ACADEMY + SHOP PROMO */}
-      <section className="bg-paper py-16 lg:py-20">
-        <div className="wrap reveal grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <Reveal>
-            <Link
-              href={`/${lang}/akademia`}
-              className="card-hover group relative block aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10]"
-            >
-              {academyPhoto && (
-                <MediaImage photo={academyPhoto} alt="" sizes="(min-width: 1024px) 48vw, 100vw" fill />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-7">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
-                  {h.academy.eyebrow}
-                </p>
-                <h3 className="font-display mt-2 max-w-xs text-2xl font-bold uppercase leading-tight text-white">
-                  {h.academy.title}
-                </h3>
-                <span className="link-underline mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  {h.academy.cta}
-                  <Icon name="arrowRight" className="h-4 w-4" />
+      {/* 05 ACADEMY + 06 SHOP */}
+      <section className="grid grid-cols-1 gap-4 bg-paper lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <Link href={`/${lang}/akademia`} className="group relative flex min-h-[260px] overflow-hidden bg-navy-900 text-white">
+          {academyPhoto && (
+            <div className="absolute inset-y-0 left-0 w-full sm:w-1/2">
+              <MediaImage photo={academyPhoto} alt="" sizes="(min-width: 1024px) 32vw, 100vw" fill position="center 30%" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-navy-900/40 to-navy-900" />
+            </div>
+          )}
+          <div className="relative ml-auto flex w-full flex-col justify-center bg-navy-900/80 p-8 sm:w-[55%] sm:bg-transparent lg:p-10">
+            <p className="eyebrow text-white/80">{h.academy.eyebrow}</p>
+            <h2 className="display mt-3 text-3xl lg:text-[2.6rem]">
+              {h.academy.title.map((l) => (
+                <span key={l} className="block">
+                  {l}
                 </span>
-              </div>
-            </Link>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <Link
-              href={`/${lang}/dyqani`}
-              className="card-hover group relative block aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10]"
-            >
-              {shopPhoto && <MediaImage photo={shopPhoto} alt="" sizes="(min-width: 1024px) 48vw, 100vw" fill />}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-7">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
-                  {h.shop.eyebrow}
-                </p>
-                <h3 className="font-display mt-2 max-w-xs text-2xl font-bold uppercase leading-tight text-white">
-                  {h.shop.title}
-                </h3>
-                <span className="link-underline mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  {h.shop.cta}
-                  <Icon name="arrowRight" className="h-4 w-4" />
+              ))}
+            </h2>
+            <p className="mt-3 text-white/85">{h.academy.body}</p>
+            <span className="btn btn-primary mt-6 w-fit">
+              {h.academy.cta}
+              <Icon name="arrowRight" className="h-4 w-4 transition group-hover:translate-x-1" />
+            </span>
+          </div>
+        </Link>
+
+        <Link href={`/${lang}/dyqani`} className="group relative flex min-h-[260px] items-center overflow-hidden bg-surface">
+          <div className="relative z-10 p-8 lg:p-10">
+            <p className="eyebrow text-ink/60">{h.shop.eyebrow}</p>
+            <h2 className="display mt-3 text-3xl text-strong lg:text-[2.6rem]">
+              {h.shop.title.map((l) => (
+                <span key={l} className="block">
+                  {l}
                 </span>
+              ))}
+            </h2>
+            <p className="mt-3 text-ink/70">{h.shop.body}</p>
+            <span className="btn btn-primary mt-6 w-fit">
+              {h.shop.cta}
+              <Icon name="arrowRight" className="h-4 w-4 transition group-hover:translate-x-1" />
+            </span>
+          </div>
+          <Image
+            src="/images/ks-tirana-crest.png"
+            alt=""
+            width={180}
+            height={221}
+            className="pointer-events-none absolute -right-6 top-1/2 h-[85%] w-auto -translate-y-1/2 opacity-20 transition duration-500 group-hover:scale-105 sm:right-6 sm:opacity-100"
+          />
+        </Link>
+      </section>
+
+      {/* 06 HISTORY */}
+      <section className="bg-paper py-14 lg:py-16">
+        <div className="wrap grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <Reveal>
+            <p className="eyebrow text-blue-500">{h.history.eyebrow}</p>
+            <h2 className="display mt-3 text-4xl text-strong lg:text-5xl">“{h.history.title}.”</h2>
+            <span className="rule mt-5" />
+            <p className="mt-5 max-w-md text-ink/70">{h.history.body}</p>
+            <Link href={`/${lang}/klubi`} className="link-arrow mt-6">
+              {h.history.cta}
+              <Icon name="arrowRight" className="h-3.5 w-3.5" />
+            </Link>
+          </Reveal>
+          {historyPhoto && (
+            <Reveal y={0}>
+              <div className="relative">
+                <MediaImage photo={historyPhoto} sizes="(min-width: 1024px) 45vw, 100vw" className="archive aspect-[16/10]" />
+                <div className="pointer-events-none absolute inset-0 bg-blue-600/25 mix-blend-multiply" />
               </div>
-            </Link>
-          </Reveal>
+            </Reveal>
+          )}
         </div>
       </section>
 
-      {/* WHY */}
-      <section className="bg-surface py-16 lg:py-20">
-        <div className="wrap reveal">
-          <Reveal className="max-w-2xl">
-            <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-blue-500">
-              {h.why.eyebrow}
-            </p>
-            <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              {h.why.title}
-            </h2>
-          </Reveal>
-          <StaggerGroup className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {h.why.items.map((item, i) => (
-              <StaggerItem key={item.title}>
-                <div className="card-hover h-full rounded-xl border border-line bg-card p-6">
-                  <span className="font-display flex h-9 w-9 items-center justify-center rounded-lg bg-surface text-sm font-semibold text-blue-500">
-                    0{i + 1}
-                  </span>
-                  <h3 className="font-display mt-4 text-base font-semibold text-ink">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/60">
-                    {item.body}
-                  </p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
-        </div>
-      </section>
-
-      {/* CLUB */}
-      <section className="bg-paper py-16 lg:py-20">
-        <div className="wrap reveal grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-blue-500">
-              {h.club.eyebrow}
-            </p>
-            <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              {h.club.title}
-            </h2>
-            <p className="mt-4 text-ink/60">{h.club.body}</p>
-            <Link href={`/${lang}/klubi`} className="btn btn-ghost mt-8">
-              {h.club.cta}
-              <Icon name="arrowRight" className="h-4 w-4" />
-            </Link>
-          </Reveal>
-          <Reveal y={0}>
-            {clubPhoto && (
-              <MediaImage photo={clubPhoto} sizes="(min-width: 1024px) 48vw, 100vw" className="aspect-[4/3] rounded-2xl" />
-            )}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* PARTNERS */}
-      <section className="relative overflow-hidden bg-navy-950 py-16 text-white lg:py-20">
-        <div className="blob -left-20 top-10 h-[320px] w-[320px] bg-gold-500/15" />
-        <div className="wrap reveal relative flex flex-col items-center gap-6 text-center">
-          <Icon name="handshake" className="h-8 w-8 text-gold-400" />
-          <Reveal>
-            <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-sky-300">
-              {h.partners.eyebrow}
-            </p>
-            <h3 className="font-display mt-2 text-2xl font-semibold sm:text-3xl">
-              {h.partners.title}
-            </h3>
-            <p className="mx-auto mt-3 max-w-md text-sm text-white/60">
-              {h.partners.body}
-            </p>
-            <Link href={`/${lang}/kontakt`} className="btn btn-primary mt-7">
-              {h.partners.cta}
-              <Icon name="arrowRight" className="h-4 w-4" />
-            </Link>
-          </Reveal>
+      {/* 06 PARTNERS (logos follow in the footer strip once the club provides them) */}
+      <section className="bg-blue-600 text-white">
+        <div className="wrap flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
+          <div>
+            <p className="eyebrow text-white/80">{h.partners.eyebrow}</p>
+            <h2 className="display mt-2 text-3xl lg:text-4xl">{h.partners.title}</h2>
+            <p className="mt-2 max-w-lg text-white/85">{h.partners.body}</p>
+          </div>
+          <Link href={`/${lang}/partneritet`} className="btn btn-white shrink-0">
+            {h.partners.cta}
+            <Icon name="arrowRight" className="h-4 w-4" />
+          </Link>
         </div>
       </section>
     </>

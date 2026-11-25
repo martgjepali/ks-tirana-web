@@ -230,6 +230,26 @@ export const getFeaturedPhotos = cache(async (lang: Locale, limit: number): Prom
   return rows.map((r) => toPhotoRef(r, lang));
 });
 
+export type CoachCard = PersonCard & { href: string; disciplineName: string };
+
+/** Visible coaches across the club, head coaches first (Academy "Trajnerët tanë"). */
+export const getCoaches = cache(async (lang: Locale, limit = 4): Promise<CoachCard[]> => {
+  await connection();
+  const rows = await query<PhotoJoinRow & Record<string, unknown>>(
+    `SELECT ${PERSON_CARD_COLUMNS}, d.slug AS d_slug, d.name_sq AS d_name_sq, d.name_en AS d_name_en, ${PHOTO_AS("p")}
+     FROM people pe JOIN disciplines d ON d.id = pe.discipline_id ${PORTRAIT_JOIN}
+     WHERE d.is_published AND pe.role <> 'athlete' AND ${personVisible("pe")}
+     ORDER BY (p.id IS NULL), CASE pe.role WHEN 'head_coach' THEN 0 ELSE 1 END, d.sort_order, pe.sort_order
+     LIMIT $1`,
+    [limit],
+  );
+  return rows.map((r) => ({
+    ...toPersonCard(r, lang),
+    href: `/${lang}/sportet/${r.d_slug}/${r.slug}`,
+    disciplineName: pick(r, "d_name", lang)!,
+  }));
+});
+
 /** Other visible people in the same discipline, for "teammates". */
 export async function getTeammates(disciplineId: number, excludePersonId: number, lang: Locale, limit = 8) {
   await connection();

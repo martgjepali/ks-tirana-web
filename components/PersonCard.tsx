@@ -34,7 +34,7 @@ export function PersonCard({
   return (
     <Link
       href={href}
-      className="card-hover group block overflow-hidden rounded-xl border border-line bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+      className="card-hover group block overflow-hidden rounded-md border border-line bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
     >
       <div className="relative">
         {person.portrait ? (

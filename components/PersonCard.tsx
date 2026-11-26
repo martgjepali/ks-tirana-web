@@ -12,6 +12,8 @@ export type PersonCardLabels = {
 };
 
 export function roleLabel(person: Person, labels: PersonCardLabels) {
+  // Staff with a specific title, e.g. "Trajner i grupmoshave".
+  if (person.role !== "athlete" && person.position) return person.position;
   if (person.role === "head_coach") return labels.headCoach;
   if (person.role === "assistant_coach") return labels.assistantCoach;
   return person.position ?? labels.athlete;

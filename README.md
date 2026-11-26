@@ -47,4 +47,6 @@ people whose consent is not recorded yet (dev server only).
 | `npm run admin:create -- email "Name"` | Create a staff login (prints a password) |
 | `npm run import:photos -- "<archive folder>"` | Import the club's original photo archive |
 | `npm run import:workbook -- file.xlsx` | Load the club's data workbook into people and disciplines |
+| `npm run import:rosters` | Load the official team lists from the final design (publishes those people) |
+| `npm run seed:demo` | Add EXAMPLE news, fixtures and products for the MVP (`-- --remove` deletes them) |
 | `npm run blob:upload` | Upload local processed photos to the Blob store |

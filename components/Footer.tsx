@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "./Icons";
-import { PartnerStrip } from "./PartnerStrip";
 import { SOCIAL_LINKS } from "@/lib/club";
 import type { Dictionary, Locale } from "@/app/[lang]/dictionaries";
 
@@ -13,17 +12,17 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
     { href: `/${lang}/akademia`, label: n.academy },
     { href: `/${lang}/kalendari`, label: n.calendar },
     { href: `/${lang}/lajme`, label: n.media },
+    { href: `/${lang}/revista`, label: n.magazine },
     { href: `/${lang}/klubi`, label: n.club },
+    { href: `/${lang}/partneret`, label: n.partners },
   ];
   const direct = [
     { href: `/${lang}/dyqani`, label: n.shop },
-    { href: `/${lang}/partneritet`, label: n.partner },
     { href: `/${lang}/kontakt`, label: n.contact },
   ];
 
   return (
     <footer>
-      <PartnerStrip title={dict.footer.partners} />
       <div className="bg-navy-900 text-white">
         <div className="wrap flex flex-col items-center gap-6 py-7 lg:flex-row lg:justify-between">
           <Link href={`/${lang}`} className="flex items-center gap-2.5">

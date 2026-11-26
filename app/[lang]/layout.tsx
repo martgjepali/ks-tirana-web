@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Caveat, Inter } from "next/font/google";
+import { Caveat, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { Header } from "@/components/Header";
@@ -10,13 +10,6 @@ import { SPLASH_SCRIPT, THEME_SCRIPT } from "@/lib/theme";
 import { InlineScript } from "@/components/InlineScript";
 import { Splash } from "@/components/Splash";
 import { MotionProvider } from "@/components/motion/MotionProvider";
-
-// Heavy grotesque for headings, like the mockups. The width axis gives the condensed card titles.
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin", "latin-ext"],
-  axes: ["wdth"],
-});
 
 // Handwritten accents ("Sot më mirë se dje").
 const caveat = Caveat({
@@ -67,7 +60,7 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
       // The inline script below sets data-theme / data-splash before React hydrates.
       suppressHydrationWarning
-      className={`${archivo.variable} ${caveat.variable} ${inter.variable} antialiased`}
+      className={`${caveat.variable} ${inter.variable} antialiased`}
     >
       <head>
         <InlineScript html={`${THEME_SCRIPT};${SPLASH_SCRIPT}`} />

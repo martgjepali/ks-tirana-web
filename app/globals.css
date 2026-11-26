@@ -21,11 +21,11 @@
   /* Semantic tokens that flip in dark mode */
   --color-card: #ffffff;
   --color-strong: #021f48; /* headings/links on page background */
-  --color-header: #ffffff;
+  --color-header: #eef3fa;
   --shadow-card: 0 16px 32px -20px rgba(2, 31, 72, 0.35);
   color-scheme: light;
 
-  --font-display: var(--font-archivo);
+  --font-display: var(--font-inter);
   --font-body: var(--font-inter);
   --font-script: var(--font-caveat);
 }
@@ -81,13 +81,16 @@ body {
   font-family: var(--font-display);
 }
 
-/* Big uppercase headings as in the mockups ("NE JEMI TIRANA", "DISIPLINAT"). */
-.display {
-  font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 0.95;
-  letter-spacing: -0.015em;
+/* In the components layer so utilities (normal-case, sizes) can override it. */
+@layer components {
+  /* Big bold headings as in the final design ("NE JEMI TIRONA", "DISIPLINAT"); add normal-case for "Volejboll femra". */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
 }
 
 /* Condensed variant for card titles ("BASKETBOLL", "LEGJENDAT"). */
@@ -449,7 +452,7 @@ body {
   }
 
   .marquee-track {
-    animation: marquee 48s linear infinite;
+    animation: marquee var(--marquee-duration, 48s) linear infinite;
   }
 
   .marquee:hover .marquee-track,

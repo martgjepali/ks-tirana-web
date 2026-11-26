@@ -4,38 +4,54 @@
     "description": "The official website of KS Tirana Sports Club — news, sports, the Academy, fixtures and results."
   },
   "header": {
-    "tagline": ["Sport", "Education", "Community", "A stronger Tirana"],
+    "tagline": [
+      "Sport",
+      "Education",
+      "Community",
+      "A stronger Tirana"
+    ],
     "motto": "Higher together",
     "search": "Search",
     "menu": "Menu",
-    "theme": "Change theme (light / dark)"
+    "theme": "Change theme (light / dark)",
+    "club": "KS Tirana Sports Club"
   },
   "nav": {
     "home": "Home",
-    "sports": "Sports",
+    "sports": "Disciplines",
     "academy": "Academy",
     "calendar": "Calendar",
-    "media": "Media",
+    "media": "News",
     "club": "Club",
     "history": "History",
     "management": "Management & Organisation",
     "partner": "Become a partner",
     "contact": "Contact",
-    "shop": "Shop"
+    "shop": "Shop",
+    "magazine": "Magazine",
+    "partners": "Partners"
   },
   "footer": {
-    "tagline": ["Sport", "Education", "Community"],
+    "tagline": [
+      "Sport",
+      "Education",
+      "Community"
+    ],
     "rights": "All rights reserved.",
     "partners": "Our partners"
   },
   "home": {
     "hero": {
-      "eyebrow": "More than a club",
-      "title": ["We are", "Tirana"],
-      "subtitle": "Sport, character and community. Together we build a stronger Tirana.",
-      "cta": "Discover more",
+      "eyebrow": "KS Tirana Sports Club",
+      "title": [
+        "We are Tirona"
+      ],
+      "subtitle": "Home of Champions",
+      "cta": "Discover the disciplines",
       "readNews": "Read the story",
-      "slide": "Slide {n}"
+      "slide": "Slide {n}",
+      "body": "Follow the competitions, results and stories of our white and blue athletes.",
+      "ctaCalendar": "See the calendar"
     },
     "news": {
       "title": "Latest news",
@@ -55,13 +71,19 @@
     },
     "academy": {
       "eyebrow": "KS Tirana Academy",
-      "title": ["Talents today,", "champions tomorrow"],
+      "title": [
+        "Talents today,",
+        "champions tomorrow"
+      ],
       "body": "A structured programme for the next generation.",
       "cta": "More about the academy"
     },
     "shop": {
       "eyebrow": "KS Tirana Shop",
-      "title": ["Wear your", "colours"],
+      "title": [
+        "Wear your",
+        "colours"
+      ],
       "body": "For the fans, for the athletes, for Tirana.",
       "cta": "Discover the products"
     },
@@ -76,11 +98,20 @@
       "title": "Higher together",
       "body": "Support the sports, the Academy and the activities of KS Tirana.",
       "cta": "Become a partner"
+    },
+    "sponsors": {
+      "supporter": "Main supporter of KS Tirana",
+      "supporterBody": "Supporting sport and the community.",
+      "partners": "KS Tirana sponsors"
     }
   },
   "sports": {
     "hero": {
-      "eyebrow": ["Discipline", "Work", "Results"],
+      "eyebrow": [
+        "Discipline",
+        "Work",
+        "Results"
+      ],
       "title": "Sports",
       "subtitle": "One club, many sports, the same spirit. KS Tirana develops talent, builds character and represents Tirana with pride."
     },
@@ -101,7 +132,10 @@
     },
     "academy": {
       "eyebrow": "KS Tirana Academy",
-      "title": ["Today's talents", "tomorrow's champions"],
+      "title": [
+        "Today's talents",
+        "tomorrow's champions"
+      ],
       "body": "We develop the club's young talent in every sport and age group.",
       "cta": "More about the academy"
     },
@@ -155,7 +189,7 @@
     "birthplace": "Place of birth",
     "club": "Club",
     "number": "Number",
-    "media": "Latest media",
+    "media": "Media",
     "seeAll": "See all",
     "photo": "Photo",
     "photoTitle": "Everyday life at the club",
@@ -163,11 +197,22 @@
   },
   "academy": {
     "hero": {
-      "eyebrow": ["KS Tirana", "Academy"],
-      "title": ["KS Tirana", "Academy"],
-      "subtitle": "We develop young sporting talent, in every age group and sport.",
+      "eyebrow": [
+        "Talent",
+        "Discipline",
+        "Growth"
+      ],
+      "title": [
+        "KS Tirana",
+        "Academy"
+      ],
+      "subtitle": "A stronger generation for a greater Tirana. Sport, education and values for the future.",
       "cta": "Apply to the Academy",
-      "script": ["Better today", "than", "yesterday"]
+      "script": [
+        "Better today",
+        "than",
+        "yesterday"
+      ]
     },
     "groups": {
       "title": "Choose your age group",
@@ -176,15 +221,27 @@
     },
     "coaches": {
       "eyebrow": "Our coaches",
-      "title": ["Experience that", "builds champions"],
+      "title": [
+        "Experience that",
+        "builds champions"
+      ],
       "body": "Qualified coaches with international experience and a commitment to developing every athlete.",
       "cta": "Meet the staff",
       "empty": "The coaching staff will be introduced soon."
     },
     "values": [
-      { "title": "An inclusive environment", "body": "For every talent, without distinction." },
-      { "title": "All-round development", "body": "In sport, school and life." },
-      { "title": "Values for the future", "body": "Discipline, respect, team." }
+      {
+        "title": "An inclusive environment",
+        "body": "For every talent, without distinction."
+      },
+      {
+        "title": "All-round development",
+        "body": "In sport, school and life."
+      },
+      {
+        "title": "Values for the future",
+        "body": "Discipline, respect, team."
+      }
     ],
     "programs": {
       "title": "Practical information",
@@ -213,23 +270,76 @@
       "submit": "Send application",
       "submitting": "Sending…",
       "success": "Thank you! Your application has been registered — the Academy staff will contact you soon."
+    },
+    "discover": {
+      "title": "Discover your passion",
+      "subtitle": "Choose an age group and discover our academy programmes.",
+      "ages": "Choose an age group",
+      "ageGroups": [
+        "Ages 6–8",
+        "Ages 9–12",
+        "Ages 13–15",
+        "Ages 16–18"
+      ]
+    },
+    "apply": {
+      "eyebrow": "Academy / Registration",
+      "title": "Apply to KS Tirana",
+      "athlete": "Athlete details",
+      "name": "Full name",
+      "namePlaceholder": "First and last name",
+      "birth": "Date of birth",
+      "program": "Programme",
+      "programPlaceholder": "Choose a programme",
+      "experience": "Sports experience",
+      "experiencePlaceholder": "Optional",
+      "contact": "Contact details",
+      "contactName": "Contact person's full name",
+      "phone": "Phone number",
+      "phonePlaceholder": "+355 …",
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "submit": "Send application",
+      "submitting": "Sending…",
+      "success": "Thank you! Your application has been registered — the Academy staff will contact you soon.",
+      "required": "* Required fields",
+      "programs": "Academy programmes",
+      "after": "After you apply",
+      "afterBody": "The Academy staff will contact you about the next steps."
     }
   },
   "calendar": {
     "hero": {
-      "eyebrow": ["Competition", "Team", "Passion"],
-      "title": ["Fixtures &", "Results"],
+      "eyebrow": [
+        "Competition",
+        "Team",
+        "Passion"
+      ],
+      "title": [
+        "Calendar"
+      ],
       "subtitle": "Every match, result and event of KS Tirana in every sport, in one place.",
-      "script": ["More", "than sport"]
+      "script": [
+        "More",
+        "than sport"
+      ]
     },
     "all": "All",
-    "others": "Other sports",
+    "others": "Other disciplines",
     "filterSport": "Sport",
     "month": "Month",
     "prevMonth": "Previous month",
     "nextMonth": "Next month",
     "sidebar": "Calendar",
-    "weekdays": ["M", "T", "W", "T", "F", "S", "S"],
+    "weekdays": [
+      "M",
+      "T",
+      "W",
+      "T",
+      "F",
+      "S",
+      "S"
+    ],
     "addToCalendar": "Add to calendar",
     "addAll": "Add all matches to your calendar",
     "empty": "No matches or events this month.",
@@ -245,7 +355,22 @@
     "more": {
       "title": "More from KS Tirana",
       "all": "See all",
-      "cards": ["This week's programme", "Upcoming matches", "Season calendar", "Events and competitions"]
+      "cards": [
+        "This week's programme",
+        "Upcoming matches",
+        "Season calendar",
+        "Events and competitions"
+      ]
+    },
+    "upcoming": "Upcoming events",
+    "vs": "vs",
+    "tickets": {
+      "reserve": [
+        "Book",
+        "tickets"
+      ],
+      "message": "Hello, I would like to book tickets for KS Tirana's next match.",
+      "alt": "Ticket for the next match"
     }
   },
   "news": {
@@ -283,35 +408,77 @@
   "history": {
     "hero": {
       "eyebrow": "Club",
-      "title": ["White and blue", "History"],
+      "title": [
+        "White and blue",
+        "History"
+      ],
       "body": "A history that goes beyond sport. KS Tirana is more than a club – it is part of the city's identity, built by generations of athletes, fans and people who believe in white and blue values."
     },
     "timeline": [
-      { "label": "Origins", "body": "1920 — KS Tirana Sports Club is founded in the heart of the capital." },
-      { "label": "Growth", "body": "The club grows with new sports and new generations of athletes." },
-      { "label": "Challenges", "body": "Difficult periods that tested the resilience of the club and its fans." },
-      { "label": "Success", "body": "Titles and victories that made the white and blue one of the best-known names in Albanian sport." },
-      { "label": "Generations", "body": "From one generation to the next, athletes and fans keep the white and blue alive." },
-      { "label": "Today", "body": "16 sports and an Academy preparing tomorrow's champions." }
+      {
+        "label": "Origins",
+        "body": "1920 — KS Tirana Sports Club is founded in the heart of the capital."
+      },
+      {
+        "label": "Growth",
+        "body": "The club grows with new sports and new generations of athletes."
+      },
+      {
+        "label": "Challenges",
+        "body": "Difficult periods that tested the resilience of the club and its fans."
+      },
+      {
+        "label": "Success",
+        "body": "Titles and victories that made the white and blue one of the best-known names in Albanian sport."
+      },
+      {
+        "label": "Generations",
+        "body": "From one generation to the next, athletes and fans keep the white and blue alive."
+      },
+      {
+        "label": "Today",
+        "body": "16 sports and an Academy preparing tomorrow's champions."
+      }
     ],
     "prev": "Previous period",
     "next": "Next period",
     "cards": [
-      { "title": "Legends", "body": "Athletes who have left an unforgettable mark on the club's history." },
-      { "title": "Trophies", "body": "Symbols of a path built with work, dedication and passion." },
-      { "title": "Records", "body": "Moments and achievements that have marked white and blue history over the years." }
+      {
+        "title": "Legends",
+        "body": "Athletes who have left an unforgettable mark on the club's history."
+      },
+      {
+        "title": "Trophies",
+        "body": "Symbols of a path built with work, dedication and passion."
+      },
+      {
+        "title": "Records",
+        "body": "Moments and achievements that have marked white and blue history over the years."
+      }
     ],
     "quote": {
       "eyebrow": "More than a history",
-      "text": ["Generations wearing", "the same colours."],
+      "text": [
+        "Generations wearing",
+        "the same colours."
+      ],
       "body": "From the sports ground to the community, our history is the story of people who never stopped believing. KS Tirana continues to inspire and unite generations, today and always."
     },
     "mission": {
       "title": "Mission and values",
       "items": [
-        { "title": "Sporting excellence", "body": "Continuous development of athletes, from the Academy to the first team." },
-        { "title": "Education and character", "body": "Sport as a school of discipline, respect and teamwork." },
-        { "title": "Community", "body": "A club open to families, fans and the city." }
+        {
+          "title": "Sporting excellence",
+          "body": "Continuous development of athletes, from the Academy to the first team."
+        },
+        {
+          "title": "Education and character",
+          "body": "Sport as a school of discipline, respect and teamwork."
+        },
+        {
+          "title": "Community",
+          "body": "A club open to families, fans and the city."
+        }
       ]
     },
     "numbers": {
@@ -325,7 +492,10 @@
   "org": {
     "hero": {
       "eyebrow": "Club",
-      "title": ["Management &", "Organisation"],
+      "title": [
+        "Management &",
+        "Organisation"
+      ],
       "body": "A structure that supports the development of our sports, helps talent grow and strengthens the community."
     },
     "label": "Illustrative structure",
@@ -337,38 +507,69 @@
     "root": {
       "name": "Management",
       "body": "Leads the club, approves its strategy and coordinates the work of every unit.",
-      "items": ["Club strategy and objectives", "Approving the budget and structure", "Institutional representation", "Oversight of the units"]
+      "items": [
+        "Club strategy and objectives",
+        "Approving the budget and structure",
+        "Institutional representation",
+        "Oversight of the units"
+      ]
     },
     "units": [
       {
         "name": "Sports development",
         "body": "Responsible for coordinating and supporting the development of sporting activities, together with the club's other units.",
-        "items": ["Supporting sports programmes", "Coordinating with staff and the relevant units", "Encouraging talent development", "Tracking and evaluating progress"]
+        "items": [
+          "Supporting sports programmes",
+          "Coordinating with staff and the relevant units",
+          "Encouraging talent development",
+          "Tracking and evaluating progress"
+        ]
       },
       {
         "name": "Academy",
         "body": "Organises the youth programmes, age groups and Academy admissions.",
-        "items": ["Programmes by age group", "Admissions and communication with parents", "Coordinating the Academy coaches", "All-round development of young athletes"]
+        "items": [
+          "Programmes by age group",
+          "Admissions and communication with parents",
+          "Coordinating the Academy coaches",
+          "All-round development of young athletes"
+        ]
       },
       {
         "name": "Administration & Communication",
         "body": "Supports the club's day-to-day running, documents, media and partnerships.",
-        "items": ["Documents and transparency", "Communication with the media and the public", "Partnerships and sponsorship", "Facilities and logistics"]
+        "items": [
+          "Documents and transparency",
+          "Communication with the media and the public",
+          "Partnerships and sponsorship",
+          "Facilities and logistics"
+        ]
       }
     ],
     "governance": {
       "eyebrow": "Good governance",
-      "title": ["Transparency,", "responsibility, growth"],
+      "title": [
+        "Transparency,",
+        "responsibility, growth"
+      ],
       "body": "KS Tirana aims to build a lasting culture of leadership with high governance standards, serving its athletes, the community and the future.",
       "cta": "More about the club"
     }
   },
   "shop": {
     "hero": {
-      "title": ["Wear", "White & Blue"],
+      "title": [
+        "Wear",
+        "White & Blue"
+      ],
       "tagline": "More than a colour",
       "cta": "Discover the collection",
-      "side": ["Sport", "Community", "Pride", "Tirana"]
+      "side": [
+        "Sport",
+        "Community",
+        "Pride",
+        "Tirana"
+      ]
     },
     "tabs": {
       "fanella": "Jerseys",
@@ -379,7 +580,10 @@
     "empty": "Official products will be added soon.",
     "collection": {
       "eyebrow": "Official collection",
-      "title": ["For the fans", "in every moment"],
+      "title": [
+        "For the fans",
+        "in every moment"
+      ],
       "tagline": "At the stadium, in the city, wherever you are.",
       "cta": "See all products"
     },
@@ -396,7 +600,10 @@
   "partner": {
     "hero": {
       "eyebrow": "Partnership",
-      "title": ["Become a", "Partner"],
+      "title": [
+        "Become a",
+        "Partner"
+      ],
       "body": "Together we create more opportunities for sport, young people and a stronger community.",
       "mediaKit": "Download Media Kit",
       "requestKit": "Request Media Kit",
@@ -404,12 +611,24 @@
     },
     "platform": {
       "eyebrow": "Partnership opportunities",
-      "title": ["A platform for", "growing together"],
+      "title": [
+        "A platform for",
+        "growing together"
+      ],
       "body": "Our partnerships support the development of athletes, academy programmes and activities that inspire the Tirana community.",
       "cards": [
-        { "title": "Sports", "body": "Exposure across all of the club's sports, through our channels and at official events." },
-        { "title": "Academy", "body": "Supporting youth programmes and the development of future talent." },
-        { "title": "Events", "body": "Presence at events, tournaments and community initiatives throughout the year." }
+        {
+          "title": "Sports",
+          "body": "Exposure across all of the club's sports, through our channels and at official events."
+        },
+        {
+          "title": "Academy",
+          "body": "Supporting youth programmes and the development of future talent."
+        },
+        {
+          "title": "Events",
+          "body": "Presence at events, tournaments and community initiatives throughout the year."
+        }
       ]
     },
     "kit": {
@@ -431,22 +650,23 @@
     "news": "News"
   },
   "contact": {
-    "eyebrow": "Contact",
+    "eyebrow": "KS Tirana Sports Club",
     "title": "Contact us",
-    "subtitle": "Questions about the Academy, media, partnerships or the shop? Write to us.",
+    "subtitle": "For questions about the club, the Academy, media or partnerships, write to us.",
     "formTitle": "Send us a message",
     "form": {
-      "name": "Name",
-      "namePlaceholder": "First Last",
+      "name": "Full name",
+      "namePlaceholder": "First and last name",
       "email": "Email",
       "emailPlaceholder": "name@example.com",
       "subject": "Subject",
-      "subjectPlaceholder": "Choose a subject",
+      "subjectPlaceholder": "",
       "message": "Message",
-      "messagePlaceholder": "How can we help?",
+      "messagePlaceholder": "Write your message...",
       "submit": "Send message",
       "submitting": "Sending…",
-      "success": "Thank you! Your message has been sent — we will reply soon."
+      "success": "Thank you! Your message has been sent — we will reply soon.",
+      "required": "* Required fields"
     },
     "subjects": {
       "partner": "Partnership / Media Kit",
@@ -459,6 +679,58 @@
     "academyEmail": "akademia@kstirana.example",
     "pressEmail": "media@kstirana.example",
     "hoursTitle": "Office hours",
-    "hours": "Monday – Friday, 09:00 – 17:00"
+    "hours": "Monday – Friday, 09:00 – 17:00",
+    "labels": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "follow": "Follow us"
+    }
+  },
+  "team": {
+    "eyebrow": "Disciplines",
+    "subtitle": "Meet the team and the technical staff.",
+    "tabs": {
+      "team": "Team",
+      "gallery": "Gallery"
+    },
+    "staff": "Technical staff",
+    "players": "Players",
+    "athletes": "Athletes",
+    "teamPhoto": "Team photo",
+    "profilePhoto": "Profile photo",
+    "viewProfile": "View profile",
+    "gallery": "Gallery",
+    "galleryCats": [
+      "Team photos",
+      "Individual portraits",
+      "Matches and events"
+    ],
+    "photoSpace": "Photos coming soon",
+    "emptyRoster": "The athlete list will be published soon.",
+    "emptyStaff": "The staff will be published soon.",
+    "allPhotos": "All photos"
+  },
+  "magazine": {
+    "eyebrow": "KS Tirana magazine",
+    "title": "Ne jemi Tirona",
+    "body": "Stories of our athletes, achievements and club projects.",
+    "read": "Read the magazine",
+    "issue": "Issue {n}",
+    "previous": "Previous issues",
+    "close": "Close",
+    "prev": "Previous page",
+    "next": "Next page",
+    "page": "Pages {n} / {total}",
+    "coverTitle": "Home of Champions",
+    "pageCaption": "From club life"
+  },
+  "partners": {
+    "title": "Partners",
+    "subtitle": "Supporting sport in Tirana together.",
+    "grid": "Sponsors and partners",
+    "ctaTitle": "Become a KS Tirana partner",
+    "ctaBody": "Support a discipline, the Academy or one of the club's sporting events.",
+    "cta": "Contact us about partnership"
   }
 }

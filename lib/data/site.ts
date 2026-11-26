@@ -179,6 +179,8 @@ export type Fixture = {
   date: string;
   /** "12 nëntor 2026" */
   day: string;
+  /** "12 nëntor" */
+  dayMonth: string;
   /** "e shtunë" */
   weekday: string;
   /** "17:00" */
@@ -214,6 +216,7 @@ function toFixture(r: Record<string, unknown>, lang: Locale): Fixture {
     isHome,
     date: formatDate(starts, lang, true),
     day: part({ day: "numeric", month: "long", year: "numeric" }),
+    dayMonth: part({ day: "numeric", month: "long" }),
     weekday: part({ weekday: "long" }),
     time: part({ hour: "2-digit", minute: "2-digit", hourCycle: "h23" }),
     dayOfMonth: Number(new Intl.DateTimeFormat("en-GB", { timeZone: TZ, day: "numeric" }).format(starts)),

@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "../dictionaries";
-import { getHeroPhoto } from "@/lib/data/site";
-import { PhotoPageHero } from "@/components/PhotoPageHero";
 import { ContactForm } from "@/components/ContactForm";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
+import { CLUB_INFO, SOCIAL_LINKS } from "@/lib/club";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/kontakt">): Promise<Metadata> {
   const { lang } = await params;
@@ -14,11 +13,12 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/kontakt">)
   return { title: `${dict.nav.contact} · KS Tirana`, description: dict.contact.subtitle };
 }
 
+/** "KONTAKT" — client's final design, page 31. */
 export default async function ContactPage({ params, searchParams }: PageProps<"/[lang]/kontakt">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const sp = await searchParams;
-  const [dict, hero] = await Promise.all([getDictionary(lang), getHeroPhoto(lang, "mundje-e-lire", 1)]);
+  const dict = await getDictionary(lang);
   const c = dict.contact;
   // Links from the Shop, Media and Partner pages pre-fill the subject (?subjekti=shop&produkti=...).
   const subjects = c.subjects as Record<string, string>;
@@ -28,42 +28,59 @@ export default async function ContactPage({ params, searchParams }: PageProps<"/
 
   return (
     <>
-      <PhotoPageHero photo={hero} eyebrow={c.eyebrow} title={[c.title]} body={c.subtitle} size="sm" />
+      <section className="bg-navy-900 text-white">
+        <Reveal className="wrap py-8 lg:py-10">
+          <p className="text-sm font-bold uppercase tracking-wide text-sky-300">{c.eyebrow}</p>
+          <h1 className="display mt-2 text-5xl normal-case lg:text-[4rem]">{c.title}</h1>
+          <p className="mt-5 text-lg text-white/90">{c.subtitle}</p>
+        </Reveal>
+      </section>
 
-      <section className="bg-paper py-14 lg:py-16">
-        <div className="wrap grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <Reveal>
-            <span className="rule" />
-            <h2 className="display mt-4 text-3xl text-strong">{c.formTitle}</h2>
-            <div className="mt-6">
-              <ContactForm dict={dict} defaultSubject={defaultSubject} />
+      <section className="bg-paper py-6 lg:py-8">
+        <div className="wrap grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
+          <div className="border border-line bg-[#eef3fa] p-6 lg:p-8 [:root[data-theme=dark]_&]:bg-surface">
+            <h2 className="mb-5 text-2xl font-extrabold text-strong lg:text-3xl">{c.formTitle}</h2>
+            <ContactForm dict={dict} defaultSubject={defaultSubject} />
+          </div>
+
+          <div className="space-y-5">
+            <div className="bg-[#eef3fa] p-7 [:root[data-theme=dark]_&]:bg-surface">
+              <h2 className="text-3xl font-extrabold text-strong">{CLUB_INFO.name}</h2>
+              <p className="mt-3 text-sm font-bold text-blue-500">{c.labels.address}</p>
+              <p className="text-lg font-bold text-strong">{CLUB_INFO.venue}</p>
+              <p className="text-ink/65">{CLUB_INFO.address}</p>
+              <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
+                  <p className="text-sm font-bold text-blue-500">{c.labels.phone}</p>
+                  <a href={`tel:${CLUB_INFO.phone.replace(/\s/g, "")}`} className="text-xl font-bold text-strong hover:text-blue-500">
+                    {CLUB_INFO.phone}
+                  </a>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-blue-500">{c.labels.email}</p>
+                  <a href={`mailto:${CLUB_INFO.email}`} className="text-xl font-bold text-strong hover:text-blue-500">
+                    {CLUB_INFO.email}
+                  </a>
+                </div>
+              </div>
             </div>
-          </Reveal>
 
-          <Reveal delay={0.1} className="h-fit bg-navy-900 p-8 text-white">
-            <h2 className="display text-2xl">{c.infoTitle}</h2>
-            <ul className="mt-6 space-y-5 text-sm">
-              <li className="flex items-start gap-3">
-                <Icon name="pin" className="mt-0.5 h-5 w-5 shrink-0 text-sky-300" />
-                <span className="text-white/85">{c.address}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Icon name="mail" className="mt-0.5 h-5 w-5 shrink-0 text-sky-300" />
-                <div className="space-y-1 text-white/85">
-                  <p>{c.email}</p>
-                  <p>{c.academyEmail}</p>
-                  <p>{c.pressEmail}</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <Icon name="clock" className="mt-0.5 h-5 w-5 shrink-0 text-sky-300" />
-                <div className="text-white/85">
-                  <p className="font-semibold text-white">{c.hoursTitle}</p>
-                  <p>{c.hours}</p>
-                </div>
-              </li>
-            </ul>
-          </Reveal>
+            <div className="bg-navy-900 p-7 text-white">
+              <h2 className="text-3xl font-extrabold">{c.labels.follow}</h2>
+              <ul className="mt-5 grid grid-cols-4 gap-3">
+                {SOCIAL_LINKS.map((s) => (
+                  <li key={s.name}>
+                    <a href={s.url} target="_blank" rel="noreferrer" className="group block">
+                      <span className="flex h-12 w-12 items-center justify-center bg-blue-500 transition group-hover:bg-white group-hover:text-blue-500">
+                        <Icon name={s.name} className="h-6 w-6" />
+                      </span>
+                      <span className="mt-2 block text-sm font-bold">{s.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
     </>

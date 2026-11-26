@@ -7,62 +7,65 @@ import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/MediaImage";
 import { NewsCard } from "@/components/NewsCard";
 import { EmptyState } from "@/components/EmptyState";
-import { DisciplineTicker } from "@/components/DisciplineTicker";
-import { HeroSlider, type HeroSlide } from "@/components/HeroSlider";
+import { SponsorBand } from "@/components/SponsorBand";
 import { Jersey } from "@/components/Jersey";
-import { getDisciplines, getFeaturedPhotos } from "@/lib/data/sports";
 import { CLUB, getHeroPhoto, getNews, getNextAndLast } from "@/lib/data/site";
 import { SPORT_GROUPS } from "@/lib/sport-groups";
 
 /*
- * Home page, in the order of the client's proposal (slide 05):
- *   01 main news with photo   02 next match and last result   03 news by sport
- *   04 sports                 05 academy                       06 shop, history, partners
+ * Home page from the client's final design (page 01): navy hero with the crest,
+ * the sponsor band (main supporter + sliding logos), latest news with the next
+ * match, and the sports tiles; then the academy, shop and history blocks.
  */
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, disciplines, featured, news, { next, last }, academyPhoto, historyPhoto] = await Promise.all([
+  const [dict, news, { next, last }, heroPhoto, academyPhoto, historyPhoto] = await Promise.all([
     getDictionary(lang),
-    getDisciplines(lang),
-    getFeaturedPhotos(lang, 60),
     getNews(lang, 6),
     getNextAndLast(lang),
+    getHeroPhoto(lang, "volejboll-femra", 0),
     getHeroPhoto(lang, "basketboll-meshkuj", 1),
     getHeroPhoto(lang, "volejboll-meshkuj", 2),
   ]);
   const h = dict.home;
   const label = (item: (typeof news)[number]) => item.discipline ?? dict.news.categories[item.category];
 
-  // Slide 1 is the club's message; slides 2–3 are the latest news with a photo,
-  // or more club photos until news exists.
-  const wide = featured.filter((p) => p.width > p.height * 1.3);
-  const brand = (i: number): HeroSlide => ({
-    photo: wide[i] ?? featured[i] ?? null,
-    eyebrow: h.hero.eyebrow,
-    title: h.hero.title,
-    big: true,
-    body: h.hero.subtitle,
-    cta: { href: `/${lang}/klubi`, label: h.hero.cta },
-  });
-  const newsSlides: HeroSlide[] = news
-    .filter((n) => n.cover)
-    .slice(0, 2)
-    .map((n) => ({
-      photo: n.cover,
-      eyebrow: `${label(n)} · ${n.shortDate}`,
-      title: [n.title],
-      big: false,
-      body: n.excerpt,
-      cta: { href: `/${lang}/lajme/${n.slug}`, label: h.hero.readNews },
-    }));
-  const slides = [brand(0), ...newsSlides, brand(1), brand(2)].slice(0, 3);
-
   return (
     <>
-      <HeroSlider slides={slides} slideLabel={h.hero.slide} />
+      {/* HERO */}
+      <section className="grid grid-cols-1 bg-navy-900 text-white lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <div className="px-6 relative flex items-center gap-8 py-12 lg:mr-0 lg:max-w-none lg:py-14 lg:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))]">
+          <Reveal className="min-w-0 flex-1">
+            <p className="text-sm font-bold uppercase tracking-wide text-sky-300">{h.hero.eyebrow}</p>
+            <h1 className="display mt-2 text-5xl sm:text-6xl lg:text-[4.25rem]">{h.hero.title[0]}</h1>
+            <p className="mt-3 text-xl font-bold lg:text-2xl">{h.hero.subtitle}</p>
+            <p className="mt-8 max-w-lg text-base text-white/90 lg:text-lg">{h.hero.body}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link href={`/${lang}/sportet`} className="btn btn-primary min-w-48 !justify-start !text-base !normal-case !tracking-normal">
+                {h.hero.cta}
+              </Link>
+              <Link href={`/${lang}/kalendari`} className="btn btn-primary min-w-48 !justify-start !text-base !normal-case !tracking-normal">
+                {h.hero.ctaCalendar}
+              </Link>
+            </div>
+          </Reveal>
+          <Image
+            src="/images/ks-tirana-crest.png"
+            alt=""
+            width={180}
+            height={221}
+            priority
+            className="hidden h-auto w-36 shrink-0 drop-shadow-[0_16px_32px_rgba(0,0,0,0.45)] md:block lg:w-44 xl:w-48"
+          />
+        </div>
+        {heroPhoto && (
+          <MediaImage photo={heroPhoto} alt="" sizes="(min-width: 1024px) 38vw, 100vw" priority className="min-h-[260px] lg:min-h-[400px]" position="center 30%" />
+        )}
+      </section>
 
-      <DisciplineTicker lang={lang} items={disciplines.map(({ slug, name }) => ({ slug, name }))} />
+      {/* SPONSORS */}
+      <SponsorBand body={h.sponsors.supporterBody} label={h.sponsors.partners} />
 
       {/* 01–03 LATEST NEWS + NEXT MATCH */}
       <section className="bg-paper py-10 lg:py-12">
@@ -251,20 +254,6 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         </div>
       </section>
 
-      {/* 06 PARTNERS (logos follow in the footer strip once the club provides them) */}
-      <section className="bg-blue-600 text-white">
-        <div className="wrap flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
-          <div>
-            <p className="eyebrow text-white/80">{h.partners.eyebrow}</p>
-            <h2 className="display mt-2 text-3xl lg:text-4xl">{h.partners.title}</h2>
-            <p className="mt-2 max-w-lg text-white/85">{h.partners.body}</p>
-          </div>
-          <Link href={`/${lang}/partneritet`} className="btn btn-white shrink-0">
-            {h.partners.cta}
-            <Icon name="arrowRight" className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
     </>
   );
 }

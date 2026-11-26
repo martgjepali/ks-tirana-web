@@ -19,7 +19,9 @@
     "blob:upload": "tsx scripts/upload-photos-blob.ts",
     "db:pull": "tsx scripts/pull-db.ts && tsx scripts/db-migrate.ts",
     "photos:pull": "tsx scripts/pull-photos.ts",
-    "dev:setup": "npm run db:up && npm run db:pull && npm run photos:pull"
+    "dev:setup": "npm run db:up && npm run db:pull && npm run photos:pull",
+    "import:rosters": "tsx scripts/import-rosters.ts",
+    "seed:demo": "tsx scripts/seed-demo.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.9.0",

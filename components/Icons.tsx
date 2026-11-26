@@ -45,7 +45,13 @@ export type IconName =
   | "linkedin"
   | "weights"
   | "table"
-  | "org";
+  | "org"
+  | "chess"
+  | "target"
+  | "tennis"
+  | "ticket"
+  | "whatsapp"
+  | "book";
 
 const paths: Record<IconName, React.ReactNode> = {
   sun: (
@@ -253,6 +259,44 @@ const paths: Record<IconName, React.ReactNode> = {
       <rect x="3" y="16" width="6" height="4.5" rx="1" />
       <rect x="15" y="16" width="6" height="4.5" rx="1" />
       <path d="M12 8v4M6 16v-4h12v4" />
+    </>
+  ),
+  chess: (
+    <>
+      <circle cx="12" cy="6" r="2.5" />
+      <path d="M10 8.5 9 14h6l-1-5.5M8 14h8l1 3H7zM6 20h12" />
+    </>
+  ),
+  target: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  tennis: (
+    <>
+      <ellipse cx="9.5" cy="9.5" rx="5.5" ry="6.5" transform="rotate(-45 9.5 9.5)" />
+      <path d="M13.5 13.5 20 20M7 7l5 5M12 7l-5 5" />
+      <circle cx="18.5" cy="6" r="1.8" />
+    </>
+  ),
+  ticket: (
+    <>
+      <path d="M4 7h16v3a2 2 0 0 0 0 4v3H4v-3a2 2 0 0 0 0-4z" />
+      <path d="M14 7v10" strokeDasharray="2 2" />
+    </>
+  ),
+  whatsapp: (
+    <>
+      <path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z" />
+      <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.7-2.7l.8-1-1-2z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  book: (
+    <>
+      <path d="M12 6c-2-1.5-5-2-8-1.5v14c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-14c-3-.5-6 0-8 1.5z" />
+      <path d="M12 6v14" />
     </>
   ),
 };

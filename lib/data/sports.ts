@@ -218,6 +218,30 @@ export async function getPhotos(
   return rows.map((r) => toPhotoRef(r, lang));
 }
 
+/**
+ * A discipline's photos in the design's three gallery groups:
+ * team photos (nobody or 3+ people tagged), individual portraits (one person),
+ * matches and events (two people tagged, or anything left over).
+ */
+export async function getGalleryGroups(disciplineId: number, lang: Locale, perGroup = 3) {
+  await connection();
+  const rows = await query<PhotoRow & { grp: "team" | "portraits" | "action" }>(
+    `SELECT * FROM (
+       SELECT ${PHOTO_COLUMNS("ph")}, g.grp,
+              row_number() OVER (PARTITION BY g.grp ORDER BY ph.is_featured DESC, ph.taken_at DESC NULLS LAST, ph.sort_order) AS n
+       FROM photos ph
+       CROSS JOIN LATERAL (SELECT count(*) AS tags FROM photo_people x WHERE x.photo_id = ph.id) t
+       CROSS JOIN LATERAL (SELECT CASE WHEN t.tags = 1 THEN 'portraits'
+                                       WHEN t.tags = 2 THEN 'action'
+                                       WHEN ph.width > ph.height THEN 'team' ELSE 'action' END AS grp) g
+       WHERE ph.discipline_id = $1 AND ${photoVisible("ph")}
+     ) s WHERE s.n <= $2`,
+    [disciplineId, perGroup],
+  );
+  const pick = (grp: string) => rows.filter((r) => r.grp === grp).map((r) => toPhotoRef(r, lang));
+  return { team: pick("team"), portraits: pick("portraits"), action: pick("action") };
+}
+
 /** Curated photos across the club, for the home page. */
 export const getFeaturedPhotos = cache(async (lang: Locale, limit: number): Promise<PhotoRef[]> => {
   await connection();

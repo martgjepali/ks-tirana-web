@@ -3,13 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "../dictionaries";
 import { getDisciplines } from "@/lib/data/sports";
-import { getClubStats, getHeroPhoto } from "@/lib/data/site";
-import { currentSeason, genderOf, groupOf, SPORT_GROUPS } from "@/lib/sport-groups";
-import { PhotoPageHero } from "@/components/PhotoPageHero";
-import { SportsBrowser } from "@/components/SportsBrowser";
+import { getHeroPhoto } from "@/lib/data/site";
+import { sportIcon } from "@/lib/sport-icons";
 import { MediaImage } from "@/components/MediaImage";
-import { Icon, type IconName } from "@/components/Icons";
-import { Reveal } from "@/components/motion/Reveal";
+import { Icon } from "@/components/Icons";
+import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/sportet">): Promise<Metadata> {
   const { lang } = await params;
@@ -18,90 +16,62 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/sportet">)
   return { title: `${dict.sports.hero.title} · KS Tirana`, description: dict.sports.hero.subtitle };
 }
 
-/** "DISIPLINAT" — client proposal, slide 06/07. */
-export default async function SportsPage({ params, searchParams }: PageProps<"/[lang]/sportet">) {
+/** Tile names as in the design: "Volejboll femra" → "Volejboll për femra". */
+const tileName = (name: string) => name.replace(/^(Volejboll|Basketboll) (femra|meshkuj)$/i, "$1 për $2");
+
+/** "DISIPLINAT" — client's final design, page 02 (tiles with a hover effect). */
+export default async function SportsPage({ params }: PageProps<"/[lang]/sportet">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const requested = (await searchParams).sport;
-  const initialGroup = SPORT_GROUPS.some((g) => g.key === requested) ? (requested as string) : null;
-
-  const [dict, disciplines, hero, academyPhoto, stats] = await Promise.all([
-    getDictionary(lang),
-    getDisciplines(lang),
-    getHeroPhoto(lang, "atletike", 1),
-    getHeroPhoto(lang, "basketboll-meshkuj", 0),
-    getClubStats(),
-  ]);
-  const t = dict.sports;
-  const dash = (n: number) => (n > 0 ? String(n) : "—");
-  const statItems: { icon: IconName; value: string; label: string }[] = [
-    { icon: "users", value: dash(stats.disciplines), label: t.stats.sports },
-    { icon: "users", value: dash(stats.athletes), label: t.stats.athletes },
-    { icon: "trophy", value: dash(stats.events), label: t.stats.events },
-    { icon: "chart", value: "—", label: t.stats.medals },
-  ];
+  const [dict, disciplines, hero] = await Promise.all([getDictionary(lang), getDisciplines(lang), getHeroPhoto(lang, "atletike", 1)]);
 
   return (
     <>
-      <PhotoPageHero photo={hero} eyebrow={t.hero.eyebrow.join(" • ")} title={[t.hero.title]} body={t.hero.subtitle} size="sm" />
-
-      <section className="bg-paper py-8 lg:py-10">
-        <div className="wrap">
-          <SportsBrowser
-            lang={lang}
-            season={currentSeason()}
-            initialGroup={initialGroup}
-            items={disciplines.map((d) => {
-              const group = groupOf(d.slug);
-              return {
-                slug: d.slug,
-                name: d.name,
-                cover: d.cover,
-                kind: group.kind,
-                gender: genderOf(d.slug),
-                group: { key: group.key, name: group.name[lang] },
-              };
-            })}
-            labels={{ ...t.filters, cardTeam: t.card.team, cardCalendar: t.card.calendar }}
-          />
+      <section className="bg-navy-900 text-white">
+        <div className="grid grid-cols-1 items-center lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+          <Reveal className="px-6 py-12 lg:py-16 lg:pl-[max(2.5rem,calc((100vw-1360px)/2+6rem))]">
+            <h1 className="display text-6xl lg:text-[5.5rem]">{dict.sports.hero.title}</h1>
+          </Reveal>
+          {hero && (
+            <div className="px-4 pb-4 lg:py-3 lg:pl-0 lg:pr-[max(1rem,calc((100vw-1360px)/2+1rem))]">
+              <MediaImage photo={hero} alt="" sizes="(min-width: 1024px) 50vw, 100vw" priority className="aspect-[16/5]" position="center 30%" />
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Academy band */}
-      <section className="grid grid-cols-1 bg-blue-600 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
-        <Reveal className="flex flex-col justify-center px-6 py-12 lg:py-14 lg:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] lg:pr-12">
-          <p className="eyebrow text-white/85">{t.academy.eyebrow}</p>
-          <h2 className="display mt-3 text-4xl lg:text-5xl">
-            {t.academy.title.map((l) => (
-              <span key={l} className="block">
-                {l}
-              </span>
-            ))}
-          </h2>
-          <p className="mt-4 max-w-md text-white/90">{t.academy.body}</p>
-          <Link href={`/${lang}/akademia`} className="btn btn-white mt-7 w-fit">
-            {t.academy.cta}
-            <Icon name="arrowRight" className="h-4 w-4" />
-          </Link>
-        </Reveal>
-        {academyPhoto && (
-          <MediaImage photo={academyPhoto} alt="" sizes="(min-width: 1024px) 56vw, 100vw" className="min-h-[260px] lg:min-h-[340px]" position="center 30%" />
-        )}
-      </section>
-
-      {/* Stats strip */}
-      <section className="bg-navy-900 text-white">
-        <dl className="wrap grid grid-cols-2 gap-y-6 py-8 lg:grid-cols-4 lg:divide-x lg:divide-white/15">
-          {statItems.map((s) => (
-            <div key={s.label} className="flex items-center gap-4 lg:justify-center lg:px-6">
-              <Icon name={s.icon} className="h-8 w-8 shrink-0 text-white/85" />
-              <div>
-                <dd className="font-display text-2xl font-extrabold leading-none">{s.value}</dd>
-                <dt className="mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-white/70">{s.label}</dt>
-              </div>
-            </div>
+      <section className="bg-paper py-8 lg:py-10">
+        <StaggerGroup className="wrap grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {disciplines.map((d, i) => (
+            <StaggerItem key={d.slug}>
+              <Link
+                href={`/${lang}/sportet/${d.slug}`}
+                className="group block overflow-hidden bg-navy-900 shadow-[0_1px_0_rgba(2,31,72,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              >
+                {d.cover ? (
+                  <MediaImage
+                    photo={d.cover}
+                    alt=""
+                    sizes="(min-width: 1024px) 19vw, (min-width: 640px) 32vw, 48vw"
+                    className="aspect-[2.6/1] [&_img]:duration-500 group-hover:[&_img]:scale-110"
+                    position="center 30%"
+                    priority={i < 5}
+                  />
+                ) : (
+                  <div className="flex aspect-[2.6/1] items-center justify-center bg-navy-800">
+                    <Icon name={sportIcon(d.slug)} className="h-10 w-10 text-white/30 transition duration-500 group-hover:scale-110 group-hover:text-white/60" />
+                  </div>
+                )}
+                <p className="flex items-center justify-between gap-2 px-3.5 py-2.5 text-[1.05rem] font-bold text-white transition-colors duration-300 group-hover:bg-blue-500">
+                  <span className="truncate">{lang === "sq" ? tileName(d.name) : d.name}</span>
+                  <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                    ↗
+                  </span>
+                </p>
+              </Link>
+            </StaggerItem>
           ))}
-        </dl>
+        </StaggerGroup>
       </section>
     </>
   );

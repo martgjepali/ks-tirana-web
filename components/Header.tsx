@@ -7,12 +7,13 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { Icon } from "./Icons";
 import { ThemeToggle } from "./ThemeToggle";
-import { SOCIAL_LINKS } from "@/lib/club";
+import { CLUB_INFO } from "@/lib/club";
 import type { Dictionary, Locale } from "@/app/[lang]/dictionaries";
 
 /**
- * Site header from the client's design: navy top bar (tagline, direct links),
- * white bar with the wordmark, the five main sections, search, Shop and SQ | EN.
+ * Header from the client's final design: thin navy bar ("KLUBI SPORTIV TIRANA" /
+ * "THEMELUAR 15 GUSHT 1920"), then crest + KS TIRANA and the menu
+ * Disiplinat · Akademia · Kalendari · Lajme · Revista · Klubi · Partnerët · Kontakt · SQ / EN · Shop.
  */
 export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const pathname = usePathname();
@@ -46,31 +47,34 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
   const rest = pathname.replace(/^\/(sq|en)/, "") || "";
   const n = dict.nav;
-  const clubLinks = [
-    { href: `/${lang}/klubi`, label: n.history },
-    { href: `/${lang}/klubi/drejtimi`, label: n.management },
-    { href: `/${lang}/partneritet`, label: n.partner },
-    { href: `/${lang}/kontakt`, label: n.contact },
-  ];
-  const links = [
+  const links: { href: string; label: string; children?: { href: string; label: string }[] }[] = [
     { href: `/${lang}/sportet`, label: n.sports },
     { href: `/${lang}/akademia`, label: n.academy },
     { href: `/${lang}/kalendari`, label: n.calendar },
     { href: `/${lang}/lajme`, label: n.media },
-    { href: `/${lang}/klubi`, label: n.club, children: clubLinks },
+    { href: `/${lang}/revista`, label: n.magazine },
+    {
+      href: `/${lang}/klubi`,
+      label: n.club,
+      children: [
+        { href: `/${lang}/klubi`, label: n.history },
+        { href: `/${lang}/klubi/drejtimi`, label: n.management },
+      ],
+    },
+    { href: `/${lang}/partneret`, label: n.partners },
+    { href: `/${lang}/kontakt`, label: n.contact },
   ];
-  const isActive = (l: (typeof links)[number]) =>
-    pathname.startsWith(l.href) || (l.children?.some((c) => pathname.startsWith(c.href)) ?? false);
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   const langSwitch = (
-    <span className="flex items-center gap-2 text-sm font-semibold">
+    <span className="flex items-center gap-1.5 text-[0.95rem] font-bold text-strong">
       {(["sq", "en"] as const).map((code, i) => (
-        <span key={code} className="flex items-center gap-2">
-          {i > 0 && <span className="text-line" aria-hidden>|</span>}
+        <span key={code} className="flex items-center gap-1.5">
+          {i > 0 && <span aria-hidden>/</span>}
           {code === lang ? (
-            <span className="text-strong" aria-current="true">{code.toUpperCase()}</span>
+            <span aria-current="true">{code.toUpperCase()}</span>
           ) : (
-            <Link href={`/${code}${rest}`} hrefLang={code} className="text-ink/45 transition hover:text-blue-500">
+            <Link href={`/${code}${rest}`} hrefLang={code} className="text-ink/50 transition hover:text-blue-500">
               {code.toUpperCase()}
             </Link>
           )}
@@ -85,71 +89,45 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
       style={{ viewTransitionName: "site-header" }}
       className={`site-header sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-[0_2px_24px_rgba(2,31,72,0.12)]" : ""}`}
     >
-      {/* Top bar */}
-      <div className="hidden bg-navy-900 text-white md:block">
-        <div className="wrap flex h-9 items-center justify-between text-[0.6875rem] font-semibold uppercase tracking-[0.18em]">
-          <p className="text-white/80">{dict.header.tagline.join(" • ")}</p>
-          <div className="flex items-center gap-4">
-            <Link href={`/${lang}/partneritet`} className="text-white/80 transition hover:text-white">
-              {n.partner}
-            </Link>
-            <Link href={`/${lang}/kontakt`} className="text-white/80 transition hover:text-white">
-              {n.contact}
-            </Link>
-            {SOCIAL_LINKS.length > 0 && (
-              <span className="flex items-center gap-1 border-l border-white/20 pl-3">
-                {SOCIAL_LINKS.map((s) => (
-                  <a
-                    key={s.name}
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={s.name}
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-white/80 transition hover:bg-white/10 hover:text-white"
-                  >
-                    <Icon name={s.name} className="h-4 w-4" />
-                  </a>
-                ))}
-              </span>
-            )}
-            <span className="border-l border-white/20 pl-4 text-white/60">{dict.header.motto}</span>
-          </div>
+      <div className="bg-navy-900 text-white">
+        <div className="wrap flex h-7 items-center justify-between text-[0.6875rem] font-bold uppercase tracking-wide">
+          <p>{dict.header.club}</p>
+          <p className="hidden sm:block">{CLUB_INFO.founded[lang]}</p>
         </div>
       </div>
 
-      {/* Main bar */}
       <div className="border-b border-line bg-[var(--color-header)]">
         <div className="wrap flex h-16 items-center justify-between gap-6 lg:h-[72px]">
-          <Link href={`/${lang}`} className="flex shrink-0 items-center gap-2.5" aria-label="KS Tirana">
-            <Image src="/images/ks-tirana-crest.png" alt="" width={39} height={48} priority className="h-10 w-auto" />
-            <span className="font-display text-[1.65rem] font-black leading-none tracking-tight text-strong lg:text-[1.85rem]">
+          <Link href={`/${lang}`} className="flex shrink-0 items-center gap-3" aria-label="KS Tirana">
+            <Image src="/images/ks-tirana-crest.png" alt="" width={39} height={48} priority className="h-11 w-auto" />
+            <span className="font-display text-[1.6rem] font-extrabold leading-none tracking-tight text-strong lg:text-[1.85rem]">
               KS TIRANA
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-9 lg:flex" aria-label={n.home}>
+          <nav className="hidden items-center gap-6 xl:flex 2xl:gap-8" aria-label={n.home}>
             {links.map((l) => {
-              const active = isActive(l);
+              const active = isActive(l.href) || (l.children?.some((c) => isActive(c.href)) ?? false);
               return (
                 <div key={l.href} className="group relative">
                   <Link
                     href={l.href}
                     aria-current={active ? "page" : undefined}
-                    className={`relative flex h-[72px] items-center gap-1 text-[0.95rem] font-semibold transition-colors after:absolute after:inset-x-0 after:bottom-4 after:h-[2px] after:origin-left after:bg-blue-500 after:transition-transform ${
-                      active ? "text-blue-500 after:scale-x-100" : "text-strong after:scale-x-0 hover:text-blue-500 hover:after:scale-x-100"
+                    className={`flex h-[72px] items-center gap-1 text-[0.95rem] font-bold transition-colors ${
+                      active ? "text-blue-500" : "text-strong hover:text-blue-500"
                     }`}
                   >
                     {l.label}
                     {l.children && <Icon name="chevronDown" className="h-3.5 w-3.5 opacity-60" />}
                   </Link>
                   {l.children && (
-                    <div className="invisible absolute left-1/2 top-full z-10 w-64 -translate-x-1/2 translate-y-1 opacity-0 transition group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                      <ul className="mt-px overflow-hidden rounded-b border border-t-0 border-line bg-card py-2 shadow-[var(--shadow-card)]">
+                    <div className="invisible absolute left-1/2 top-full z-10 w-60 -translate-x-1/2 translate-y-1 opacity-0 transition group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <ul className="mt-px border border-t-0 border-line bg-card py-2 shadow-[var(--shadow-card)]">
                         {l.children.map((c) => (
                           <li key={c.href}>
                             <Link
                               href={c.href}
-                              className={`block px-5 py-2.5 text-sm font-medium transition hover:bg-surface hover:text-blue-500 ${
+                              className={`block px-5 py-2.5 text-sm font-semibold transition hover:bg-surface hover:text-blue-500 ${
                                 pathname === c.href ? "text-blue-500" : "text-strong"
                               }`}
                             >
@@ -163,29 +141,18 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 </div>
               );
             })}
-          </nav>
-
-          <div className="hidden items-center gap-5 lg:flex">
+            {langSwitch}
             <Link
-              href={`/${lang}/kerkim`}
-              aria-label={dict.header.search}
-              title={dict.header.search}
-              className="text-strong transition hover:text-blue-500"
+              href={`/${lang}/dyqani`}
+              aria-current={isActive(`/${lang}/dyqani`) ? "page" : undefined}
+              className={`text-[0.95rem] font-bold transition-colors ${isActive(`/${lang}/dyqani`) ? "text-blue-500" : "text-strong hover:text-blue-500"}`}
             >
-              <Icon name="search" className="h-5 w-5" />
-            </Link>
-            <Link href={`/${lang}/dyqani`} className="btn btn-primary !px-5 !py-2.5">
-              <Icon name="bag" className="h-4 w-4" />
               {n.shop}
             </Link>
-            {langSwitch}
             <ThemeToggle label={dict.header.theme} />
-          </div>
+          </nav>
 
-          <div className="flex items-center gap-2 lg:hidden">
-            <Link href={`/${lang}/kerkim`} aria-label={dict.header.search} className="flex h-10 w-10 items-center justify-center text-strong">
-              <Icon name="search" className="h-5 w-5" />
-            </Link>
+          <div className="flex items-center gap-2 xl:hidden">
             <ThemeToggle label={dict.header.theme} />
             <button
               type="button"
@@ -220,26 +187,23 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)", transition: { duration: 0.35, ease: [0.65, 0, 0.35, 1], delay: 0.1 } }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col overflow-y-auto bg-paper md:top-[100px] lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-[92px] z-40 flex flex-col overflow-y-auto bg-paper lg:top-[100px] xl:hidden"
           >
-            <motion.nav className="wrap flex flex-1 flex-col pt-4" variants={menuList} initial="closed" animate="open" exit="closed">
+            <motion.nav className="wrap flex flex-1 flex-col pt-2" variants={menuList} initial="closed" animate="open" exit="closed">
               <ul>
-                {links.map((l, i) => (
-                  <motion.li key={l.href} variants={menuItem} className="border-b border-line">
+                {[...links, { href: `/${lang}/dyqani`, label: n.shop }].map((l) => (
+                  <motion.li key={l.href + l.label} variants={menuItem} className="border-b border-line">
                     <Link
                       href={l.href}
-                      className={`font-display flex items-baseline gap-4 py-4 text-3xl font-extrabold uppercase tracking-tight ${
-                        isActive(l) ? "text-blue-500" : "text-strong"
-                      }`}
+                      className={`font-display flex py-3.5 text-2xl font-extrabold ${isActive(l.href) ? "text-blue-500" : "text-strong"}`}
                     >
-                      <span className="text-xs font-semibold tracking-widest text-ink/40">0{i + 1}</span>
                       {l.label}
                     </Link>
-                    {l.children && (
-                      <ul className="-mt-1 grid grid-cols-2 gap-x-4 gap-y-2 pb-4 pl-9">
+                    {"children" in l && l.children && (
+                      <ul className="-mt-1 flex gap-5 pb-3.5">
                         {l.children.map((c) => (
                           <li key={c.href}>
-                            <Link href={c.href} className="text-sm font-medium text-ink/70 hover:text-blue-500">
+                            <Link href={c.href} className="text-sm font-semibold text-ink/70 hover:text-blue-500">
                               {c.label}
                             </Link>
                           </li>
@@ -249,29 +213,9 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   </motion.li>
                 ))}
               </ul>
-              <motion.div variants={menuItem} className="mt-auto flex items-center gap-4 py-8">
+              <motion.div variants={menuItem} className="mt-auto py-8">
                 {langSwitch}
-                <Link href={`/${lang}/dyqani`} className="btn btn-primary flex-1">
-                  <Icon name="bag" className="h-4 w-4" />
-                  {n.shop}
-                </Link>
               </motion.div>
-              {SOCIAL_LINKS.length > 0 && (
-                <motion.div variants={menuItem} className="flex gap-2 pb-8">
-                  {SOCIAL_LINKS.map((s) => (
-                    <a
-                      key={s.name}
-                      href={s.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={s.name}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-strong transition hover:border-blue-500 hover:text-blue-500"
-                    >
-                      <Icon name={s.name} className="h-5 w-5" />
-                    </a>
-                  ))}
-                </motion.div>
-              )}
             </motion.nav>
           </motion.div>
         )}
@@ -281,7 +225,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 }
 
 const menuList: Variants = {
-  open: { transition: { staggerChildren: 0.06, delayChildren: 0.18 } },
+  open: { transition: { staggerChildren: 0.05, delayChildren: 0.18 } },
   closed: { transition: { staggerChildren: 0.03, staggerDirection: -1 } },
 };
 

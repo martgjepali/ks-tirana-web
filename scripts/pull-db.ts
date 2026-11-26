@@ -68,8 +68,8 @@ function main() {
   const psql = `psql -q -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"`;
   const script = [
     "set -e",
-    `pg_dump --no-owner --no-privileges ${SKIP_DATA.map((t) => `--exclude-table-data=public.${t}`).join(" ")} -f /tmp/pull.sql "$SRC"`,
-    `${psql} -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;'`,
+    `pg_dump --no-owner --no-privileges --schema=public ${SKIP_DATA.map((t) => `--exclude-table-data=public.${t}`).join(" ")} -f /tmp/pull.sql "$SRC"`,
+    `${psql} -c 'DROP SCHEMA IF EXISTS public CASCADE;'`,
     `${psql} -f /tmp/pull.sql`,
     "rm -f /tmp/pull.sql",
   ].join("\n");
@@ -79,7 +79,7 @@ function main() {
     stdio: ["ignore", "inherit", "inherit"],
     env: { ...process.env, SRC: source.toString() },
   });
-  if (result.status !== 0) fail("Copy failed (see the message above). The local database was not changed if the dump failed.");
+  if (result.status !== 0) fail("Copy failed (see the message above). If the dump itself failed the local database is unchanged; if the restore failed, run npm run db:pull again.");
 
   const counts = spawnSync(
     "docker",

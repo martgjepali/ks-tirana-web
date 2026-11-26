@@ -13,6 +13,7 @@ const TYPES: Record<string, string> = {
   jpg: "image/jpeg",
   png: "image/png",
   avif: "image/avif",
+  pdf: "application/pdf", // media kit, org chart (uploaded in admin)
 };
 
 export async function GET(_request: Request, { params }: { params: Promise<{ path: string[] }> }) {

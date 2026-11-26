@@ -4,8 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "../dictionaries";
 import { getShowcasePhotos } from "@/lib/data/site";
-import { MAGAZINE_ISSUES } from "@/lib/club";
+import { getMagazineIssues } from "@/lib/data/club";
 import { FlipBook, type MagazinePage } from "@/components/FlipBook";
+import { EmptyState } from "@/components/EmptyState";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -21,16 +22,29 @@ export default async function MagazinePage({ params, searchParams }: PageProps<"
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const requested = Number((await searchParams).numri);
-  const issue = MAGAZINE_ISSUES.find((i) => i.number === requested) ?? MAGAZINE_ISSUES[0];
-  const [dict, photos] = await Promise.all([
-    getDictionary(lang),
-    // EXAMPLE pages: club photos, offset per issue so each example issue looks different.
-    getShowcasePhotos(lang, { orientation: "portrait", limit: 6, offset: (issue.number - 1) * 6 }),
-  ]);
+  const [dict, issues] = await Promise.all([getDictionary(lang), getMagazineIssues(lang)]);
   const m = dict.magazine;
+  const issue = issues.find((i) => i.number === requested) ?? issues[0];
+
+  if (!issue) {
+    return (
+      <section className="bg-paper py-16">
+        <div className="wrap">
+          <EmptyState icon="book" text={m.body} />
+        </div>
+      </section>
+    );
+  }
+
+  // Pages uploaded in admin; until an issue has pages, club photos stand in (MVP example).
+  const fallback = issue.pages.length === 0
+    ? await getShowcasePhotos(lang, { orientation: "portrait", limit: 6, offset: (issue.number - 1) * 6 })
+    : [];
+  const coverAlt = `${m.title} — ${m.issue.replace("{n}", String(issue.number))}`;
   const pages: MagazinePage[] = [
-    { kind: "image", src: issue.cover, alt: `${m.title} — ${m.issue.replace("{n}", String(issue.number))}` },
-    ...photos.map((photo) => ({ kind: "photo" as const, photo, caption: m.pageCaption })),
+    { kind: "image", src: issue.cover, alt: coverAlt },
+    ...issue.pages.map((src, i) => ({ kind: "image" as const, src, alt: `${coverAlt} — ${i + 2}` })),
+    ...fallback.map((photo) => ({ kind: "photo" as const, photo, caption: m.pageCaption })),
     { kind: "back", title: m.coverTitle },
   ];
   const labels = { read: m.read, close: m.close, prev: m.prev, next: m.next, page: m.page };
@@ -43,7 +57,7 @@ export default async function MagazinePage({ params, searchParams }: PageProps<"
           labels={labels}
           trigger={
             <button type="button" className="group block w-full max-w-sm bg-white p-1.5 text-left shadow-2xl transition hover:-translate-y-1" aria-label={m.read}>
-              <Image src={issue.cover} alt={pages[0].kind === "image" ? pages[0].alt : ""} width={543} height={724} priority className="h-auto w-full" />
+              <Image unoptimized src={issue.cover} alt={coverAlt} width={543} height={724} priority className="h-auto w-full" />
             </button>
           }
         />
@@ -51,7 +65,8 @@ export default async function MagazinePage({ params, searchParams }: PageProps<"
         <div className="flex flex-col">
           <Reveal className="lg:pt-10">
             <p className="text-sm font-bold uppercase tracking-wide text-sky-300">
-              {m.eyebrow} · {m.issue.replace("{n}", String(issue.number))} · {issue.date[lang]}
+              {m.eyebrow} · {m.issue.replace("{n}", String(issue.number))}
+              {issue.date && <> · {issue.date}</>}
             </p>
             <h1 className="display mt-6 text-5xl normal-case lg:text-[4rem]">{m.title}</h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-white/90">{m.body}</p>
@@ -69,23 +84,25 @@ export default async function MagazinePage({ params, searchParams }: PageProps<"
             </div>
           </Reveal>
 
-          <div className="mt-12 lg:ml-auto lg:mt-auto lg:w-[30rem]">
-            <ul className="grid grid-cols-4 gap-2">
-              {[...MAGAZINE_ISSUES].sort((a, b) => a.number - b.number).map((i) => (
-                <li key={i.number}>
-                  <Link
-                    href={`/${lang}/revista?numri=${i.number}`}
-                    aria-current={i.number === issue.number ? "true" : undefined}
-                    title={`${m.issue.replace("{n}", String(i.number))} · ${i.date[lang]}`}
-                    className="flex aspect-[4/5] items-center justify-center bg-white text-6xl font-black italic text-blue-500 transition hover:-translate-y-1 aria-[current=true]:ring-4 aria-[current=true]:ring-sky-300"
-                  >
-                    {i.number}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-2 bg-[#eef3fa] px-5 py-2 text-xl font-extrabold text-strong">{m.previous}</p>
-          </div>
+          {issues.length > 1 && (
+            <div className="mt-12 lg:ml-auto lg:mt-auto lg:w-[30rem]">
+              <ul className="grid grid-cols-4 gap-2">
+                {[...issues].sort((a, b) => a.number - b.number).map((i) => (
+                  <li key={i.id}>
+                    <Link
+                      href={`/${lang}/revista?numri=${i.number}`}
+                      aria-current={i.number === issue.number ? "true" : undefined}
+                      title={`${m.issue.replace("{n}", String(i.number))}${i.date ? ` · ${i.date}` : ""}`}
+                      className="flex aspect-[4/5] items-center justify-center bg-white text-6xl font-black italic text-blue-500 transition hover:-translate-y-1 aria-[current=true]:ring-4 aria-[current=true]:ring-sky-300"
+                    >
+                      {i.number}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 bg-[#eef3fa] px-5 py-2 text-xl font-extrabold text-strong">{m.previous}</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

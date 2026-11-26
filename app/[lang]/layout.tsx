@@ -10,6 +10,7 @@ import { SPLASH_SCRIPT, THEME_SCRIPT } from "@/lib/theme";
 import { InlineScript } from "@/components/InlineScript";
 import { Splash } from "@/components/Splash";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { getSiteSettings } from "@/lib/data/club";
 
 // Handwritten accents ("Sot më mirë se dje").
 const caveat = Caveat({
@@ -50,7 +51,7 @@ export default async function RootLayout({
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const dict = await getDictionary(lang);
+  const [dict, settings] = await Promise.all([getDictionary(lang), getSiteSettings()]);
 
   return (
     <html
@@ -73,7 +74,7 @@ export default async function RootLayout({
           <ViewTransition update="page" enter="page" exit="page" default="none">
             <main className="flex-1">{children}</main>
           </ViewTransition>
-          <Footer lang={lang} dict={dict} />
+          <Footer lang={lang} dict={dict} socials={settings.socials} />
         </MotionProvider>
       </body>
     </html>

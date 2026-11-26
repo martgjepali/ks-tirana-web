@@ -37,6 +37,13 @@ export default async function TeamPage({ params, searchParams }: PageProps<"/[la
   const sp = await searchParams;
   const galleryTab = sp.tab === "galeria";
   const t = dict.team;
+  const detail = dict.sports.detail;
+  const facts = [
+    { label: detail.ageGroups, value: discipline.ageGroups },
+    { label: detail.schedule, value: discipline.schedule },
+    { label: detail.venue, value: discipline.venue },
+    { label: detail.history, value: discipline.achievements },
+  ].filter(({ value }) => value);
   const base = `/${lang}/sportet/${discipline.slug}`;
   const cardLabels = {
     headCoach: dict.sports.headCoach,
@@ -129,6 +136,26 @@ export default async function TeamPage({ params, searchParams }: PageProps<"/[la
         </section>
       ) : (
         <>
+          {(discipline.description || facts.length > 0) && (
+            <section className="bg-paper pt-8 lg:pt-10">
+              <div className="wrap">
+                <div className="border-b border-line pb-6">
+                  <h2 className="text-2xl font-extrabold text-strong">{detail.about}</h2>
+                  {discipline.description && <p className="mt-3 max-w-3xl whitespace-pre-line text-ink/75">{discipline.description}</p>}
+                  {facts.length > 0 && (
+                    <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                      {facts.map(({ label, value }) => (
+                        <div key={label}>
+                          <dt className="text-sm font-bold text-strong">{label}</dt>
+                          <dd className="mt-1 whitespace-pre-line text-sm text-ink/75">{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                </div>
+              </div>
+            </section>
+          )}
           {/* Staff + roster */}
           <section className="bg-paper pb-6 pt-10 lg:pt-12">
             <div className="wrap grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.7fr)]">

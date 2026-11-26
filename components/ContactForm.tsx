@@ -1,23 +1,18 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useActionState } from "react";
+import { submitMessage, type FormState } from "@/app/actions/forms";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 
 /**
- * Contact form from the client's final design (page 31). Submission is not wired
- * to the server yet (Phase 6 in docs/PLAN.md): it shows the confirmation only.
+ * Contact form from the client's final design (page 31). Saved to the database;
+ * staff see it in /admin → Mesazhet.
  */
-export function ContactForm({ dict, defaultSubject }: { dict: Dictionary; defaultSubject?: string }) {
+export function ContactForm({ dict, lang, defaultSubject }: { dict: Dictionary; lang: string; defaultSubject?: string }) {
   const f = dict.contact.form;
-  const [status, setStatus] = useState<"idle" | "submitting" | "done">("idle");
+  const [state, action, pending] = useActionState<FormState, FormData>(submitMessage, { status: "idle" });
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("submitting");
-    window.setTimeout(() => setStatus("done"), 700);
-  }
-
-  if (status === "done") {
+  if (state.status === "done") {
     return (
       <div className="bg-card p-8 text-center">
         <p className="text-lg font-bold text-strong">{f.success}</p>
@@ -27,7 +22,15 @@ export function ContactForm({ dict, defaultSubject }: { dict: Dictionary; defaul
 
   const label = "text-sm font-bold text-strong";
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+    <form action={action} className="relative grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+      {/* Spam trap: hidden from people, filled in by bots. */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] h-0 w-0 opacity-0" />
+      <input type="hidden" name="locale" value={lang} />
+      {state.status === "error" && state.message && (
+        <p role="alert" className="border-l-4 border-red-600 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800 sm:col-span-2">
+          {dict.formErrors[state.message]}
+        </p>
+      )}
       <label className="block">
         <span className={label}>{f.name} *</span>
         <input name="name" required type="text" autoComplete="name" placeholder={f.namePlaceholder} className="field mt-1.5" />
@@ -45,8 +48,8 @@ export function ContactForm({ dict, defaultSubject }: { dict: Dictionary; defaul
         <textarea name="message" required rows={5} placeholder={f.messagePlaceholder} className="field mt-1.5 resize-none" />
       </label>
       <div className="sm:col-span-2">
-        <button type="submit" disabled={status === "submitting"} className="btn btn-primary min-w-56 !justify-start !text-base !normal-case !tracking-normal">
-          {status === "submitting" ? f.submitting : f.submit}
+        <button type="submit" disabled={pending} className="btn btn-primary min-w-56 !justify-start !text-base !normal-case !tracking-normal">
+          {pending ? f.submitting : f.submit}
         </button>
         <p className="mt-4 text-xs text-ink/60">{f.required}</p>
       </div>

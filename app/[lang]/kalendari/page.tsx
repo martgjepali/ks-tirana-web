@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "../dictionaries";
 import { getFixturesForMonth, getHeroPhoto, TZ } from "@/lib/data/site";
 import { SPORT_GROUPS } from "@/lib/sport-groups";
-import { TICKETS, whatsappLink } from "@/lib/club";
+import { whatsappLink } from "@/lib/club";
+import { getSiteSettings } from "@/lib/data/club";
 import { MediaImage } from "@/components/MediaImage";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
@@ -42,12 +43,14 @@ export default async function CalendarPage({ params, searchParams }: PageProps<"
   const month: Month =
     match && Number(match[2]) >= 1 && Number(match[2]) <= 12 ? { y: Number(match[1]), m: Number(match[2]) } : thisMonth();
 
-  const [dict, fixtures, photoA, photoB] = await Promise.all([
+  const [dict, fixtures, photoA, photoB, settings] = await Promise.all([
     getDictionary(lang),
     getFixturesForMonth(lang, month.y, month.m, group?.slugs ?? null),
     getHeroPhoto(lang, "basketboll-meshkuj", 2),
     getHeroPhoto(lang, "volejboll-femra", 3),
+    getSiteSettings(),
   ]);
+  const TICKETS = settings.tickets;
   const c = dict.calendar;
 
   const href = (next: { sport?: string | null; month?: Month }) => {
@@ -202,12 +205,12 @@ export default async function CalendarPage({ params, searchParams }: PageProps<"
             {/* Tickets */}
             <div className="flex items-center gap-3">
               {TICKETS.images.map((src, i) => (
-                <a key={i} href={whatsappLink(c.tickets.message)} target="_blank" rel="noreferrer" className="w-[30%] shrink-0 transition hover:-translate-y-1">
-                  <Image src={src} alt={c.tickets.alt} width={326} height={435} className="h-auto w-full" />
+                <a key={i} href={whatsappLink(TICKETS.whatsapp, c.tickets.message)} target="_blank" rel="noreferrer" className="w-[30%] shrink-0 transition hover:-translate-y-1">
+                  <Image unoptimized src={src} alt={c.tickets.alt} width={326} height={435} className="h-auto w-full" />
                 </a>
               ))}
               <a
-                href={whatsappLink(c.tickets.message)}
+                href={whatsappLink(TICKETS.whatsapp, c.tickets.message)}
                 target="_blank"
                 rel="noreferrer"
                 className="ml-auto flex aspect-square w-[34%] flex-col items-center justify-center rounded-full bg-[#c9d3e0] text-center text-sm font-extrabold uppercase leading-tight text-strong transition hover:bg-blue-500 hover:text-white"

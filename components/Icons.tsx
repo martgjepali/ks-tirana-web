@@ -51,9 +51,27 @@ export type IconName =
   | "tennis"
   | "ticket"
   | "whatsapp"
-  | "book";
+  | "book"
+  | "home"
+  | "news"
+  | "external"
+  | "plus"
+  | "filter"
+  | "key"
+  | "logout"
+  | "trash"
+  | "upload";
 
 const paths: Record<IconName, React.ReactNode> = {
+  home: <path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10" />,
+  news: <path d="M4 5h16v14H4zM8 9h8M8 13h3m3 0h2m-8 3h3m3 0h2" />,
+  external: <path d="M13 5h6v6M19 5l-8 8M19 14v5H5V5h5" />,
+  plus: <path d="M12 5v14M5 12h14" />,
+  filter: <path d="M4 6h16M7 12h10m-7 6h4" />,
+  key: <path d="M15 9h.01M12 13l-8 8v-4l5-5a6 6 0 1 1 3 1z" />,
+  logout: <path d="M10 5H5v14h5m3-3 4-4-4-4m-5 4h12" />,
+  trash: <path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13m-7 4v5m4-5v5" />,
+  upload: <path d="M12 16V5M7 10l5-5 5 5M5 16v4h14v-4" />,
   sun: (
     <>
       <circle cx="12" cy="12" r="4" />

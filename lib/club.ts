@@ -1,61 +1,57 @@
 /**
- * Club details, sponsors and links, from the client's final design
- * (docs/KS_TIRANA_WEB_Final .pdf).
- *
- * Items marked EXAMPLE are placeholder data for the MVP (agreed with the client):
- * replace them with the real values when the club sends them.
+ * Club settings edited in /admin → Cilësimet (stored in site_settings, key "site").
+ * These defaults apply until something is saved, and whenever the database is
+ * unreachable, so the site never shows empty contact details.
  */
 
-export const CLUB_INFO = {
-  name: "Klubi Sportiv Tirana",
-  founded: { sq: "Themeluar 15 Gusht 1920", en: "Founded 15 August 1920" },
-  venue: 'Pallati i Sportit "Farie Hoti"',
-  address: "Rruga e Kavajës, Tiranë",
-  phone: "042 227 006",
-  email: "info@kstirana.al",
+export type SocialName = "facebook" | "instagram" | "linkedin" | "youtube";
+
+export type SiteSettings = {
+  contact: { venue: string; address: string; phone: string; email: string };
+  socials: Record<SocialName, string>;
+  tickets: { whatsapp: string; images: string[] };
+  mediaKitUrl: string;
+  orgChartPdfUrl: string;
 };
 
-/** Social media pages. EXAMPLE: platform home pages until the club sends its own profile links. */
-export const SOCIAL_LINKS: { name: "facebook" | "instagram" | "linkedin" | "youtube"; label: string; url: string }[] = [
-  { name: "facebook", label: "Facebook", url: "https://www.facebook.com/" },
-  { name: "instagram", label: "Instagram", url: "https://www.instagram.com/" },
-  { name: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/" },
-  { name: "youtube", label: "YouTube", url: "https://www.youtube.com/" },
-];
-
-/** Main supporter, shown beside the sponsor bar ("Mbështetësi kryesor i KS Tirana"). */
-export const MAIN_SUPPORTER = { name: "Bashkia Tiranë", logo: "/images/partners/bashkia-tirane.png" };
-
-/** Sponsors in the sliding logo bar (home, Partnerët, footer). Logos taken from the client's design. */
-export const PARTNERS: { name: string; logo: string; url?: string }[] = [
-  { name: "Sixt", logo: "/images/partners/sixt.png" },
-  { name: "Selita", logo: "/images/partners/selita.png" },
-  { name: "Raiffeisen Invest", logo: "/images/partners/raiffeisen-invest.png" },
-  { name: "Geely", logo: "/images/partners/geely.png" },
-  { name: "Delfino", logo: "/images/partners/delfino.png" },
-];
-
-/**
- * Tickets ("Rezervo biletën" on the calendar): for now a WhatsApp chat with the
- * ticket office. EXAMPLE number and ticket images until the club provides them.
- */
-export const TICKETS = {
-  whatsapp: "355690000000",
-  images: ["/images/demo/bileta.jpg", "/images/demo/bileta.jpg"],
+export const DEFAULT_SETTINGS: SiteSettings = {
+  contact: {
+    venue: 'Pallati i Sportit "Farie Hoti"',
+    address: "Rruga e Kavajës, Tiranë",
+    phone: "042 227 006",
+    email: "info@kstirana.al",
+  },
+  socials: {
+    facebook: "https://www.facebook.com/",
+    instagram: "https://www.instagram.com/",
+    linkedin: "https://www.linkedin.com/",
+    youtube: "https://www.youtube.com/",
+  },
+  tickets: { whatsapp: "355690000000", images: ["/images/demo/bileta.jpg", "/images/demo/bileta.jpg"] },
+  mediaKitUrl: "",
+  orgChartPdfUrl: "",
 };
 
-/** Magazine "Ne jemi Tirona". EXAMPLE issues: cover from the design, pages filled with club photos. */
-export const MAGAZINE_ISSUES: { number: number; date: { sq: string; en: string }; cover: string }[] = [
-  { number: 4, date: { sq: "Dhjetor 2026", en: "December 2026" }, cover: "/images/demo/revista-cover.png" },
-  { number: 3, date: { sq: "Shtator 2026", en: "September 2026" }, cover: "/images/demo/revista-cover.png" },
-  { number: 2, date: { sq: "Qershor 2026", en: "June 2026" }, cover: "/images/demo/revista-cover.png" },
-  { number: 1, date: { sq: "Mars 2026", en: "March 2026" }, cover: "/images/demo/revista-cover.png" },
-];
+export const SOCIAL_LABELS: Record<SocialName, string> = {
+  facebook: "Facebook",
+  instagram: "Instagram",
+  linkedin: "LinkedIn",
+  youtube: "YouTube",
+};
 
-/** Partnership presentation (PDF), e.g. "/files/ks-tirana-media-kit.pdf" in public/files/. Hidden while empty. */
-export const MEDIA_KIT_URL: string | null = null;
+export const CLUB_NAME = "Klubi Sportiv Tirana";
 
-/** Official organisation chart (PDF) for "Shkarko PDF" on Drejtimi & Organizimi. Hidden while empty. */
-export const ORG_CHART_PDF_URL: string | null = null;
+export const whatsappLink = (number: string, text: string) =>
+  `https://wa.me/${number.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 
-export const whatsappLink = (text: string) => `https://wa.me/${TICKETS.whatsapp}?text=${encodeURIComponent(text)}`;
+/** Merges a saved settings document over the defaults (missing keys keep their default). */
+export function mergeSettings(saved: Partial<SiteSettings> | null | undefined): SiteSettings {
+  const s = saved ?? {};
+  return {
+    contact: { ...DEFAULT_SETTINGS.contact, ...s.contact },
+    socials: { ...DEFAULT_SETTINGS.socials, ...s.socials },
+    tickets: { ...DEFAULT_SETTINGS.tickets, ...s.tickets },
+    mediaKitUrl: s.mediaKitUrl ?? DEFAULT_SETTINGS.mediaKitUrl,
+    orgChartPdfUrl: s.orgChartPdfUrl ?? DEFAULT_SETTINGS.orgChartPdfUrl,
+  };
+}

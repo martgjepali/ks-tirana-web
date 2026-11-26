@@ -19,8 +19,19 @@ export default async function ApplyPage({ params, searchParams }: PageProps<"/[l
   if (!hasLocale(lang)) notFound();
   const [dict, programs] = await Promise.all([getDictionary(lang), getPrograms(lang)]);
   const requested = (await searchParams).programi;
-  const defaultProgram = programs.find((p) => p.slug === requested)?.slug;
+  const selected = programs.find((p) => p.slug === requested);
+  const defaultProgram = selected?.slug;
   const f = dict.academy.apply;
+  const ageRange = selected?.ageMin && selected.ageMax
+    ? selected.ageMin === selected.ageMax ? String(selected.ageMin) : `${selected.ageMin}–${selected.ageMax}`
+    : selected?.ageMin ? f.ageFrom.replace("{n}", String(selected.ageMin))
+    : selected?.ageMax ? f.ageUntil.replace("{n}", String(selected.ageMax)) : null;
+  const programDetails = [
+    { label: f.ageRange, text: ageRange },
+    { label: f.schedule, text: selected?.schedule },
+    { label: f.coach, text: selected?.coach },
+    { label: f.fee, text: selected?.fee },
+  ].filter(({ text }) => text);
 
   return (
     <>
@@ -38,9 +49,25 @@ export default async function ApplyPage({ params, searchParams }: PageProps<"/[l
       <section className="bg-paper py-6 lg:py-8">
         <div className="wrap grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,2.1fr)_minmax(0,1fr)]">
           <div className="border border-line bg-[#eef3fa] p-6 lg:p-8 [:root[data-theme=dark]_&]:bg-surface">
-            <AcademyForm dict={dict} programs={programs.map(({ slug, name }) => ({ slug, name }))} defaultProgram={defaultProgram} />
+            <AcademyForm dict={dict} lang={lang} programs={programs.map(({ slug, name }) => ({ slug, name }))} defaultProgram={defaultProgram} />
           </div>
           <aside className="space-y-5">
+            {selected && (selected.description || programDetails.length > 0) && (
+              <section className="border border-line bg-[#eef3fa] p-6 [:root[data-theme=dark]_&]:bg-surface">
+                <h2 className="text-xl font-extrabold text-strong">{selected.name}</h2>
+                {selected.description && <p className="mt-2 whitespace-pre-line text-sm">{selected.description}</p>}
+                {programDetails.length > 0 && (
+                  <dl className="mt-4 space-y-2 text-sm">
+                    {programDetails.map(({ label, text }) => (
+                      <div key={label}>
+                        <dt className="font-semibold text-strong">{label}</dt>
+                        <dd className="whitespace-pre-line">{text}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+              </section>
+            )}
             <div className="border border-line bg-[#eef3fa] p-6 [:root[data-theme=dark]_&]:bg-surface">
               <h2 className="text-2xl font-extrabold text-strong">{f.programs}</h2>
               <ul className="mt-4 space-y-2.5">

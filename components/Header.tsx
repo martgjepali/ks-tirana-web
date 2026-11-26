@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { Icon } from "./Icons";
 import { ThemeToggle } from "./ThemeToggle";
-import { CLUB_INFO } from "@/lib/club";
 import type { Dictionary, Locale } from "@/app/[lang]/dictionaries";
 
 /**
@@ -92,7 +91,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
       <div className="bg-navy-900 text-white">
         <div className="wrap flex h-7 items-center justify-between text-[0.6875rem] font-bold uppercase tracking-wide">
           <p>{dict.header.club}</p>
-          <p className="hidden sm:block">{CLUB_INFO.founded[lang]}</p>
+          <p className="hidden sm:block">{dict.header.founded}</p>
         </div>
       </div>
 

@@ -37,6 +37,55 @@ entirely on this machine and changes never reach the live site.
 Re-run `db:pull` whenever you want fresh content. `CONTENT_PREVIEW=true` in `.env` also shows
 people whose consent is not recorded yet (dev server only).
 
+## Staff admin
+
+The Albanian staff panel is at `/admin`. It manages disciplines, people and consent, photos,
+news, fixtures and results, academy programmes, applications, contact messages, products,
+partners, magazine issues, site settings, bilingual texts and staff accounts.
+
+For an existing local database, apply the pending migrations and create the first local login.
+Use `npm.cmd` in Windows PowerShell if it blocks `npm.ps1`.
+
+```powershell
+npm.cmd run db:up
+npm.cmd run db:migrate
+npm.cmd run admin:create -- staff@example.com "Staff Name"
+npm.cmd run dev
+```
+
+Open `http://localhost:3000/admin` and enter the temporary password printed by the create command.
+Change it under **Fjalëkalimi im**. Staff can then create accounts from **Përdoruesit**. Running
+`admin:create` for an existing email resets that account's password.
+
+News with an empty publication date stays in draft. Times in the news and fixture editors are
+Tirana time. Confirm consent before publishing a person. Saved public content is read on the next
+request. The academy and contact forms deliver submissions to the staff inboxes.
+
+### Before deploying to Vercel
+
+1. Run the migrations against the live Neon database **before deploying this code**. This release
+   needs `0007_admin_content.sql` and `0008_contact_staff_notes.sql`.
+2. Set `BETTER_AUTH_SECRET` and the production `BETTER_AUTH_URL` in Vercel. Connect the private
+   Blob store for persistent uploads.
+3. Create the first live staff account against the same Neon database.
+
+In a dedicated PowerShell session with `DEPLOY_DATABASE_URL` set privately to a writable live
+Neon connection string:
+
+```powershell
+if (-not $env:DEPLOY_DATABASE_URL) { throw "Set DEPLOY_DATABASE_URL first." }
+$previousDatabaseUrl = $env:DATABASE_URL
+try {
+  $env:DATABASE_URL = $env:DEPLOY_DATABASE_URL
+  npm.cmd run db:migrate
+  if ($LASTEXITCODE -ne 0) { throw "Migration failed." }
+  npm.cmd run admin:create -- staff@example.com "Staff Name"
+  if ($LASTEXITCODE -ne 0) { throw "Account creation failed." }
+} finally {
+  $env:DATABASE_URL = $previousDatabaseUrl
+}
+```
+
 ## Other commands
 
 | Command | What it does |
@@ -50,3 +99,6 @@ people whose consent is not recorded yet (dev server only).
 | `npm run import:rosters` | Load the official team lists from the final design (publishes those people) |
 | `npm run seed:demo` | Add EXAMPLE news, fixtures and products for the MVP (`-- --remove` deletes them) |
 | `npm run blob:upload` | Upload local processed photos to the Blob store |
+
+## Temporary password for admin
+KHs4jQUS7rLD3pAj

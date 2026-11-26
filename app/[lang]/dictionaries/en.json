@@ -14,7 +14,8 @@
     "search": "Search",
     "menu": "Menu",
     "theme": "Change theme (light / dark)",
-    "club": "KS Tirana Sports Club"
+    "club": "KS Tirana Sports Club",
+    "founded": "Founded 15 August 1920"
   },
   "nav": {
     "home": "Home",
@@ -304,6 +305,12 @@
       "success": "Thank you! Your application has been registered — the Academy staff will contact you soon.",
       "required": "* Required fields",
       "programs": "Academy programmes",
+      "ageRange": "Age group",
+      "ageFrom": "Ages {n} and up",
+      "ageUntil": "Up to age {n}",
+      "schedule": "Schedule",
+      "coach": "Coach",
+      "fee": "Fee",
       "after": "After you apply",
       "afterBody": "The Academy staff will contact you about the next steps."
     }
@@ -396,7 +403,8 @@
     "mediaCenter": {
       "title": "Media centre",
       "body": "Photos, videos, press releases and official materials for the media.",
-      "cta": "Go to the centre"
+      "cta": "Go to the centre",
+      "download": "Media kit (PDF)"
     },
     "latest": "Latest",
     "all": "See all news",
@@ -732,5 +740,10 @@
     "ctaTitle": "Become a KS Tirana partner",
     "ctaBody": "Support a discipline, the Academy or one of the club's sporting events.",
     "cta": "Contact us about partnership"
+  },
+  "formErrors": {
+    "invalid": "Please check the highlighted fields and try again.",
+    "limit": "Too many submissions. Please try again later.",
+    "server": "Sending failed. Please try again in a moment."
   }
 }

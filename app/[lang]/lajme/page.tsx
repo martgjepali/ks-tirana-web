@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "../dictionaries";
 import { getLatestPhotos, getNews, type NewsFilter, type NewsItem } from "@/lib/data/site";
+import { getSiteSettings } from "@/lib/data/club";
 import { NewsCard } from "@/components/NewsCard";
 import { EmptyState } from "@/components/EmptyState";
 import { MediaImage } from "@/components/MediaImage";
@@ -25,7 +26,9 @@ export default async function NewsPage({ params, searchParams }: PageProps<"/[la
   if (!hasLocale(lang)) notFound();
   const requested = (await searchParams).filtri;
   const filter = FILTERS.find((f) => f === requested);
-  const [dict, news, photos] = await Promise.all([getDictionary(lang), getNews(lang, 48, { filter }), getLatestPhotos(lang, 5)]);
+  const [dict, news, photos, settings] = await Promise.all([
+    getDictionary(lang), getNews(lang, 48, { filter }), getLatestPhotos(lang, 5), getSiteSettings(),
+  ]);
   const n = dict.news;
   const label = (item: NewsItem) => item.discipline ?? n.categories[item.category];
   const [lead, ...rest] = news;
@@ -111,6 +114,12 @@ export default async function NewsPage({ params, searchParams }: PageProps<"/[la
               {n.mediaCenter.cta}
               <Icon name="arrowRight" className="h-4 w-4" />
             </Link>
+            {settings.mediaKitUrl && (
+              <a href={settings.mediaKitUrl} className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300 hover:underline" target="_blank" rel="noreferrer">
+                <Icon name="download" className="h-4 w-4" />
+                {n.mediaCenter.download}
+              </a>
+            )}
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "../dictionaries";
 import { getHeroPhoto } from "@/lib/data/site";
-import { CLUB_INFO, PARTNERS } from "@/lib/club";
+import { getPartners, getSiteSettings } from "@/lib/data/club";
 import { SponsorBand } from "@/components/SponsorBand";
 import { MediaImage } from "@/components/MediaImage";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
@@ -19,7 +19,13 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/partneret"
 export default async function PartnersPage({ params }: PageProps<"/[lang]/partneret">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, hero] = await Promise.all([getDictionary(lang), getHeroPhoto(lang, "basketboll-meshkuj", 3)]);
+  const [dict, hero, settings, { sponsors: PARTNERS }] = await Promise.all([
+    getDictionary(lang),
+    getHeroPhoto(lang, "basketboll-meshkuj", 3),
+    getSiteSettings(),
+    getPartners(),
+  ]);
+  const email = settings.contact.email;
   const p = dict.partners;
   const subject = encodeURIComponent(p.ctaTitle);
 
@@ -40,9 +46,9 @@ export default async function PartnersPage({ params }: PageProps<"/[lang]/partne
           <h2 className="text-3xl font-extrabold text-strong lg:text-4xl">{p.grid}</h2>
           <StaggerGroup className="mt-7 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {PARTNERS.map((partner) => (
-              <StaggerItem key={partner.name}>
+              <StaggerItem key={partner.id}>
                 <div className="flex h-28 items-center justify-center bg-[#eef3fa] px-6 transition hover:bg-white hover:shadow-[var(--shadow-card)] [:root[data-theme=dark]_&]:bg-white">
-                  <Image src={partner.logo} alt={partner.name} width={200} height={80} className="max-h-16 w-auto max-w-[180px] object-contain" />
+                  <Image unoptimized src={partner.logo} alt={partner.name} width={200} height={80} className="max-h-16 w-auto max-w-[180px] object-contain" />
                 </div>
               </StaggerItem>
             ))}
@@ -58,10 +64,10 @@ export default async function PartnersPage({ params }: PageProps<"/[lang]/partne
               <p className="mt-2 text-lg text-white/90">{p.ctaBody}</p>
             </div>
             <div className="shrink-0 md:text-right">
-              <a href={`mailto:${CLUB_INFO.email}?subject=${subject}`} className="btn btn-primary !text-base !normal-case !tracking-normal">
+              <a href={`mailto:${email}?subject=${subject}`} className="btn btn-primary !text-base !normal-case !tracking-normal">
                 {p.cta}
               </a>
-              <p className="mt-3 text-sm font-bold">{CLUB_INFO.email}</p>
+              <p className="mt-3 text-sm font-bold">{email}</p>
             </div>
           </div>
         </div>

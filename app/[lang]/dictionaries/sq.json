@@ -14,7 +14,8 @@
     "search": "Kërko",
     "menu": "Menu",
     "theme": "Ndrysho temën (e çelët / e errët)",
-    "club": "Klubi Sportiv Tirana"
+    "club": "Klubi Sportiv Tirana",
+    "founded": "Themeluar 15 Gusht 1920"
   },
   "nav": {
     "home": "Kryefaqja",
@@ -304,6 +305,12 @@
       "success": "Faleminderit! Aplikimi u regjistrua — stafi i Akademisë do t'ju kontaktojë së shpejti.",
       "required": "* Fusha të detyrueshme",
       "programs": "Programet e Akademisë",
+      "ageRange": "Grupmosha",
+      "ageFrom": "Nga {n} vjeç",
+      "ageUntil": "Deri në {n} vjeç",
+      "schedule": "Orari",
+      "coach": "Trajneri",
+      "fee": "Tarifa",
       "after": "Pas aplikimit",
       "afterBody": "Stafi i Akademisë do t'ju kontaktojë për hapat e mëtejshëm."
     }
@@ -396,7 +403,8 @@
     "mediaCenter": {
       "title": "Qendra për median",
       "body": "Foto, video, njoftime për shtyp dhe materiale zyrtare për median.",
-      "cta": "Shko në qendrën"
+      "cta": "Shko në qendrën",
+      "download": "Paketa për median (PDF)"
     },
     "latest": "Të fundit",
     "all": "Shiko të gjitha lajmet",
@@ -732,5 +740,10 @@
     "ctaTitle": "Bëhu partner i KS Tiranës",
     "ctaBody": "Mbështetni një disiplinë, Akademinë ose një aktivitet sportiv të klubit.",
     "cta": "Kontakto për partneritet"
+  },
+  "formErrors": {
+    "invalid": "Kontrolloni fushat e shënuara dhe provoni përsëri.",
+    "limit": "Keni dërguar shumë kërkesa. Provoni përsëri pas pak.",
+    "server": "Dërgimi nuk u krye. Provoni përsëri pas pak."
   }
 }

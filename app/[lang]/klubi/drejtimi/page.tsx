@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "../../dictionaries";
 import { getHeroPhoto } from "@/lib/data/site";
-import { ORG_CHART_PDF_URL } from "@/lib/club";
+import { getSiteSettings } from "@/lib/data/club";
 import { PhotoPageHero } from "@/components/PhotoPageHero";
 import { OrgChart } from "@/components/OrgChart";
 import { MediaImage } from "@/components/MediaImage";
@@ -21,11 +21,13 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/klubi/drej
 export default async function ManagementPage({ params }: PageProps<"/[lang]/klubi/drejtimi">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, hero, teamPhoto] = await Promise.all([
+  const [dict, hero, teamPhoto, settings] = await Promise.all([
     getDictionary(lang),
     getHeroPhoto(lang, "volejboll-femra", 1),
     getHeroPhoto(lang, "basketboll-femra", 1),
+    getSiteSettings(),
   ]);
+  const ORG_CHART_PDF_URL = settings.orgChartPdfUrl;
   const o = dict.org;
 
   return (

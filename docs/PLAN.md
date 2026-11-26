@@ -175,16 +175,23 @@ Separate root layout at `app/admin/` (Albanian only). Sections:
 - **Disiplinat** — edit text, choose cover photo, order, publish.
 - **Personat** — edit profile, role, portrait, consent, publish.
 - **Fotot** — upload (auto-resized), tag people, set featured, publish/hide, delete.
-- **Lajmet**, **Ndeshjet**, **Akademia** (programs + applications), **Mesazhet**, **Produktet**.
-- **Përdoruesit** — staff accounts.
+- **Lajmet**, **Ndeshjet**, **Akademia** (programmes), **Produktet** — content and publishing controls.
+- **Aplikimet në Akademi** and **Mesazhet** — inboxes, statuses and internal staff notes.
+- **Partnerët** and **Revista** — logos and links, covers and ordered issue pages.
+- **Cilësimet** and **Tekstet** — contact details, social links, tickets and PDFs, plus bilingual dictionary overrides.
+- **Përdoruesit** — create staff accounts, reset passwords, remove access and change your own password.
 
-Every save revalidates the affected public pages.
+**Status:** implemented locally. Public pages query Postgres on each request, so saved changes
+appear without a deploy or cache purge. Migration `0007_admin_content.sql` creates the new content
+tables and seeds existing logos and sample magazine issues. Migration `0008_contact_staff_notes.sql`
+adds the private message notes field. Apply both on Neon before deploying the panel.
 
 **Done when:** a staff member can do every content change without touching code.
 
 ## Phase 6 — Backend logic
 
-- Server actions for Academy and Contact forms: validate, store, email the club.
+- Academy and Contact forms validate and store submissions in the corresponding staff inbox.
+  Email notifications are still pending.
 - Spam protection: honeypot field + per-IP rate limit.
 - Uploads: verify the file really is an image (via `sharp`), size limit, strip metadata.
 - Admin actions check the session on the server, never only in the UI.

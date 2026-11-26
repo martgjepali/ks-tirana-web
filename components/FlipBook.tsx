@@ -96,7 +96,7 @@ export function FlipBook({ pages, labels, trigger }: { pages: MagazinePage[]; la
   const page = (i: number | null) => {
     if (i === null) return <div className="h-full w-full" />;
     const p = pages[i];
-    if (p.kind === "image") return <Image src={p.src} alt={p.alt} fill sizes="(min-width: 768px) 40vw, 90vw" className="object-cover" />;
+    if (p.kind === "image") return <Image unoptimized src={p.src} alt={p.alt} fill sizes="(min-width: 768px) 40vw, 90vw" className="object-cover" />;
     if (p.kind === "photo")
       return (
         <div className="relative h-full w-full bg-white">

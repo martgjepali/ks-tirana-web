@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "./Icons";
-import { SOCIAL_LINKS } from "@/lib/club";
+import { SOCIAL_LABELS, type SocialName } from "@/lib/club";
 import type { Dictionary, Locale } from "@/app/[lang]/dictionaries";
 
 /** Slim footer from the client's design: wordmark, main sections, social icons. */
-export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+export function Footer({ lang, dict, socials }: { lang: Locale; dict: Dictionary; socials: Record<SocialName, string> }) {
+  const links = (Object.keys(SOCIAL_LABELS) as SocialName[]).filter((k) => socials[k]);
   const n = dict.nav;
   const nav = [
     { href: `/${lang}/sportet`, label: n.sports },
@@ -41,19 +42,19 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             </ul>
           </nav>
           <div className="flex items-center gap-2">
-            {SOCIAL_LINKS.map((s) => (
+            {links.map((name) => (
               <a
-                key={s.name}
-                href={s.url}
+                key={name}
+                href={socials[name]}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={s.name}
+                aria-label={SOCIAL_LABELS[name]}
                 className="flex h-9 w-9 items-center justify-center rounded-full text-white/80 transition hover:bg-white/10 hover:text-white"
               >
-                <Icon name={s.name} className="h-[18px] w-[18px]" />
+                <Icon name={name} className="h-[18px] w-[18px]" />
               </a>
             ))}
-            {SOCIAL_LINKS.length === 0 && (
+            {links.length === 0 && (
               <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/50">
                 {dict.footer.tagline.join(" • ")}
               </p>

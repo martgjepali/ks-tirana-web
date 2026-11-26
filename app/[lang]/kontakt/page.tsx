@@ -4,7 +4,8 @@ import { getDictionary, hasLocale } from "../dictionaries";
 import { ContactForm } from "@/components/ContactForm";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/motion/Reveal";
-import { CLUB_INFO, SOCIAL_LINKS } from "@/lib/club";
+import { CLUB_NAME, SOCIAL_LABELS, type SocialName } from "@/lib/club";
+import { getSiteSettings } from "@/lib/data/club";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/kontakt">): Promise<Metadata> {
   const { lang } = await params;
@@ -18,8 +19,10 @@ export default async function ContactPage({ params, searchParams }: PageProps<"/
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const sp = await searchParams;
-  const dict = await getDictionary(lang);
+  const [dict, settings] = await Promise.all([getDictionary(lang), getSiteSettings()]);
   const c = dict.contact;
+  const CLUB_INFO = { name: CLUB_NAME, ...settings.contact };
+  const socials = (Object.keys(SOCIAL_LABELS) as SocialName[]).filter((k) => settings.socials[k]);
   // Links from the Shop, Media and Partner pages pre-fill the subject (?subjekti=shop&produkti=...).
   const subjects = c.subjects as Record<string, string>;
   const topic = typeof sp.subjekti === "string" ? subjects[sp.subjekti] : undefined;
@@ -40,7 +43,7 @@ export default async function ContactPage({ params, searchParams }: PageProps<"/
         <div className="wrap grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
           <div className="border border-line bg-[#eef3fa] p-6 lg:p-8 [:root[data-theme=dark]_&]:bg-surface">
             <h2 className="mb-5 text-2xl font-extrabold text-strong lg:text-3xl">{c.formTitle}</h2>
-            <ContactForm dict={dict} defaultSubject={defaultSubject} />
+            <ContactForm dict={dict} lang={lang} defaultSubject={defaultSubject} />
           </div>
 
           <div className="space-y-5">
@@ -68,13 +71,13 @@ export default async function ContactPage({ params, searchParams }: PageProps<"/
             <div className="bg-navy-900 p-7 text-white">
               <h2 className="text-3xl font-extrabold">{c.labels.follow}</h2>
               <ul className="mt-5 grid grid-cols-4 gap-3">
-                {SOCIAL_LINKS.map((s) => (
-                  <li key={s.name}>
-                    <a href={s.url} target="_blank" rel="noreferrer" className="group block">
+                {socials.map((name) => (
+                  <li key={name}>
+                    <a href={settings.socials[name]} target="_blank" rel="noreferrer" className="group block">
                       <span className="flex h-12 w-12 items-center justify-center bg-blue-500 transition group-hover:bg-white group-hover:text-blue-500">
-                        <Icon name={s.name} className="h-6 w-6" />
+                        <Icon name={name} className="h-6 w-6" />
                       </span>
-                      <span className="mt-2 block text-sm font-bold">{s.label}</span>
+                      <span className="mt-2 block text-sm font-bold">{SOCIAL_LABELS[name]}</span>
                     </a>
                   </li>
                 ))}

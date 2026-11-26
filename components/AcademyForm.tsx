@@ -1,32 +1,28 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useActionState, type ReactNode } from "react";
+import { submitApplication, type FormState } from "@/app/actions/forms";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 
 /**
  * Academy registration form from the client's final design (page 25).
- * Submission is not wired to the server yet (Phase 6 in docs/PLAN.md): it shows
- * the confirmation only.
+ * Saved to the database; staff see it in /admin → Aplikimet.
  */
 export function AcademyForm({
   dict,
+  lang,
   programs,
   defaultProgram,
 }: {
   dict: Dictionary;
+  lang: string;
   programs: { slug: string; name: string }[];
   defaultProgram?: string;
 }) {
   const f = dict.academy.apply;
-  const [status, setStatus] = useState<"idle" | "submitting" | "done">("idle");
+  const [state, action, pending] = useActionState<FormState, FormData>(submitApplication, { status: "idle" });
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("submitting");
-    window.setTimeout(() => setStatus("done"), 700);
-  }
-
-  if (status === "done") {
+  if (state.status === "done") {
     return (
       <div className="bg-card p-8 text-center">
         <p className="text-lg font-bold text-strong">{f.success}</p>
@@ -35,7 +31,15 @@ export function AcademyForm({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form action={action} className="relative">
+      {/* Spam trap: hidden from people, filled in by bots. */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] h-0 w-0 opacity-0" />
+      <input type="hidden" name="locale" value={lang} />
+      {state.status === "error" && state.message && (
+        <p role="alert" className="mb-5 border-l-4 border-red-600 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+          {dict.formErrors[state.message]}
+        </p>
+      )}
       <h2 className="text-2xl font-extrabold text-strong">{f.athlete}</h2>
       <div className="mt-4 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
         <Field label={f.name} required>
@@ -76,8 +80,8 @@ export function AcademyForm({
         </Field>
       </div>
 
-      <button type="submit" disabled={status === "submitting"} className="btn btn-primary mt-7 min-w-56 !justify-start !text-base !normal-case !tracking-normal">
-        {status === "submitting" ? f.submitting : f.submit}
+      <button type="submit" disabled={pending} className="btn btn-primary mt-7 min-w-56 !justify-start !text-base !normal-case !tracking-normal">
+        {pending ? f.submitting : f.submit}
       </button>
       <p className="mt-4 text-xs text-ink/60">{f.required}</p>
     </form>
